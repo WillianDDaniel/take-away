@@ -40,4 +40,37 @@ describe 'Homepage' do
       expect(page).to have_content('O melhor sistema de controle de pedidos para restaurantes')
     end
   end
+
+  context 'when clicking on menu links' do
+
+    it 'user goes to login page' do
+      visit root_path
+
+      within('nav') do
+        click_on 'Entrar'
+      end
+
+      expect(current_path).to eq new_user_session_path
+    end
+
+    it 'user goes to signup page' do
+      visit root_path
+
+      within('nav') do
+        click_on 'Criar conta'
+      end
+
+      expect(current_path).to eq new_user_registration_path
+    end
+
+    it 'user stays on homepage' do
+      visit root_path
+
+      within('nav') do
+        click_on 'Palevá'
+      end
+
+      expect(current_path).to eq root_path
+    end
+  end
 end
