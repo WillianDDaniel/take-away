@@ -133,6 +133,25 @@ describe 'Signup Page' do
       expect(page).to have_content('E-mail já está em uso')
       expect(page).to have_content('CPF já está em uso')
     end
+
+    it 'should show a error message when name and last_name are invalid' do
+      cpf = CPF.generate
+
+      visit new_user_registration_path
+
+      fill_in 'Nome', with: 'John1'
+      fill_in 'Sobrenome', with: 'Doe#'
+      fill_in 'CPF', with: cpf
+      fill_in 'E-mail', with: 'johndoe@example.com'
+      fill_in 'Senha', with: 'password12345'
+      fill_in 'Confirme sua senha', with: 'password12345'
+
+      click_button 'Cadastrar'
+
+      expect(page).to have_content('Não foi possível salvar usuário: 2 erros')
+      expect(page).to have_content('Nome deve conter apenas letras')
+      expect(page).to have_content('Sobrenome deve conter apenas letras')
+    end
   end
 
   context 'when signing up with valid values' do

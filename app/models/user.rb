@@ -5,14 +5,28 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :name, :last_name, :document_number, presence: true
+
   validates :document_number, uniqueness: true
+
   validate :cpf_must_be_valid
+
+  validate :only_letters
 
   private
 
   def cpf_must_be_valid
     unless CPF.valid?(document_number)
       errors.add(:document_number, 'inválido')
+    end
+  end
+
+  def only_letters
+    if name.present? && name !~ /\A[a-zA-Z]+\z/
+      errors.add(:name, 'deve conter apenas letras')
+    end
+
+    if last_name.present? && last_name !~ /\A[a-zA-Z]+\z/
+      errors.add(:last_name, 'deve conter apenas letras')
     end
   end
 
