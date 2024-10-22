@@ -12,6 +12,18 @@
   </head>
 
   <body>
+
+    <header>
+      <nav>
+        <%= link_to "Palevá", root_path %>
+
+        <ul>
+          <li><%= link_to "Entrar", root_path %></li>
+          <li><%= link_to "Criar conta", root_path %></li>
+        </ul>
+      </nav>
+    </header>
+
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
