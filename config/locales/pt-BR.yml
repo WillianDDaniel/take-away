@@ -111,7 +111,7 @@ pt-BR:
     messages:
       accepted: deve ser aceito
       blank: não pode ficar em branco
-      confirmation: não é igual a %{attribute}
+      confirmation: deve ser igual a %{attribute}
       empty: não pode ficar vazio
       equal_to: deve ser igual a %{count}
       even: deve ser par
@@ -135,8 +135,8 @@ pt-BR:
         one: 'é muito longo (máximo: %{count} caracter)'
         other: 'é muito longo (máximo: %{count} caracteres)'
       too_short:
-        one: 'é muito curto (mínimo: %{count} caracter)'
-        other: 'é muito curto (mínimo: %{count} caracteres)'
+        one: 'é muito curta (mínimo: %{count} caracter)'
+        other: 'é muito curta (mínimo: %{count} caracteres)'
       wrong_length:
         one: não possui o tamanho esperado (%{count} caracter)
         other: não possui o tamanho esperado (%{count} caracteres)

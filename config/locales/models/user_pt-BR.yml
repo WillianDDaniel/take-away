@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      user: Usuário
+    attributes:
+      user:
+        email: E-mail
+        name: Nome
+        last_name: Sobrenome
+        document_number: CPF
+        created_at: Criado em
+        updated_at: Atualizado em
