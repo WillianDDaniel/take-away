@@ -1,6 +1,8 @@
 class Restaurant < ApplicationRecord
   belongs_to :user
 
+  has_many :schedules
+
   validates(
     :brand_name, :corporate_name, :doc_number,
     :email, :address, :phone, presence: true

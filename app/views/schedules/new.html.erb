@@ -1,0 +1,36 @@
+<h1> Cadastrar o horário de funcionamento do Restaurante </h1>
+
+<%= form_with(model: @schedule) do |f| %>
+
+  <% @schedules.each do |schedule| %>
+
+    <div>
+      <% label_text = I18n.t("date.day_names")[schedule.week_day].capitalize %>
+
+      <%= f.fields_for "schedules[]", schedule do |schedule_form| %>
+        <div>
+          <input id="schedule-<%= schedule.week_day %>" type='checkbox'>
+          <%= schedule_form.label :week_day, label_text %>
+          <%= schedule_form.hidden_field :week_day %>
+        </div>
+
+        <div>
+          <%= schedule_form.label :open_time, "Abertura" %>
+          <br>
+          <%= schedule_form.time_field :open_time %>
+
+          <br>
+
+          <%= schedule_form.label :close_time, "Encerramento" %>
+          <br>
+          <%= schedule_form.time_field :close_time %>
+        </div>
+      <% end %>
+    </div>
+
+  <% end %>
+
+  <div>
+    <%= f.submit "Cadastrar horários" %>
+  </div>
+<% end %>

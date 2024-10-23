@@ -69,7 +69,7 @@ describe 'New Restaurant Page' do
 
       expect(page).to have_content('Restaurante cadastrado com sucesso')
 
-      expect(current_path).to eq dashboard_path
+      expect(current_path).to eq new_schedule_path
       expect(page).not_to have_content('Nenhum restaurante cadastrado')
       expect(page).not_to have_link('Cadastrar restaurante')
     end
@@ -121,6 +121,28 @@ describe 'New Restaurant Page' do
       expect(page).to have_content('CNPJ inválido')
       expect(page).to have_content('E-mail inválido')
       expect(page).to have_content('Telefone inválido')
+    end
+
+    it 'should be redirected to new_schedule page after creating' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+      login_as(user)
+
+      visit new_restaurant_path
+
+      fill_in 'Nome Fantasia', with: 'Teste'
+      fill_in 'Razão Social', with: 'Teste'
+      fill_in 'CNPJ', with: CNPJ.generate
+      fill_in 'Endereço', with: 'Rua Teste'
+      fill_in 'Telefone', with: '11999999999'
+      fill_in 'E-mail', with: 'johndoe@example.com'
+
+      click_button 'Cadastrar'
+
+      expect(page).to have_content('Restaurante cadastrado com sucesso')
+      expect(current_path).to eq new_schedule_path
     end
   end
 end

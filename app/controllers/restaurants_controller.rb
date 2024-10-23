@@ -12,7 +12,7 @@ class RestaurantsController < ApplicationController
     @restaurant.user_id = current_user.id
     if @restaurant.save
       flash[:notice] = 'Restaurante cadastrado com sucesso'
-      redirect_to dashboard_path
+      redirect_to new_schedule_path
     else
       @restaurant.valid?
       render :new, status: :unprocessable_entity
