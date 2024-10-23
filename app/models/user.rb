@@ -17,9 +17,7 @@ class User < ApplicationRecord
   private
 
   def cpf_must_be_valid
-    unless CPF.valid?(document_number)
-      errors.add(:document_number, 'inválido')
-    end
+    errors.add(:document_number, 'inválido') unless CPF.valid?(document_number)
   end
 
   def only_letters

@@ -1,5 +1,13 @@
 <h1>Cadastrar Restaurante</h1>
 
+<% if @restaurant.errors.any? %>
+  <ul>
+    <% @restaurant.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with(model: @restaurant) do |f| %>
   <div>
     <%= f.label :brand_name %>
