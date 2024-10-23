@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      restaurant: Restaurante
+    attributes:
+      restaurant:
+        brand_name: Nome Fantasia
+        corporate_name: Razão Social
+        email: E-mail
+        doc_number: CNPJ
+        phone: Telefone
+        address: Endereço
+        created_at: Criado em
+        updated_at: Atualizado em

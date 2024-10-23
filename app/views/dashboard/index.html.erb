@@ -2,4 +2,9 @@
 
 <p>Seja bem-vindo(a) ao seu controle de pedidos</p>
 
-<%= "Nenhum restaurante cadastrado" if @user.restaurant.nil? %>
+<% if @user.restaurant.nil? %>
+  <p>Nenhum restaurante cadastrado</p>
+
+  <%= link_to "Cadastrar restaurante", new_restaurant_path %>
+<% end %>
+

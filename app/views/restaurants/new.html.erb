@@ -1,0 +1,34 @@
+<h1>Cadastrar Restaurante</h1>
+
+<%= form_with(model: @restaurant) do |f| %>
+  <div>
+    <%= f.label :brand_name %>
+    <%= f.text_field :brand_name %>
+  </div>
+
+  <div>
+    <%= f.label :corporate_name %>
+    <%= f.text_field :corporate_name %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div>
+    <%= f.label :doc_number %>
+    <%= f.text_field :doc_number %>
+  </div>
+  <div>
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.submit "Cadastrar" %>
+  </div>
+
+<% end %>

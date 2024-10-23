@@ -41,6 +41,8 @@ describe 'Dashboard Page' do
       visit dashboard_path
 
       expect(page).to have_content('Nenhum restaurante cadastrado')
+
+      expect(page).to have_link('Cadastrar restaurante')
     end
   end
 end
