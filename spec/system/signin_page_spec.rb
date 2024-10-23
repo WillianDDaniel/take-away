@@ -89,5 +89,25 @@ describe 'Signin Page' do
 
       expect(page).to have_content('Login efetuado com sucesso')
     end
+
+    it 'should be redirected to dashboard page after signing in' do
+      cpf = CPF.generate
+
+      User.create!(
+        email: 'johndoe@example.com', document_number: cpf, name: 'John',
+        last_name: 'Doe', password: 'password12345'
+      )
+
+      visit new_user_session_path
+
+      fill_in 'E-mail', with: 'johndoe@example.com'
+      fill_in 'Senha', with: 'password12345'
+
+      within('form') do
+        click_button 'Entrar'
+      end
+
+      expect(current_path).to eq(dashboard_path)
+    end
   end
 end
