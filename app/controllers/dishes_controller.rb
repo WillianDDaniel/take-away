@@ -19,6 +19,14 @@ class DishesController < ApplicationController
     end
   end
 
+  def show
+    @dish = Dish.find_by(id: params[:id])
+
+    if @dish.nil? || @dish.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
+  end
+
   def edit
     @dish = Dish.find_by(id: params[:id])
 
@@ -37,6 +45,19 @@ class DishesController < ApplicationController
       @dish.valid?
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @dish = Dish.find_by(id: params[:id])
+    return unless @dish.restaurant == current_user.restaurant
+
+    if @dish.destroy
+      flash[:notice] = 'Prato excluído com sucesso'
+    else
+      flash[:alert] = 'Erro ao excluir prato'
+    end
+
+    redirect_to dashboard_path
   end
 
   private

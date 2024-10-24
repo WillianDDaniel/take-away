@@ -1,0 +1,12 @@
+<h1><%= @dish.name %></h1>
+
+<% if @dish.description %>
+    <p><%= @dish.description %></p>
+<% end %>
+
+<%= @dish.price %>
+<%= @dish.calories %>
+
+<%= link_to "Editar Prato", edit_dish_path(@dish) %>
+<%= button_to "Excluir Prato", @dish, method: :delete, data: { confirm: "Tem certeza?" } %>
+
