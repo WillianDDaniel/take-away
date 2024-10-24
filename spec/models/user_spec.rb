@@ -11,6 +11,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:document_number)).to be true
         expect(user).not_to be_valid
       end
 
@@ -22,6 +24,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:name)).to be true
         expect(user).not_to be_valid
       end
 
@@ -33,6 +37,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:last_name)).to be true
         expect(user).not_to be_valid
       end
 
@@ -44,6 +50,8 @@ RSpec.describe User, type: :model do
           password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:email)).to be true
         expect(user).not_to be_valid
       end
 
@@ -55,6 +63,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com'
         )
 
+        user.valid?
+        expect(user.errors.include?(:password)).to be true
         expect(user).not_to be_valid
       end
     end
@@ -79,6 +89,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:document_number)).to be true
         expect(user).not_to be_valid
       end
 
@@ -95,6 +107,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:document_number)).to be true
         expect(user).not_to be_valid
       end
     end
@@ -108,6 +122,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:email)).to be true
         expect(user).not_to be_valid
       end
 
@@ -125,6 +141,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:email)).to be true
         expect(user).not_to be_valid
       end
     end
@@ -138,6 +156,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password'
         )
 
+        user.valid?
+        expect(user.errors.include?(:password)).to be true
         expect(user).not_to be_valid
       end
     end
@@ -151,6 +171,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:name)).to be true
         expect(user).not_to be_valid
       end
 
@@ -162,6 +184,8 @@ RSpec.describe User, type: :model do
           email: 'johndoe@example.com', password: 'password12345'
         )
 
+        user.valid?
+        expect(user.errors.include?(:last_name)).to be true
         expect(user).not_to be_valid
       end
     end

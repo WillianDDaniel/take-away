@@ -6,7 +6,11 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    redirect_to dashboard_path if current_user.restaurant.schedules.any?
+    redirect_to dashboard_path unless current_user.restaurant
+
+    if current_user.restaurant && current_user.restaurant.schedules.exists?
+      redirect_to dashboard_path
+    end
 
     @schedules = []
     (0..6).each do |day|

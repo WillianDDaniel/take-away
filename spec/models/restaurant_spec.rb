@@ -37,6 +37,8 @@ RSpec.describe Restaurant, type: :model do
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
 
+        restaurant.valid?
+        expect(restaurant.errors.include?(:brand_name)).to be true
         expect(restaurant).not_to be_valid
       end
 
@@ -45,6 +47,8 @@ RSpec.describe Restaurant, type: :model do
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
 
+        restaurant.valid?
+        expect(restaurant.errors.include?(:corporate_name)).to be true
         expect(restaurant).not_to be_valid
       end
 
@@ -53,6 +57,8 @@ RSpec.describe Restaurant, type: :model do
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
 
+        restaurant.valid?
+        expect(restaurant.errors.include?(:doc_number)).to be true
         expect(restaurant).not_to be_valid
       end
 
@@ -61,6 +67,8 @@ RSpec.describe Restaurant, type: :model do
           email: '', phone: '11999999999', address: 'Rua Teste', user: user
         )
 
+        restaurant.valid?
+        expect(restaurant.errors.include?(:email)).to be true
         expect(restaurant).not_to be_valid
       end
 
@@ -69,6 +77,8 @@ RSpec.describe Restaurant, type: :model do
           email: 'johndoe@example.com', phone: '', address: 'Rua Teste', user: user
         )
 
+        restaurant.valid?
+        expect(restaurant.errors.include?(:phone)).to be true
         expect(restaurant).not_to be_valid
       end
 
@@ -77,6 +87,8 @@ RSpec.describe Restaurant, type: :model do
           email: 'johndoe@example.com', phone: '11999999999', address: '', user: user
         )
 
+        restaurant.valid?
+        expect(restaurant.errors.include?(:address)).to be true
         expect(restaurant).not_to be_valid
       end
     end
