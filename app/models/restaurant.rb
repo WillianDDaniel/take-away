@@ -2,6 +2,7 @@ class Restaurant < ApplicationRecord
   belongs_to :user
 
   has_many :schedules
+  has_many :dishes
 
   validates(
     :brand_name, :corporate_name, :doc_number,
