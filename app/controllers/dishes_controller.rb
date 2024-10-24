@@ -2,6 +2,10 @@ class DishesController < ApplicationController
   before_action :authenticate_user!
   before_action :user_have_restaurant?
 
+  def index
+    @dishes = current_user.restaurant.dishes
+  end
+
   def new
     @dish = Dish.new
   end
@@ -63,7 +67,7 @@ class DishesController < ApplicationController
   private
 
   def dish_params
-    params.require(:dish).permit(:name, :description, :price, :calories)
+    params.require(:dish).permit(:name, :description, :price, :calories, :image)
   end
 
   def user_have_restaurant?

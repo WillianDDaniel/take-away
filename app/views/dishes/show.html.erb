@@ -4,6 +4,15 @@
     <p><%= @dish.description %></p>
 <% end %>
 
+<p>
+  <strong>Imagem:</strong>
+  <% if @dish.image.attached? %>
+    <%= image_tag @dish.image %>
+  <% else %>
+    <p>Nenhuma imagem disponível.</p>
+  <% end %>
+</p>
+
 <%= @dish.price %>
 <%= @dish.calories %>
 

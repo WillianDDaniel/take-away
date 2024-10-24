@@ -3,7 +3,6 @@ class RestaurantsController < ApplicationController
 
   def new
     redirect_to dashboard_path if current_user.restaurant
-
     @restaurant = Restaurant.new
   end
 
