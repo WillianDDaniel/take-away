@@ -1,0 +1,39 @@
+<section class="flex flex-col w-full">
+  <h1 class="w-full text-center">Horários de Funcionamento</h1>
+
+  <%= link_to 'Novo horário', new_schedule_path %>
+
+  <% if @schedules.empty? %>
+    <p class="w-full text-center">Nenhum horário cadastrado</p>
+
+    <%= link_to "Cadastrar novo horário", new_schedule_path %>
+  <% end %>
+
+  <% @schedules.sort_by(&:week_day).each do |schedule| %>
+
+  <div class="flex flex-col w-full items-center gap-5">
+
+    <div class="flex items-center gap-2">
+      <%= I18n.t("date.day_names")[schedule.week_day] %>
+
+      <div>
+        Abertura
+        <%= schedule.open_time %>
+      </div>
+
+      <div>
+        Fechamento
+        <%= schedule.close_time %>
+      </div>
+
+      <div class="flex gap-5">
+        <%= link_to 'Editar', edit_schedule_path(schedule) %>
+        <%= button_to 'Excluir', schedule, method: :delete, data: { confirm: 'Tem certeza?' } %>
+      </div>
+
+    </div>
+  </div>
+
+  <% end %>
+
+</section>

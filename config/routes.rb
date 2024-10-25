@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index"
 
   resources :restaurants, only: [:new, :create]
-  resources :schedules, only: [:new, :create, :index, :update]
+  resources :schedules, only: [:new, :create, :index, :edit, :update, :destroy]
 
   resources :dishes
 end

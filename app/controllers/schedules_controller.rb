@@ -1,39 +1,71 @@
 class SchedulesController < ApplicationController
+  layout 'dashboard'
   before_action :authenticate_user!
+  before_action :check_user_restaurant
 
   def index
-    @schedules = Schedule.all
+    @schedules = current_user.restaurant.schedules
   end
 
   def new
-    redirect_to dashboard_path unless current_user.restaurant
-
-    if current_user.restaurant && current_user.restaurant.schedules.exists?
-      redirect_to dashboard_path
-    end
-
-    @schedules = []
-    (0..6).each do |day|
-      @schedule = Schedule.new
-      @schedule.week_day = day
-      @schedules << @schedule
-    end
+    @schedule = Schedule.new
   end
 
   def create
-    schedule_params['schedules'].to_a.each do |schedule|
+    @schedule = Schedule.new(schedule_params)
 
-      schedule[:restaurant] = current_user.restaurant
-      @schedule = Schedule.new(schedule)
-      @schedule.save
+    @schedule.restaurant = current_user.restaurant
+
+    if @schedule.save
+      flash[:notice] = 'Horários cadastrados com sucesso'
+      redirect_to schedules_path
+    else
+      @schedule.valid?
+      flash[:alert] = 'Erro ao cadastrar horários'
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @schedule = Schedule.find_by(id: params[:id])
+
+    if @schedule.nil? || @schedule.restaurant != current_user.restaurant
+      redirect_to schedules_path
+    end
+  end
+
+  def update
+    @schedule = Schedule.find(params[:id])
+
+    if @schedule.update(schedule_params)
+      flash[:notice] = 'Horário atualizado com sucesso'
+      redirect_to schedules_path
+    else
+      @schedule.valid?
+      flash[:alert] = 'Erro ao atualizar horário'
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @schedule = Schedule.find(params[:id])
+
+    if @schedule.destroy
+      flash[:notice] = 'Horários excluídos com sucesso'
+    else
+      flash[:alert] = 'Erro ao excluir horário'
     end
 
-    redirect_to dashboard_path
+    redirect_to schedules_path
   end
 
   private
 
   def schedule_params
-    params.require(:schedule).permit(schedules: [:week_day, :open_time, :close_time])
+    params.require(:schedule).permit(:week_day, :open_time, :close_time)
+  end
+
+  def check_user_restaurant
+    redirect_to new_restaurant_path unless current_user.restaurant
   end
 end

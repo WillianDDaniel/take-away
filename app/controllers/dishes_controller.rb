@@ -1,4 +1,5 @@
 class DishesController < ApplicationController
+  layout 'dashboard'
   before_action :authenticate_user!
   before_action :user_have_restaurant?
 

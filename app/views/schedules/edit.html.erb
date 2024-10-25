@@ -1,7 +1,7 @@
 <section class="flex flex-col w-full">
 
   <h1 class="w-full text-center p-5">
-    Cadastrar novo horário
+    Editar horário
   </h1>
 
   <% if @schedule.errors.any? %>
@@ -16,8 +16,8 @@
 
   <div class="flex flex-col w-full items-center gap-5">
     <div class="flex items-center gap-2">
-      <%= f.label :week_day %><br>
-      <%= f.select :week_day, Schedule.day_options, prompt: 'Selecione o dia' %><br>
+      <%= f.label :week_day, 'Dia da semana' %><br>
+      <%= f.select :week_day, Schedule.day_options, prompt: 'Selecione o dia' %>
     </div>
 
     <div class="flex gap-5">

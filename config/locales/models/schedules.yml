@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      schedule: Horários
+    attributes:
+      schedule:
+        open_time: Abertura
+        close_time: Fechamento
+        week_day: Dia da semana

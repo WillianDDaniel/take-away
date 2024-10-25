@@ -13,11 +13,17 @@
 
   <body>
 
-    <header>
-      <nav>
-        <%= link_to "Palevá", root_path %>
+    <header class='flex justify-between'>
 
-        <ul>
+      <nav
+        class="flex justify-between w-full h-14 items-center bg-zinc-800
+					text-white px-5
+				"
+      >
+
+        <%= link_to "Palevá", dashboard_path %>
+
+        <ul class='flex justify-between'>
           <% if user_signed_in? %>
             <li><%= button_to "Sair", destroy_user_session_path, method: :delete %></li>
           <% else  %>
@@ -27,14 +33,29 @@
         </ul>
 
       </nav>
-
-      <%= flash[:notice] %>
-      <%= flash[:alert] %>
-
     </header>
 
-    <main>
-      <%= yield %>
+    <main class='flex'>
+			<% if current_user.restaurant %>
+				<aside class='w-48 bg-zinc-800 text-white min-h-screen'>
+
+					<nav class='flex flex-col p-5 gap-5'>
+							<%= link_to "Ver Pratos", dishes_path %>
+              <%= link_to "Horários", schedules_path %>
+							<%= link_to "Novo Prato", new_dish_path %>
+					</nav>
+				</aside>
+
+			<% end %>
+
+			<div class='flex-1'>
+
+				<%= flash[:notice] %>
+      	<%= flash[:alert] %>
+
+				<%= yield %>
+			</div>
+
     </main>
   </body>
 </html>
