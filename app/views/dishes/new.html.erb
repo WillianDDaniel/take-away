@@ -1,40 +1,39 @@
 <h1>Novo Prato</h1>
 
 <% if @dish.errors.any? %>
-    <ul>
-        <% @dish.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
+  <ul>
+    <% @dish.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <%= form_with model: @dish do |f| %>
-
-<div>
+  <div>
     <%= f.label :name %><br />
     <%= f.text_field :name %><br />
-</div>
+  </div>
 
-<div>
+  <div>
     <%= f.label :description %><br />
     <%= f.text_area :description %><br />
-</div>
+  </div>
 
-<div>
+  <div>
     <%= f.label :price %><br />
     <%= f.number_field :price %><br />
-</div>
+  </div>
 
-<div>
+  <div>
     <%= f.label :calories %><br />
     <%= f.number_field :calories %>
-</div>
+  </div>
 
-<div>
+  <div>
     <%= f.label :image %>
     <%= f.file_field :image %>
-</div>
+  </div>
 
-<%= f.submit "Cadastrar" %>
+  <%= f.submit "Cadastrar" %>
 
 <% end %>

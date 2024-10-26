@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Palevá</title>
+    <title>PaLevá</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,22 +14,18 @@
   <body>
 
     <header class='flex justify-between'>
-
       <nav
         class="flex justify-between w-full h-14 items-center bg-zinc-800
 					text-white px-5
 				"
       >
-
-        <%= link_to "Palevá", dashboard_path %>
+        <div class="flex items-center">
+          <%= image_tag '/images/paleva-logo.png', class: "ml-1 w-7 h-7" %>
+          <%= link_to "PaLevá", dashboard_path, class: "logo" %>
+        </div>
 
         <ul class='flex justify-between'>
-          <% if user_signed_in? %>
-            <li><%= button_to "Sair", destroy_user_session_path, method: :delete %></li>
-          <% else  %>
-            <li><%= link_to "Entrar", new_user_session_path %></li>
-            <li><%= link_to "Criar conta", new_user_registration_path %></li>
-          <% end %>
+          <li><%= button_to "Sair", destroy_user_session_path, method: :delete %></li>
         </ul>
 
       </nav>
@@ -37,14 +33,32 @@
 
     <main class='flex'>
 			<% if current_user.restaurant %>
-				<aside class='w-48 bg-zinc-800 text-white min-h-screen'>
+				<aside class='w-44 bg-zinc-800 text-white min-h-screen pt-5'>
 
-					<nav class='flex flex-col p-5 gap-5'>
-							<%= link_to "Ver Pratos", dishes_path %>
-              <%= link_to "Horários", schedules_path %>
-							<%= link_to "Novo Prato", new_dish_path %>
-              <%= link_to "Ver Bebidas", new_beverage_path %>
-					</nav>
+          <div class="w-full flex flex-col items-center">
+            MENU
+            <hr class="w-9/12">
+          </div>
+
+          <nav class="w-full flex justify-center">
+
+            <ul class="w-9/12 flex flex-col gap-2 py-2">
+
+              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                <%= link_to "Pratos", dishes_path %>
+              </li>
+
+              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                <%= link_to "Bebidas", beverages_path %>
+              </li>
+
+              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                <%= link_to "Horários", schedules_path %>
+              </li>
+            </ul>
+
+          </nav>
+
 				</aside>
 
 			<% end %>
