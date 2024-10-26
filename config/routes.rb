@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :schedules, only: [:new, :create, :index, :edit, :update, :destroy]
 
   resources :dishes
+  resources :beverages
 end

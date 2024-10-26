@@ -1,0 +1,24 @@
+<h1><%= @beverage.name %></h1>
+
+<%= @beverage.description %>
+
+<%= @beverage.price %>
+<%= @beverage.calories %>
+
+<% if @beverage.alcoholic? %>
+    <p>Alcólica</p>
+<% else %>
+    <p>Não alcólica</p>
+<% end %>
+
+<p>
+  <strong>Imagem:</strong>
+  <% if @beverage.image.attached? %>
+    <%= image_tag @beverage.image %>
+  <% else %>
+    <p>Nenhuma imagem disponível.</p>
+  <% end %>
+</p>
+
+<%= link_to "Editar Bebida", edit_beverage_path(@beverage) %>
+<%= button_to "Excluir Bebida", @beverage, method: :delete, data: { confirm: "Tem certeza?" } %>

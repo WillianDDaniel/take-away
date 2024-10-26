@@ -3,6 +3,7 @@ class Restaurant < ApplicationRecord
 
   has_many :schedules
   has_many :dishes
+  has_many :beverages
 
   validates(
     :brand_name, :corporate_name, :doc_number,

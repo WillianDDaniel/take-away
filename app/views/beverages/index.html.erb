@@ -1,0 +1,23 @@
+<h1>Lista de bebidas</h1>
+
+<% @beverages.each do |beverage| %>
+  <div>
+    <%= link_to beverage.name, beverage_path(beverage) %>
+  </div>
+
+  <div>
+    <%= beverage.description %>
+  </div>
+
+  <div>
+    <%= beverage.price %>
+  </div>
+
+  <div>
+    <%= link_to 'Editar', edit_beverage_path(beverage) %>
+  </div>
+
+  <div>
+    <%= button_to 'Excluir', beverage_path(beverage), method: :delete, data: { confirm: 'Tem certeza?' } %>
+  </div>
+<% end %>

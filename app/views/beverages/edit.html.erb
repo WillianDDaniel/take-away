@@ -1,0 +1,47 @@
+<h1>Editar bebida</h1>
+
+<% if @beverage.errors.any? %>
+  <ul>
+    <% @beverage.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with(model: @beverage) do |f| %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div>
+    <%= f.label :alcoholic %>
+    <%= f.radio_button :alcoholic, true %>
+    <span>Sim</span>
+    <%= f.radio_button :alcoholic, false %>
+    <span>Não</span>
+  </div>
+
+  <div>
+    <%= f.label :calories %>
+    <%= f.number_field :calories %>
+  </div>
+
+  <div><%= f.label :image %><br /><%= f.file_field :image %></div>
+
+  <div>
+    <%= f.submit "Atualizar" %>
+  </div>
+
+<% end %>
