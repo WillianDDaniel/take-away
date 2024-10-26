@@ -13,11 +13,18 @@
 
   <body>
 
-    <header>
-      <nav>
-        <%= link_to "Palevá", root_path %>
+    <header class='flex justify-between'>
+      <nav
+        class="flex justify-between w-full h-14 items-center bg-zinc-800
+					text-white px-5
+				"
+      >
+        <div class="flex items-center">
+          <%= image_tag '/images/paleva-logo.png', class: "ml-1 w-7 h-7" %>
+          <%= link_to "PaLevá", root_path, class: "logo" %>
+        </div>
 
-        <ul>
+        <ul class='flex justify-between gap-5'>
           <% if user_signed_in? %>
             <li><%= button_to "Sair", destroy_user_session_path, method: :delete %></li>
           <% else  %>
@@ -27,11 +34,10 @@
         </ul>
 
       </nav>
-
-      <%= flash[:notice] %>
-      <%= flash[:alert] %>
-
     </header>
+
+    <%= flash[:notice] %>
+    <%= flash[:alert] %>
 
     <main>
       <%= yield %>

@@ -8,7 +8,7 @@ describe 'Homepage' do
       visit root_path
 
       within('nav') do
-        expect(page).to have_link('Palevá')
+        expect(page).to have_link('PaLevá')
       end
     end
 
@@ -67,7 +67,7 @@ describe 'Homepage' do
       visit root_path
 
       within('nav') do
-        click_on 'Palevá'
+        click_on 'PaLevá'
       end
 
       expect(current_path).to eq root_path
