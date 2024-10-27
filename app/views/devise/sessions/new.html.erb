@@ -1,26 +1,45 @@
-<h2>Log in</h2>
+<div class="flex items-center justify-center min-h-screen bg-gray-200">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md border border-gray-200">
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+    <h2 class="text-2xl font-semibold text-gray-800 text-center pb-4 italic">
+      Entrar
+    </h2>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="bg-red-300 px-3 py-1 rounded mb-4">
+      <%= render "devise/shared/error_messages", resource: resource %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Entrar" %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+      html: { class: "flex flex-col gap-4" }) do |f| %>
+
+      <div class="field flex flex-col">
+        <%= f.label :email, class: "text-gray-600 text-sm" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email",
+          class: "h-10 px-3 border border-gray-400 rounded-md focus:outline-none focus:ring focus:ring-rose-600"
+        %>
+      </div>
+
+      <div class="field flex flex-col">
+        <%= f.label :password, class: "text-gray-600 text-sm" %>
+        <%= f.password_field :password, autocomplete: "current-password",
+          class: "h-10 px-3 border border-gray-400 rounded-md focus:outline-none focus:ring focus:ring-rose-600"
+        %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field flex items-center gap-2">
+          <%= f.check_box :remember_me, class: "rounded text-rose-600 focus:ring focus:ring-rose-600" %>
+          <%= f.label :remember_me, class: "text-sm text-gray-600" %>
+        </div>
+      <% end %>
+
+      <div class="actions mt-6">
+        <%= f.submit "Entrar", class: "w-full bg-rose-700 text-white py-2 rounded-md font-semibold hover:bg-rose-600 cursor-pointer shadow-md" %>
+      </div>
+
+      <%= render "devise/shared/links" %>
+    <% end %>
+
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

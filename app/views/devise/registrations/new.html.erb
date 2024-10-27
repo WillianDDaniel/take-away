@@ -1,12 +1,10 @@
 <div class="flex">
-
-  <div class="w-1/2 bg-rose-700">
+  <div class="w-1/2 bg-rose-600">
     <img src="/images/ok.png" alt="">
   </div>
 
-  <div class="w-1/2 flex flex-col items-center bg-orange-500 pt-1 border-l-2 border-orange-600">
-
-    <h2 class="text-2xl text-white pt-4 pb-1.5 italic font-semibold ">
+  <div class="w-1/2 flex flex-col items-center pt-1 border-l-2 border-orange-600">
+    <h2 class="text-2xl text-black pt-4 pb-1.5 italic font-semibold ">
       Crie sua conta
     </h2>
     <div class="bg-amber-300 px-3 rounded">
@@ -16,35 +14,34 @@
     <%= form_for(
       resource, as: resource_name, url: registration_path(resource_name),
       html: {class: "flex flex-col items-center justify-center w-5/6
-        text-white gap-1 rounded-md p-2"}
+        text-black gap-1 rounded-md p-2"}
     ) do |f| %>
-
 
       <div class="field flex flex-col">
         <%= f.label :name, class: "text-sm" %>
         <%= f.text_field :name, autocomplete: "given_name", autofocus: true,
-          class: "h-6 rounded-sm"
+          class: "h-6 rounded-sm border-gray-400 focus:outline-none focus:ring focus:ring-rose-600"
         %>
       </div>
 
       <div class="field flex flex-col">
         <%= f.label :last_name, class: "text-sm" %>
         <%= f.text_field :last_name, autocomplete: "family_name",
-          class: "h-6 rounded-sm"
+          class: "h-6 rounded-sm border-gray-400 focus:outline-none focus:ring focus:ring-rose-600"
         %>
       </div>
 
       <div class="field flex flex-col">
         <%= f.label :document_number, class: "text-sm" %>
         <%= f.number_field :document_number,
-          class: "h-6 rounded-sm"
+          class: "h-6 rounded-sm border-gray-300 focus:outline-none focus:ring focus:ring-rose-600"
         %>
       </div>
 
       <div class="field flex flex-col">
         <%= f.label :email, class: "text-sm" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email",
-          class: "h-6 rounded-sm"
+          class: "h-6 rounded-sm border-gray-300 focus:outline-none focus:ring focus:ring-rose-600"
         %>
       </div>
 
@@ -56,14 +53,14 @@
           <% end %>
         </div>
         <%= f.password_field :password, autocomplete: "new-password",
-          class: "h-6 rounded-sm"
+          class: "h-6 rounded-sm border-gray-300 focus:outline-none focus:ring focus:ring-rose-600"
         %>
       </div>
 
       <div class="field flex flex-col">
         <%= f.label :password_confirmation, class: "text-sm" %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password",
-          class: "h-6 rounded-sm"
+          class: "h-6 rounded-sm border-gray-300 focus:outline-none focus:ring focus:ring-rose-600"
         %>
       </div>
 
@@ -71,8 +68,7 @@
         <%= f.submit "Cadastrar",
           class: "w-full bg-rose-700 text-white px-2 py-0.5
             rounded font-semibold hover:bg-rose-600
-            cursor-pointer shadow-md
-          "
+            cursor-pointer shadow-md"
         %>
       </div>
 
