@@ -1,44 +1,82 @@
-<h2>Criar conta</h2>
+<div class="flex">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autocomplete: "given_name" %>
+  <div class="w-1/2 bg-rose-700">
+    <img src="/images/ok.png" alt="">
   </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autocomplete: "family_name" %>
-  </div>
+  <div class="w-1/2 flex flex-col items-center bg-orange-500 pt-1 border-l-2 border-orange-600">
 
-  <div class="field">
-    <%= f.label :document_number %><br />
-    <%= f.number_field :document_number %>
-  </div>
+    <h2 class="text-2xl text-white pt-4 pb-1.5 italic font-semibold ">
+      Crie sua conta
+    </h2>
+    <div class="bg-amber-300 px-3 rounded">
+      <%= render "devise/shared/error_messages", resource: resource %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <%= form_for(
+      resource, as: resource_name, url: registration_path(resource_name),
+      html: {class: "flex flex-col items-center justify-center w-5/6
+        text-white gap-1 rounded-md p-2"}
+    ) do |f| %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(no mínimo <%= @minimum_password_length %> caracteres)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <div class="field flex flex-col">
+        <%= f.label :name, class: "text-sm" %>
+        <%= f.text_field :name, autocomplete: "given_name", autofocus: true,
+          class: "h-6 rounded-sm"
+        %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Cadastrar" %>
-  </div>
-<% end %>
+      <div class="field flex flex-col">
+        <%= f.label :last_name, class: "text-sm" %>
+        <%= f.text_field :last_name, autocomplete: "family_name",
+          class: "h-6 rounded-sm"
+        %>
+      </div>
 
-<%= render "devise/shared/links" %>
+      <div class="field flex flex-col">
+        <%= f.label :document_number, class: "text-sm" %>
+        <%= f.number_field :document_number,
+          class: "h-6 rounded-sm"
+        %>
+      </div>
+
+      <div class="field flex flex-col">
+        <%= f.label :email, class: "text-sm" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email",
+          class: "h-6 rounded-sm"
+        %>
+      </div>
+
+      <div class="field flex flex-col">
+        <div>
+          <%= f.label :password, class: "text-sm" %>
+          <% if @minimum_password_length %>
+          <em>(no mínimo <%= @minimum_password_length %> caracteres)</em>
+          <% end %>
+        </div>
+        <%= f.password_field :password, autocomplete: "new-password",
+          class: "h-6 rounded-sm"
+        %>
+      </div>
+
+      <div class="field flex flex-col">
+        <%= f.label :password_confirmation, class: "text-sm" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password",
+          class: "h-6 rounded-sm"
+        %>
+      </div>
+
+      <div class="actions py-3 px-1 w-1/2">
+        <%= f.submit "Cadastrar",
+          class: "w-full bg-rose-700 text-white px-2 py-0.5
+            rounded font-semibold hover:bg-rose-600
+            cursor-pointer shadow-md
+          "
+        %>
+      </div>
+
+      <%= render "devise/shared/links" %>
+    <% end %>
+  </div>
+</div>
