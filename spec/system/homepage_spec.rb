@@ -4,7 +4,7 @@ describe 'Homepage' do
 
   context 'when visiting the homepage' do
 
-    it 'user see a title/logo on navbar' do
+    it 'user see a logo with a link on navbar' do
       visit root_path
 
       within('nav') do
@@ -28,16 +28,27 @@ describe 'Homepage' do
       end
     end
 
-    it 'user see the welcome message' do
+    it 'user see the logo on header' do
       visit root_path
 
-      expect(page).to have_content('Boas vindas ao Palevá')
+      expect(page).to have_content('PaLevá')
     end
 
-    it 'user see the site description' do
+    it 'user see the site subtitle on header' do
       visit root_path
 
-      expect(page).to have_content('O melhor sistema de controle de pedidos para restaurantes')
+      expect(page).to have_content('O Controle Total do Seu Cardápio')
+    end
+
+    it 'user see the site description on header' do
+      visit root_path
+
+      description = <<~DESCRIPTION.squish
+        PaLevá é o seu parceiro para um gerenciamento de menu eficiente e intuitivo.
+        Crie, edite e organize todos os itens do seu cardápio de maneira prática.
+      DESCRIPTION
+
+      expect(page).to have_content(description)
     end
   end
 
@@ -71,6 +82,29 @@ describe 'Homepage' do
       end
 
       expect(current_path).to eq root_path
+    end
+  end
+
+  context 'when clicking on header links' do
+
+    it 'user goes to login page' do
+      visit root_path
+
+      within('header') do
+        click_on 'Entrar'
+      end
+
+      expect(current_path).to eq new_user_session_path
+    end
+
+    it 'user goes to signup page' do
+      visit root_path
+
+      within('header') do
+        click_on 'Criar Conta'
+      end
+
+      expect(current_path).to eq new_user_registration_path
     end
   end
 end
