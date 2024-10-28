@@ -24,6 +24,14 @@
           <%= link_to "PaLevá", dashboard_path, class: "logo" %>
         </div>
 
+        <% if current_user.restaurant %>
+          <%= form_with(url: search_path, method: :get) do |f| %>
+            <%= f.label :query, 'Buscar Itens' %>
+            <%= f.text_field :query, class: 'w-64 h-8 text-sm text-zinc-800' %>
+            <%= f.submit 'Buscar', class: 'ml-2' %>
+          <% end %>
+        <% end %>
+
         <ul class='flex justify-between'>
           <li><%= button_to "Sair", destroy_user_session_path, method: :delete %></li>
         </ul>

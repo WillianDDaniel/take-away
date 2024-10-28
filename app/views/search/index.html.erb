@@ -1,0 +1,46 @@
+<% if @query.blank? %>
+	<p>Nenhum resultado encontrado</p>
+<% end %>
+
+<% if @query.present? %>
+    <div>
+      <h2>Pratos Encontrados</h2>
+      <% if @dishes.any? %>
+        <div>
+          <% @dishes.each do |dish| %>
+            <div>
+              <h3><%= dish.name %></h3>
+              <p><%= truncate(dish.description, length: 100) %></p>
+              <div>
+                <%= link_to "Ver Detalhes", dish_path(dish) %>
+                <%= link_to "Editar", edit_dish_path(dish) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>Nenhum prato encontrado.</p>
+      <% end %>
+    </div>
+
+    <div>
+      <h2>Bebidas Encontradas</h2>
+      <% if @beverages.any? %>
+        <div>
+          <% @beverages.each do |beverage| %>
+            <div>
+              <h3><%= beverage.name %></h3>
+              <p><%= truncate(beverage.description, length: 100) %></p>
+              <div>
+                <%= link_to "Ver Detalhes", beverage_path(beverage) %>
+                <%= link_to "Editar", edit_beverage_path(beverage) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>Nenhuma bebida encontrada.</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

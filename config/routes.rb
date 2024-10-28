@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   resources :dishes
   resources :beverages
+
+  get "/search", to: "search#index"
 end
