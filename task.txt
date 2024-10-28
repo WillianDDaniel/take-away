@@ -1,0 +1,9 @@
+Arrumar as mensagems de erro das paginas internas e externas do site.
+
+Dar estilo as paginas de horarios e resultados de bucas
+
+Dar estilo as paginas de edição de bebidas e pratos
+
+Dar estilo as paginas de cadastro de bebidas e pratos
+
+Dar estilo as paginas de cadastro de restaurante

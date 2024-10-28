@@ -1,42 +1,59 @@
-<h1>Cadastrar Restaurante</h1>
+<div class="flex items-center justify-center min-h-[90vh] bg-gray-100">
 
-<% if @restaurant.errors.any? %>
-  <ul>
-    <% @restaurant.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+  <div class="w-full max-w-lg bg-white p-8 rounded-lg shadow-md border border-gray-200">
+
+    <h1 class="text-2xl font-semibold text-gray-800 text-center pb-4">Cadastrar Restaurante</h1>
+
+    <% if @restaurant.errors.any? %>
+      <ul class="bg-red-100 text-red-800 px-4 py-3 rounded mb-6">
+        <% @restaurant.errors.full_messages.each do |msg| %>
+          <li class="text-sm">• <%= msg %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_with(model: @restaurant) do |f| %>
-  <div>
-    <%= f.label :brand_name %>
-    <%= f.text_field :brand_name %>
-  </div>
+    <%= form_with(model: @restaurant, html: { class: "flex flex-col gap-6" }) do |f| %>
 
-  <div>
-    <%= f.label :corporate_name %>
-    <%= f.text_field :corporate_name %>
-  </div>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-  <div>
-    <%= f.label :doc_number %>
-    <%= f.text_field :doc_number %>
-  </div>
-  <div>
-    <%= f.label :phone %>
-    <%= f.text_field :phone %>
-  </div>
-  <div>
-    <%= f.label :address %>
-    <%= f.text_field :address %>
-  </div>
 
-  <div>
-    <%= f.submit "Cadastrar" %>
-  </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-<% end %>
+        <div class="flex flex-col">
+          <%= f.label :brand_name, class: "text-gray-600 text-sm" %>
+          <%= f.text_field :brand_name, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+        </div>
+
+        <div class="flex flex-col">
+          <%= f.label :corporate_name, class: "text-gray-600 text-sm" %>
+          <%= f.text_field :corporate_name, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+        </div>
+
+        <div class="flex flex-col">
+          <%= f.label :email, class: "text-gray-600 text-sm" %>
+          <%= f.email_field :email, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+        </div>
+
+        <div class="flex flex-col">
+          <%= f.label :doc_number, class: "text-gray-600 text-sm" %>
+          <%= f.text_field :doc_number, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+        </div>
+
+        <div class="flex flex-col">
+          <%= f.label :phone, class: "text-gray-600 text-sm" %>
+          <%= f.text_field :phone, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+        </div>
+
+        <div class="flex flex-col">
+          <%= f.label :address, class: "text-gray-600 text-sm" %>
+          <%= f.text_field :address, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+        </div>
+
+      </div>
+
+      <div class="mt-6">
+        <%= f.submit "Cadastrar", class: "w-full bg-rose-700 text-white py-2 rounded-md font-semibold hover:bg-rose-600 cursor-pointer shadow-md" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
