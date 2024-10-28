@@ -1,1 +1,9 @@
-<% @dishes.each do |dish| %><%= link_to dish.name, dish %><br /><% end %>
+<% @dishes.each do |dish| %>
+  <div>
+    <%= link_to dish.name, dish %>
+    <%= dish.description %>
+    <%= dish.price %>
+  </div>
+<% end %>
+
+<%= link_to 'Cadastrar Prato', new_dish_path %>
