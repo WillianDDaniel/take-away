@@ -1,11 +1,30 @@
-<% @dishes.each do |dish| %>
-  <div>
-    <%= link_to dish.name, dish %>
-    <%= dish.description %>
-    <%= dish.price %>
-    <%= link_to "Editar", edit_dish_path(dish) %>
-    <%= button_to "Excluir", dish, method: :delete, data: { confirm: "Tem certeza?" } %>
-  </div>
-<% end %>
+<section class="flex flex-col items-center">
 
-<%= link_to 'Cadastrar Prato', new_dish_path %>
+  <div class="flex justify-between w-5/6 p-4 bg-gray-300 rounded mt-2">
+    <h1 class="text-2xl">Lista de Pratos</h1>
+
+    <%= link_to 'Cadastrar Prato', new_dish_path,
+      class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+    %>
+  </div>
+
+
+  <% @dishes.each do |dish| %>
+    <div class="w-5/6 p-4 bg-gray-400 rounded mt-2 flex gap-2 justify-between">
+      <div>
+        <%= link_to dish.name, dish %>
+        <%= truncate dish.description, length: 25 %>
+        R$ <%= dish.price %>
+      </div>
+
+      <div class="flex gap-4">
+        <%= link_to "Editar", edit_dish_path(dish), class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-1 px-6 rounded-lg shadow-md" %>
+        <%= button_to "Excluir", dish, method: :delete, data: { confirm: "Tem certeza?" },
+          class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
+        %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= "Nenhum prato encontrado." unless @dishes.any? %>
+</section>
