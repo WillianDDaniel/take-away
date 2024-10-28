@@ -75,5 +75,65 @@ describe 'Dishes Index Page' do
       expect(page).to have_content('15')
 
     end
+
+    it 'should delete a dish' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      Dish.create!(
+        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        calories: 100, restaurant: restaurant
+      )
+
+      login_as(user)
+      visit dishes_path
+
+      expect(page).to have_content('Prato Teste')
+      expect(page).to have_content('Descrição Teste')
+      expect(page).to have_content('10')
+
+      click_on 'Excluir'
+
+      expect(page).not_to have_content('Prato Teste')
+      expect(page).not_to have_content('Descrição Teste')
+      expect(page).not_to have_content('10')
+    end
+
+    it 'should redirect to edit a dish' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      dish = Dish.create!(
+        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        calories: 100, restaurant: restaurant
+      )
+
+      login_as(user)
+      visit dishes_path
+
+      click_on 'Editar'
+
+      expect(current_path).to eq edit_dish_path(dish)
+
+      expect(page).to have_field('Nome do Prato', with: 'Prato Teste')
+      expect(page).to have_field('Preço', with: '10')
+      expect(page).to have_field('Calorias', with: '100')
+    end
   end
 end

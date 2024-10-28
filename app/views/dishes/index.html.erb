@@ -3,6 +3,8 @@
     <%= link_to dish.name, dish %>
     <%= dish.description %>
     <%= dish.price %>
+    <%= link_to "Editar", edit_dish_path(dish) %>
+    <%= button_to "Excluir", dish, method: :delete, data: { confirm: "Tem certeza?" } %>
   </div>
 <% end %>
 
