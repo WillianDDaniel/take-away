@@ -58,6 +58,14 @@ class BeveragesController < ApplicationController
     end
   end
 
+  def destroy
+    @beverage = Beverage.find_by(id: params[:id])
+    return unless @beverage.restaurant == current_user.restaurant
+
+    @beverage.destroy
+    redirect_to beverages_path
+  end
+
   private
 
   def beverage_params
