@@ -1,25 +1,29 @@
-<h1>Lista de bebidas</h1>
+<section class="flex flex-col items-center">
 
-<% @beverages.each do |beverage| %>
-  <div>
-    <%= link_to beverage.name, beverage_path(beverage) %>
+  <div class="flex justify-between w-5/6 p-4 bg-gray-300 rounded mt-2">
+    <h1 class="text-2xl">Lista de Bebidas</h1>
+
+    <%= link_to 'Cadastrar Bebida', new_beverage_path,
+      class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+    %>
   </div>
 
-  <div>
-    <%= beverage.description %>
-  </div>
+  <% @beverages.each do |beverage| %>
+    <div class="w-5/6 p-4 bg-gray-400 rounded mt-2 flex gap-2 justify-between">
+      <div class="flex gap-2">
+        <%= link_to beverage.name, beverage_path(beverage), class: "font-semibold text-lg" %>
+        <p><%= truncate beverage.description, length: 25 %></p>
+        <p>R$ <%= beverage.price %></p>
+      </div>
 
-  <div>
-    <%= beverage.price %>
-  </div>
+      <div class="flex gap-4">
+        <%= link_to "Editar", edit_beverage_path(beverage), class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-1 px-6 rounded-lg shadow-md" %>
+        <%= button_to "Excluir", beverage_path(beverage), method: :delete, data: { confirm: "Tem certeza?" },
+          class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
+        %>
+      </div>
+    </div>
+  <% end %>
 
-  <div>
-    <%= link_to 'Editar', edit_beverage_path(beverage) %>
-  </div>
-
-  <div>
-    <%= button_to 'Excluir', beverage_path(beverage), method: :delete, data: { confirm: 'Tem certeza?' } %>
-  </div>
-<% end %>
-
-<%= link_to 'Cadastrar Bebida', new_beverage_path %>
+  <%= "Nenhuma bebida cadastrada." unless @beverages.any? %>
+</section>
