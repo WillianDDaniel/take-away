@@ -1,6 +1,8 @@
 class Dish < ApplicationRecord
   belongs_to :restaurant
 
+  has_many :portions, as: :portionable
+
   validates :name, presence: true
 
   validate :calories_must_be_positive
