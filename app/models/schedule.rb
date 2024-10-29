@@ -10,7 +10,7 @@ class Schedule < ApplicationRecord
   end
 
   def start_before_end
-    if open_time >= close_time && open_time.present? && close_time.present?
+    if open_time.present? && close_time.present? && open_time >= close_time
       errors.add(:open_time, 'deve ser menor que o horário de fechamento')
     end
   end
