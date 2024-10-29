@@ -36,13 +36,6 @@ class PortionsController < ApplicationController
     else
       @portion.valid?
       render :new, status: :unprocessable_entity
-      puts
-      puts
-      puts
-      puts 'Erro ao cadastrar porção'
-      puts
-      puts
-      puts
     end
   end
 

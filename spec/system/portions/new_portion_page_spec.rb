@@ -104,7 +104,7 @@ describe 'New Portion Page' do
     expect(page).to have_button('Cadastrar')
   end
 
-  it 'should create a new portion' do
+  it 'should create a new dish portion' do
     user = User.create!(
       email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
       password: 'password12345', document_number: CPF.generate
@@ -132,5 +132,6 @@ describe 'New Portion Page' do
     expect(current_path).to eq dish_path(dish.id)
     expect(page).to have_content('Porção Teste')
     expect(page).to have_content('R$ 10')
+    expect(page).to have_content('Porção cadastrada com sucesso')
   end
 end
