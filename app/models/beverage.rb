@@ -5,4 +5,6 @@ class Beverage < ApplicationRecord
 
   has_one_attached :image
 
+  enum status: { active: 'active', paused: 'paused' }
+
 end

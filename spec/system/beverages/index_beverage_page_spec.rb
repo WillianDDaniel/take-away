@@ -93,6 +93,31 @@ describe 'Index Beverage Page' do
     expect(page).to have_content('Refrigerante lata')
   end
 
+  it 'beverages must show active or paused status' do
+    user = User.create!(
+      email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    restaurant = Restaurant.create!(
+      brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+      phone: '51993831972', address: 'Rua Teste',
+      doc_number: CNPJ.generate, user: user
+    )
+
+    login_as(user)
+
+    Beverage.create!(
+      name: 'Cerveja', description: 'Cerveja lata',
+      calories: 200, alcoholic: true,
+      restaurant: restaurant
+    )
+
+    visit beverages_path
+
+    expect(page).to have_content('Ativo')
+  end
+
   it 'should delete a beverage' do
     user = User.create!(
       email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
