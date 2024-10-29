@@ -66,6 +66,18 @@ class BeveragesController < ApplicationController
     redirect_to beverages_path
   end
 
+  def toggle_status
+    @beverage = Beverage.find(params[:id])
+
+    if @beverage.active?
+      @beverage.update(status: "paused")
+    else
+      @beverage.update(status: "active")
+    end
+
+    redirect_to beverage_path(@beverage), notice: "Status atualizado com sucesso."
+  end
+
   private
 
   def beverage_params

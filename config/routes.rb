@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   resources :schedules, only: [:new, :create, :index, :edit, :update, :destroy]
 
   resources :dishes
-  resources :beverages
+  resources :beverages do
+    member do
+      patch :toggle_status
+    end
+  end
 
   get "/search", to: "search#index"
 end

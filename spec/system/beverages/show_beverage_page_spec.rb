@@ -102,4 +102,59 @@ describe 'Show Beverage Page' do
     expect(page).to have_content('200')
     expect(page).to have_content('Alcólica')
   end
+
+  it 'should have a button to pause the beverage' do
+    user = User.create!(
+      email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    Restaurant.create!(
+      brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+      phone: '51993831972', address: 'Rua Teste',
+      doc_number: CNPJ.generate, user: user
+    )
+
+    beverage = Beverage.create!(
+      name: 'Cerveja', description: 'Cerveja lata',
+      calories: 200, alcoholic: true,
+      restaurant: Restaurant.last
+    )
+
+    login_as(user)
+
+    visit beverage_path(beverage.id)
+
+    expect(page).to have_button('Pausar vendas')
+  end
+
+  it 'when clicking on pause button, should pause the beverage' do
+    user = User.create!(
+      email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    Restaurant.create!(
+      brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+      phone: '51993831972', address: 'Rua Teste',
+      doc_number: CNPJ.generate, user: user
+    )
+
+    beverage = Beverage.create!(
+      name: 'Cerveja', description: 'Cerveja lata',
+      calories: 200, alcoholic: true,
+      restaurant: Restaurant.last
+    )
+
+    login_as(user)
+
+    visit beverage_path(beverage.id)
+
+    click_on 'Pausar vendas'
+
+    expect(page).to have_content('Status: Pausado')
+    expect(page).not_to have_button('Pausar vendas')
+
+    expect(page).to have_button('Ativar vendas')
+  end
 end

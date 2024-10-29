@@ -1,5 +1,11 @@
 <h1><%= @beverage.name %></h1>
 
+<% if @beverage.active? %>
+  <p>Status: Ativo</p>
+<% else %>
+  <p>Status: Pausado</p>
+<% end %>
+
 <%= @beverage.description %>
 
 <%= @beverage.calories %>
@@ -21,3 +27,7 @@
 
 <%= link_to "Editar Bebida", edit_beverage_path(@beverage) %>
 <%= button_to "Excluir Bebida", @beverage, method: :delete, data: { confirm: "Tem certeza?" } %>
+
+<%= button_to "#{ @beverage.active? ? 'Pausar' : 'Ativar' } vendas",
+  toggle_status_beverage_path(@beverage), method: :patch
+%>
