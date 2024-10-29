@@ -65,6 +65,18 @@ class DishesController < ApplicationController
     redirect_to dashboard_path
   end
 
+  def toggle_status
+    @dish = Dish.find(params[:id])
+
+    if @dish.active?
+      @dish.update(status: "paused")
+    else
+      @dish.update(status: "active")
+    end
+
+    redirect_to dish_path(@dish), notice: "Status atualizado com sucesso."
+  end
+
   private
 
   def dish_params

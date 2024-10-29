@@ -18,3 +18,7 @@
 <%= link_to "Editar Prato", edit_dish_path(@dish) %>
 <%= button_to "Excluir Prato", @dish, method: :delete, data: { confirm: "Tem certeza?" } %>
 
+<%= button_to "#{@dish.active? ? 'Pausar' : 'Ativar'} vendas",
+  toggle_status_dish_path(@dish), method: :patch
+%>
+
