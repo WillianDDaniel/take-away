@@ -1,9 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Beverage, type: :model do
+
+  let(:restaurant) do
+    user = User.create!(
+      email: 'johndoe@example.com',
+      name: 'John',
+      last_name: 'Doe',
+      password: 'password12345',
+      document_number: CPF.generate
+    )
+
+    Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+  end
+
   describe '#valid?' do
     it 'must have a name' do
-      beverage = Beverage.new(description: 'Cerveja lata', calories: 200, alcoholic: true, restaurant_id: 1)
+      beverage = Beverage.new(description: 'Cerveja lata', calories: 200, alcoholic: true, restaurant: restaurant)
 
       expect(beverage.valid?).to be false
       expect(beverage.errors.include?(:name)).to be true
@@ -27,20 +42,32 @@ RSpec.describe Beverage, type: :model do
 
   describe 'status' do
     it 'should have a default status of active' do
-      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: 200, restaurant_id: 1)
+      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: 200, restaurant: restaurant)
 
       expect(beverage.status).to eq('active')
     end
 
     it 'should only allow valid statuses' do
-      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: 200, restaurant_id: 1)
+      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: 200, restaurant: restaurant)
       expect { beverage.status = 'invalid_status' }.to raise_error(ArgumentError)
+    end
+
+    it 'should allow active and paused status to be set' do
+      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: 200, restaurant: restaurant)
+
+      beverage.status = 'active'
+      expect(beverage.status).to eq('active')
+      expect(beverage.errors.include?(:status)).to be false
+
+      beverage.status = 'paused'
+      expect(beverage.status).to eq('paused')
+      expect(beverage.errors.include?(:status)).to be false
     end
   end
 
   describe 'calories' do
     it 'should have a non-negative number of calories' do
-      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: -50, alcoholic: true, restaurant_id: 1)
+      beverage = Beverage.new(name: 'Cerveja', description: 'Cerveja lata', calories: -50, alcoholic: true, restaurant: restaurant)
 
       expect(beverage.valid?).to be false
       expect(beverage.errors.include?(:calories)).to be true
