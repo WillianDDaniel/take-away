@@ -34,7 +34,7 @@ describe 'Edit Dish Page' do
       )
 
       Dish.create!(
-        name: 'Prato Teste', description: 'Teste', price: 10.00, calories: 100,
+        name: 'Prato Teste', description: 'Teste', calories: 100,
         restaurant: restaurant
       )
 
@@ -88,7 +88,7 @@ describe 'Edit Dish Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Teste', price: 10.00, calories: 100,
+        name: 'Prato Teste', description: 'Teste', calories: 100,
         restaurant: restaurant
       )
 
@@ -102,7 +102,6 @@ describe 'Edit Dish Page' do
 
       expect(page).to have_field('Nome do Prato')
       expect(page).to have_field('Descrição')
-      expect(page).to have_field('Preço')
       expect(page).to have_field('Calorias')
 
       expect(page).to have_button('Atualizar')
@@ -123,19 +122,17 @@ describe 'Edit Dish Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Teste', price: 10.00, calories: 100,
+        name: 'Prato Teste', description: 'Teste', calories: 100,
         restaurant: restaurant
       )
 
       visit edit_dish_path(dish.id)
 
       fill_in 'Nome do Prato', with: ''
-      fill_in 'Preço', with: ''
 
       click_button 'Atualizar'
 
       expect(page).to have_content('Nome do Prato não pode ficar em branco')
-      expect(page).to have_content('Preço não pode ficar em branco')
     end
   end
 end

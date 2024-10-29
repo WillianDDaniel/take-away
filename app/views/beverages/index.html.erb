@@ -13,7 +13,6 @@
       <div class="flex gap-2">
         <%= link_to beverage.name, beverage_path(beverage), class: "font-semibold text-lg" %>
         <p><%= truncate beverage.description, length: 25 %></p>
-        <p>R$ <%= beverage.price %></p>
       </div>
 
       <div class="flex gap-4">

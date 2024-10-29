@@ -73,13 +73,13 @@ describe 'Index Beverage Page' do
     login_as(user)
 
     Beverage.create!(
-      name: 'Cerveja', description: 'Cerveja lata', price: 5,
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: Restaurant.last
     )
 
     Beverage.create!(
-      name: 'Refrigerante', description: 'Refrigerante lata', price: 5,
+      name: 'Refrigerante', description: 'Refrigerante lata',
       calories: 200, alcoholic: true,
       restaurant: Restaurant.last
     )
@@ -88,11 +88,9 @@ describe 'Index Beverage Page' do
 
     expect(page).to have_link 'Cerveja'
     expect(page).to have_content('Cerveja lata')
-    expect(page).to have_content('5')
 
     expect(page).to have_link 'Refrigerante'
     expect(page).to have_content('Refrigerante lata')
-    expect(page).to have_content('5')
   end
 
   it 'should delete a beverage' do
@@ -110,7 +108,7 @@ describe 'Index Beverage Page' do
     login_as(user)
 
     Beverage.create!(
-      name: 'Cerveja', description: 'Cerveja lata', price: 5,
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: restaurant
     )
@@ -119,12 +117,10 @@ describe 'Index Beverage Page' do
 
     expect(page).to have_link 'Cerveja'
     expect(page).to have_content('Cerveja lata')
-    expect(page).to have_content('5')
 
     click_on 'Excluir'
 
     expect(page).not_to have_link 'Cerveja'
     expect(page).not_to have_content('Cerveja lata')
-    expect(page).not_to have_content('5')
   end
 end

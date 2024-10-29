@@ -72,12 +72,12 @@ describe 'Dishes Index Page' do
       )
 
       Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
       Dish.create!(
-        name: 'Outro Teste', description: 'Outra Descrição', price: 15.0,
+        name: 'Outro Teste', description: 'Outra Descrição',
         calories: 200, restaurant: restaurant
       )
 
@@ -86,11 +86,9 @@ describe 'Dishes Index Page' do
 
       expect(page).to have_content('Prato Teste')
       expect(page).to have_content('Descrição Teste')
-      expect(page).to have_content('10')
 
       expect(page).to have_content('Outro Teste')
       expect(page).to have_content('Outra Descrição')
-      expect(page).to have_content('15')
 
     end
 
@@ -107,7 +105,7 @@ describe 'Dishes Index Page' do
       )
 
       Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
@@ -116,13 +114,11 @@ describe 'Dishes Index Page' do
 
       expect(page).to have_content('Prato Teste')
       expect(page).to have_content('Descrição Teste')
-      expect(page).to have_content('10')
 
       click_on 'Excluir'
 
       expect(page).not_to have_content('Prato Teste')
       expect(page).not_to have_content('Descrição Teste')
-      expect(page).not_to have_content('10')
     end
 
     it 'should redirect to edit a dish' do
@@ -138,7 +134,7 @@ describe 'Dishes Index Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
@@ -150,7 +146,6 @@ describe 'Dishes Index Page' do
       expect(current_path).to eq edit_dish_path(dish)
 
       expect(page).to have_field('Nome do Prato', with: 'Prato Teste')
-      expect(page).to have_field('Preço', with: '10')
       expect(page).to have_field('Calorias', with: '100')
     end
   end

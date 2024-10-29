@@ -44,7 +44,7 @@ describe 'Show Dish Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
@@ -87,7 +87,7 @@ describe 'Show Dish Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
@@ -97,7 +97,6 @@ describe 'Show Dish Page' do
 
       expect(page).to have_content dish.name
       expect(page).to have_content dish.description
-      expect(page).to have_content dish.price
       expect(page).to have_content dish.calories
 
       expect(page).to have_link 'Editar Prato'
@@ -117,7 +116,7 @@ describe 'Show Dish Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
@@ -131,7 +130,6 @@ describe 'Show Dish Page' do
 
       expect(page).to have_field('Nome do Prato')
       expect(page).to have_field('Descrição')
-      expect(page).to have_field('Preço')
       expect(page).to have_field('Calorias')
 
       expect(page).to have_button('Atualizar')
@@ -150,7 +148,7 @@ describe 'Show Dish Page' do
       )
 
       dish = Dish.create!(
-        name: 'Prato Teste', description: 'Descrição Teste', price: 10.0,
+        name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 

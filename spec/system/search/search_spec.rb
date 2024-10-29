@@ -37,12 +37,12 @@ describe 'Search' do
       )
 
       Dish.create!(
-        name: 'Prato Teste', description: 'Teste', price: 10.00, calories: 100,
+        name: 'Prato Teste', description: 'Teste', calories: 100,
         restaurant: Restaurant.first
       )
 
       Beverage.create!(
-        name: 'Berja Teste', description: 'Cerveja lata', price: 5,
+        name: 'Berja Teste', description: 'Cerveja lata',
         calories: 200, alcoholic: true,
         restaurant: Restaurant.first
       )

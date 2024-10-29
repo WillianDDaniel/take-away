@@ -52,7 +52,7 @@ describe 'Show Beverage Page' do
     )
 
     beverage = Beverage.create!(
-      name: 'Cerveja', price: 10, description: 'Cerveja lata',
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: restaurant
     )
@@ -88,7 +88,7 @@ describe 'Show Beverage Page' do
     )
 
     Beverage.create!(
-      name: 'Cerveja', price: 10, description: 'Cerveja lata',
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: Restaurant.last
     )
@@ -99,7 +99,6 @@ describe 'Show Beverage Page' do
 
     expect(page).to have_content('Cerveja')
     expect(page).to have_content('Cerveja lata')
-    expect(page).to have_content('10')
     expect(page).to have_content('200')
     expect(page).to have_content('Alcólica')
   end

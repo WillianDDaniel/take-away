@@ -40,7 +40,6 @@ describe 'New Dish Page' do
 
       expect(page).to have_field('Nome do Prato')
       expect(page).to have_field('Descrição')
-      expect(page).to have_field('Preço')
       expect(page).to have_field('Calorias')
 
       expect(page).to have_button('Cadastrar')
@@ -66,7 +65,6 @@ describe 'New Dish Page' do
 
       fill_in 'Nome do Prato', with: 'Prato Teste'
       fill_in 'Descrição', with: 'Teste'
-      fill_in 'Preço', with: '10.00'
       fill_in 'Calorias', with: '100'
 
       click_button 'Cadastrar'
@@ -91,12 +89,10 @@ describe 'New Dish Page' do
       visit new_dish_path
 
       fill_in 'Nome do Prato', with: ''
-      fill_in 'Preço', with: ''
 
       click_button 'Cadastrar'
 
       expect(page).to have_content('Nome do Prato não pode ficar em branco')
-      expect(page).to have_content('Preço não pode ficar em branco')
     end
   end
 end

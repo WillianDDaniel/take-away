@@ -50,7 +50,7 @@ describe 'Edit Beverage Page' do
     )
 
     beverage = Beverage.create!(
-      name: 'Cerveja', description: 'Cerveja lata', price: 5,
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: restaurant
     )
@@ -86,7 +86,7 @@ describe 'Edit Beverage Page' do
     )
 
     beverage = Beverage.create!(
-      name: 'Cerveja', description: 'Cerveja lata', price: 5,
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: Restaurant.last
     )
@@ -96,7 +96,6 @@ describe 'Edit Beverage Page' do
 
     expect(page).to have_field 'Nome', with: beverage.name
     expect(page).to have_field 'Descrição', with: beverage.description
-    expect(page).to have_field 'Preço', with: beverage.price
     expect(page).to have_field 'Calorias', with: beverage.calories
 
     expect(page).to have_button 'Atualizar'
@@ -115,7 +114,7 @@ describe 'Edit Beverage Page' do
     )
 
     beverage = Beverage.create!(
-      name: 'Cerveja', description: 'Cerveja lata', price: 5,
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: Restaurant.last
     )
@@ -125,7 +124,6 @@ describe 'Edit Beverage Page' do
 
     fill_in 'Nome da Bebida', with: 'Cerveja litrão'
     fill_in 'Descrição', with: 'Cerveja 1 litro'
-    fill_in 'Preço', with: '10'
     fill_in 'Calorias', with: '300'
 
     click_on 'Atualizar'
@@ -149,7 +147,7 @@ describe 'Edit Beverage Page' do
     )
 
     beverage = Beverage.create!(
-      name: 'Cerveja', description: 'Cerveja lata', price: 5,
+      name: 'Cerveja', description: 'Cerveja lata',
       calories: 200, alcoholic: true,
       restaurant: Restaurant.last
     )
@@ -158,11 +156,9 @@ describe 'Edit Beverage Page' do
     visit edit_beverage_path(beverage)
 
     fill_in 'Nome da Bebida', with: ''
-    fill_in 'Preço', with: ''
 
     click_on 'Atualizar'
 
     expect(page).to have_content 'Nome da Bebida não pode ficar em branco'
-    expect(page).to have_content 'Preço não pode ficar em branco'
   end
 end

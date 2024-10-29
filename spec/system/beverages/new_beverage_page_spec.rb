@@ -40,7 +40,6 @@ describe 'New Beverage Page' do
 
       expect(page).to have_field('Nome da Bebida')
       expect(page).to have_field('Descrição')
-      expect(page).to have_field('Preço')
       expect(page).to have_field('Calorias')
 
       expect(page).to have_button('Cadastrar')
@@ -65,7 +64,6 @@ describe 'New Beverage Page' do
 
       fill_in 'Nome da Bebida', with: 'Cerveja'
       fill_in 'Descrição', with: 'Cerveja lata'
-      fill_in 'Preço', with: 5
       fill_in 'Calorias', with: 200
       choose('beverage_alcoholic_true')
 
@@ -91,14 +89,12 @@ describe 'New Beverage Page' do
       visit new_beverage_path
 
       fill_in 'Nome da Bebida', with: ''
-      fill_in 'Preço', with: ''
 
       click_button 'Cadastrar'
 
       expect(page).to have_content('Erro ao cadastrar bebida')
 
       expect(page).to have_content('Nome da Bebida não pode ficar em branco')
-      expect(page).to have_content('Preço não pode ficar em branco')
       expect(page).to have_content('É Alcoólico? não pode ficar em branco')
     end
   end

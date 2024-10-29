@@ -69,7 +69,7 @@ class BeveragesController < ApplicationController
   private
 
   def beverage_params
-    params.require(:beverage).permit(:name, :price, :description, :alcoholic, :calories, :image)
+    params.require(:beverage).permit(:name, :description, :alcoholic, :calories, :image)
   end
 
   def check_user_restaurant
