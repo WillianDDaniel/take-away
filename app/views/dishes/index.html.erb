@@ -12,6 +12,10 @@
   <% @dishes.each do |dish| %>
     <div class="w-5/6 p-4 bg-gray-400 rounded mt-2 flex gap-2 justify-between">
       <div>
+        <%= "Ativo" if dish.active? %>
+        <%= "Pausado" if dish.paused? %>
+      </div>
+      <div>
         <%= link_to dish.name, dish %>
         <%= truncate dish.description, length: 25 %>
       </div>
