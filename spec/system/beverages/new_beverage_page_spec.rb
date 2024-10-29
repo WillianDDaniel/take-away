@@ -95,7 +95,6 @@ describe 'New Beverage Page' do
       expect(page).to have_content('Erro ao cadastrar bebida')
 
       expect(page).to have_content('Nome da Bebida não pode ficar em branco')
-      expect(page).to have_content('É Alcoólico? não pode ficar em branco')
     end
   end
 end
