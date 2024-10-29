@@ -192,5 +192,33 @@ describe 'Show Dish Page' do
       expect(page).not_to have_button 'Pausar vendas'
       expect(page).to have_button 'Ativar vendas'
     end
+
+    it 'user see a button to add a new portion' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      dish = Dish.create!(
+        name: 'Prato Teste', description: 'Descrição Teste',
+        calories: 100, restaurant: restaurant
+      )
+
+      login_as(user)
+
+      visit dish_path(dish.id)
+
+      expect(page).to have_link 'Adicionar porção'
+
+      click_on 'Adicionar porção'
+
+      expect(current_path).to eq new_dish_portion_path(dish.id)
+    end
   end
 end
