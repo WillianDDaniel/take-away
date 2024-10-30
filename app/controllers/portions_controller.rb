@@ -7,9 +7,9 @@ class PortionsController < ApplicationController
     @dish = Dish.find_by(id: params[:dish_id])
     @beverage = Beverage.find_by(id: params[:beverage_id])
 
-    @menu_item = @beverage || @dish
+    @portionable = @beverage || @dish
 
-    if @menu_item.nil? || @menu_item.restaurant != current_user.restaurant
+    if @portionable.nil? || @portionable.restaurant != current_user.restaurant
       redirect_to dashboard_path
     else
       @portion = Portion.new
@@ -20,23 +20,51 @@ class PortionsController < ApplicationController
     @dish = Dish.find_by(id: params[:dish_id])
     @beverage = Beverage.find_by(id: params[:beverage_id])
 
-    @menu_item = @beverage || @dish
+    @portionable = @beverage || @dish
 
-    if @menu_item.nil? || @menu_item.restaurant != current_user.restaurant
+    if @portionable.nil? || @portionable.restaurant != current_user.restaurant
       return
     end
 
     price = params[:portion][:price].to_i
     description = params[:portion][:description]
 
-    @portion =  Portion.new(portionable: @menu_item, price: price, description: description)
+    @portion =  Portion.new(portionable: @portionable, price: price, description: description)
 
     if @portion.save
       flash[:notice] = 'Porção cadastrada com sucesso'
-      redirect_to @menu_item
+      redirect_to @portionable
     else
       @portion.valid?
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @portion = Portion.find_by(id: params[:id])
+    @portionable = @portion.portionable if @portion
+
+    if @portion.nil? || @portion.portionable.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
+  end
+
+  def update
+    @portion = Portion.find_by(id: params[:id])
+    @portionable = @portion.portionable if @portion
+
+    if @portion.nil? || @portion.portionable.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
+
+    if @portion.update(portion_params)
+      flash[:notice] = 'Porção atualizada com sucesso'
+      redirect_to @portionable
+    else
+      @portion.valid?
+      flash[:alert] = 'Erro ao atualizar porção.'
+
+      render :edit, status: :unprocessable_entity
     end
   end
 
