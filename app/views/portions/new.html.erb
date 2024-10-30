@@ -1,5 +1,13 @@
 <h1>Cadastro de porção para <%= @menu_item.name %></h1>
 
+<% if @portion.errors.any? %>
+  <div>
+    <% @portion.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+<% end %>
+
 <%= form_with(model: [@menu_item, @portion]) do |f| %>
 
   <div>

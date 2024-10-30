@@ -157,4 +157,31 @@ describe 'New Portion Page' do
     expect(page).to have_content('R$ 10')
     expect(page).to have_content('Porção cadastrada com sucesso')
   end
+
+  it 'should not create a new dish portion with blank fields' do
+    user = User.create!(
+      email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    restaurant = Restaurant.create!(
+      brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+      phone: '51993831972', address: 'Rua Teste',
+      doc_number: CNPJ.generate, user: user
+    )
+
+    dish = Dish.create!(
+      name: 'Prato Teste', description: 'Descricão do prato teste',
+      calories: 100, restaurant: restaurant
+    )
+
+    login_as(user)
+
+    visit new_dish_portion_path(dish.id)
+
+    fill_in 'Descrição', with: ''
+    click_on 'Cadastrar'
+
+    expect(page).to have_content('Descrição não pode ficar em branco')
+  end
 end
