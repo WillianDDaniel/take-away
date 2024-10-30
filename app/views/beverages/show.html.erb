@@ -8,6 +8,17 @@
 
 <%= @beverage.description %>
 
+<% if @beverage.portions.any? %>
+  <ul>
+    <% @beverage.portions.each do |portion| %>
+      <li><%= portion.description %></li>
+      <li>R$ <%= portion.price %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhuma porção disponível.</p>
+<% end %>
+
 <%= @beverage.calories %>
 
 <% if @beverage.alcoholic? %>
@@ -31,3 +42,5 @@
 <%= button_to "#{ @beverage.active? ? 'Pausar' : 'Ativar' } vendas",
   toggle_status_beverage_path(@beverage), method: :patch
 %>
+
+<%= link_to "Adicionar porção", new_beverage_portion_path(@beverage) %>
