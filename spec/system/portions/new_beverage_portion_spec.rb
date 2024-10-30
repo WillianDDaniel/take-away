@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'New Portion Page' do
+describe 'New Beverage Portion Page' do
   it 'if user is not logged, should redirect to the signin page' do
 
     visit new_beverage_portion_path(1)
