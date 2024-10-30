@@ -2,8 +2,6 @@ require 'rails_helper'
 
 describe 'New Portion Page' do
   it 'if user is not logged, should redirect to the signin page' do
-    visit new_dish_portion_path(1)
-    expect(current_path).to eq new_user_session_path
 
     visit new_beverage_portion_path(1)
     expect(current_path).to eq new_user_session_path
@@ -22,7 +20,7 @@ describe 'New Portion Page' do
     expect(current_path).to eq new_restaurant_path
   end
 
-  it 'if user not have a dish, should redirect to dashboard' do
+  it 'if user not have a beverage, should redirect to dashboard' do
     user = User.create!(
       email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
       password: 'password12345', document_number: CPF.generate
@@ -41,7 +39,7 @@ describe 'New Portion Page' do
     expect(current_path).to eq dashboard_path
   end
 
-  it 'if a dish or beverage pertence to other user restaurant, should redirect to dashboard' do
+  it 'if a beverage pertence to other user restaurant, should redirect to dashboard' do
     first_user = User.create!(
       email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
       password: 'password12345', document_number: CPF.generate
@@ -88,23 +86,23 @@ describe 'New Portion Page' do
       doc_number: CNPJ.generate, user: user
     )
 
-    dish = Dish.create!(
-      name: 'Prato Teste', description: 'Descricão do prato teste',
-      calories: 100, restaurant: restaurant
+    beverage = Beverage.create!(
+      name: 'Bebida Teste', description: 'Descricão da bebida teste',
+      alcoholic: true, restaurant: restaurant
     )
 
     login_as(user)
 
-    visit new_dish_portion_path(dish.id)
+    visit new_beverage_portion_path(beverage.id)
 
-    expect(current_path).to eq new_dish_portion_path(dish.id)
+    expect(current_path).to eq new_beverage_portion_path(beverage.id)
 
     expect(page).to have_field('Descrição')
     expect(page).to have_field('Preço')
     expect(page).to have_button('Cadastrar')
   end
 
-  it 'should create a new dish portion' do
+  it 'user see a phrase with the beverage name ' do
     user = User.create!(
       email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
       password: 'password12345', document_number: CPF.generate
@@ -116,23 +114,16 @@ describe 'New Portion Page' do
       doc_number: CNPJ.generate, user: user
     )
 
-    dish = Dish.create!(
-      name: 'Prato Teste', description: 'Descricão do prato teste',
-      calories: 100, restaurant: restaurant
+    beverage = Beverage.create!(
+      name: 'Bebida Teste', description: 'Descricão da bebida teste',
+      alcoholic: true, restaurant: restaurant
     )
 
     login_as(user)
 
-    visit new_dish_portion_path(dish.id)
+    visit new_beverage_portion_path(beverage.id)
 
-    fill_in 'Descrição', with: 'Porção Teste'
-    fill_in 'Preço', with: 10
-    click_on 'Cadastrar'
-
-    expect(current_path).to eq dish_path(dish.id)
-    expect(page).to have_content('Porção Teste')
-    expect(page).to have_content('R$ 10')
-    expect(page).to have_content('Porção cadastrada com sucesso')
+    expect(page).to have_content('Cadastro de porção para Bebida Teste')
   end
 
   it 'should create a new beverage portion' do

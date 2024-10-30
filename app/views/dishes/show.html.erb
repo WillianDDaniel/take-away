@@ -19,7 +19,7 @@
   <ul>
     <% @dish.portions.each do |portion| %>
       <li><%= portion.description %></li>
-      <li>R$ <%= portion.price %></li>
+      <li><%= number_to_currency(portion.price) %></li>
     <% end %>
   </ul>
 <% else %>

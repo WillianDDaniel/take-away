@@ -1,4 +1,7 @@
-<%= form_with(model: [@menu_item, @portion]) do |f|%>
+<h1>Cadastro de porção para <%= @menu_item.name %></h1>
+
+<%= form_with(model: [@menu_item, @portion]) do |f| %>
+
   <div>
     <%= f.label :description %>
     <%= f.text_field :description %>
@@ -12,4 +15,5 @@
   <div>
     <%= f.submit "Cadastrar" %>
   </div>
+
 <% end %>
