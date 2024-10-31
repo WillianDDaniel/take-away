@@ -20,6 +20,7 @@
     <% @dish.portions.each do |portion| %>
       <li><%= portion.description %></li>
       <li><%= number_to_currency(portion.price) %></li>
+      <li><%= link_to 'editar', edit_dish_portion_path(@dish, portion) %></li>
     <% end %>
   </ul>
 <% else %>
@@ -34,4 +35,36 @@
 %>
 
 <%= link_to "Adicionar porção", new_dish_portion_path(@dish) %>
+
+<h3>Histórico de Preços</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Porção</th>
+      <th>Preço anterior</th>
+      <th>Atualizado em</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @dish.portions.each do |portion| %>
+
+      <% portion.price_histories.each do |price_history| %>
+        <tr>
+          <td>
+            <%= portion.description %>
+          </td>
+          <td>
+            <%= number_to_currency(price_history.price) %>
+          </td>
+          <td>
+            <%= I18n.l(price_history.updated_at.to_date) %>
+          </td>
+        </tr>
+      <% end %>
+
+    <% end %>
+  </tbody>
+</table>
+
 
