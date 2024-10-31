@@ -236,7 +236,7 @@ describe 'Show Beverage Page' do
       alcoholic: true, restaurant: restaurant
     )
 
-    portion = Portion.create!(
+    Portion.create!(
       description: 'Porção teste',
       price: 10.0, portionable: beverage
     )
