@@ -2,22 +2,21 @@ require 'rails_helper'
 
 RSpec.describe Schedule, type: :model do
 
-  let(:restaurant) do
-    user = User.create!(
-      email: 'johndoe@example.com',
-      name: 'John',
-      last_name: 'Doe',
-      password: 'password12345',
-      document_number: CPF.generate
-    )
-
-    Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
-      email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
-    )
-  end
-
   describe '#valid?' do
     it 'is invalid without an open_time' do
+
+      user = User.create!(
+        email: 'johndoe@example.com',
+        name: 'John',
+        last_name: 'Doe',
+        password: 'password12345',
+        document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
       schedule = Schedule.new(close_time: '18:00', week_day: 1, restaurant: restaurant)
 
       expect(schedule.valid?).to be false
@@ -25,6 +24,19 @@ RSpec.describe Schedule, type: :model do
     end
 
     it 'is invalid without a close_time' do
+
+      user = User.create!(
+        email: 'johndoe@example.com',
+        name: 'John',
+        last_name: 'Doe',
+        password: 'password12345',
+        document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
       schedule = Schedule.new(open_time: '09:00', week_day: 1, restaurant: restaurant)
 
       expect(schedule.valid?).to be false
@@ -32,6 +44,18 @@ RSpec.describe Schedule, type: :model do
     end
 
     it 'is invalid without a week_day' do
+      user = User.create!(
+        email: 'johndoe@example.com',
+        name: 'John',
+        last_name: 'Doe',
+        password: 'password12345',
+        document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
       schedule = Schedule.new(open_time: '09:00', close_time: '18:00', restaurant: restaurant)
 
       expect(schedule.valid?).to be false
@@ -39,6 +63,18 @@ RSpec.describe Schedule, type: :model do
     end
 
     it 'is invalid if open_time is after or equal to close_time' do
+      user = User.create!(
+        email: 'johndoe@example.com',
+        name: 'John',
+        last_name: 'Doe',
+        password: 'password12345',
+        document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
       schedule = Schedule.new(open_time: '18:00', close_time: '09:00', week_day: 1, restaurant: restaurant)
 
       expect(schedule.valid?).to be false
@@ -47,6 +83,18 @@ RSpec.describe Schedule, type: :model do
     end
 
     it 'is valid with valid attributes' do
+      user = User.create!(
+        email: 'johndoe@example.com',
+        name: 'John',
+        last_name: 'Doe',
+        password: 'password12345',
+        document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
       schedule = Schedule.new(open_time: '09:00', close_time: '18:00', week_day: 1, restaurant: restaurant)
 
       expect(schedule.valid?).to be true

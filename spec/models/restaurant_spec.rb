@@ -2,19 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Restaurant, type: :model do
   describe 'valid?' do
-
-    let(:user) do
-      User.create!(
-        email: 'johndoe@example.com',
-        name: 'John',
-        last_name: 'Doe',
-        password: 'password12345',
-        document_number: CPF.generate
-      )
-    end
-
     context 'sucessfully' do
       it 'should be valid with all valid attributes' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
@@ -23,6 +20,14 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'should have a random code' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
@@ -33,6 +38,14 @@ RSpec.describe Restaurant, type: :model do
 
     context 'must be invalid without attributes' do
       it 'if brand_name is blank' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: '', corporate_name: 'Teste', doc_number: CNPJ.generate,
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
@@ -43,6 +56,14 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'if corporate_name is blank' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: 'Teste', corporate_name: '', doc_number: CNPJ.generate,
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
@@ -53,6 +74,14 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'if doc_number is blank' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: 'Teste', corporate_name: 'Teste', doc_number: '',
           email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
         )
@@ -63,6 +92,14 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'if email is blank' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
           email: '', phone: '11999999999', address: 'Rua Teste', user: user
         )
@@ -73,6 +110,14 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'if phone is blank' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
           email: 'johndoe@example.com', phone: '', address: 'Rua Teste', user: user
         )
@@ -83,6 +128,14 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'if address is blank' do
+        user = User.create!(
+          email: 'johndoe@example.com',
+          name: 'John',
+          last_name: 'Doe',
+          password: 'password12345',
+          document_number: CPF.generate
+        )
+
         restaurant = Restaurant.new(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
           email: 'johndoe@example.com', phone: '11999999999', address: '', user: user
         )
