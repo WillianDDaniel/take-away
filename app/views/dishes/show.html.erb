@@ -1,70 +1,99 @@
-<h1><%= @dish.name %></h1>
+<div class="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
 
-<% if @dish.description %>
-    <p><%= @dish.description %></p>
-<% end %>
+  <header class="bg-slate-100 rounded">
+    <div class="w-full flex items-center justify-between p-2 px-4">
+      <div class="flex items-center gap-5">
+        <h1 class="text-4xl font-bold text-zinc-800"><%= @dish.name %></h1>
 
-<p>
-  <strong>Imagem:</strong>
-  <% if @dish.image.attached? %>
-    <%= image_tag @dish.image %>
-  <% else %>
-    <p>Nenhuma imagem disponível.</p>
-  <% end %>
-</p>
+        <% if @dish.active? %>
+          <p class="text-green-600 font-semibold bg-green-100 px-3 py-1 rounded-full">Status: Ativo</p>
+        <% else %>
+          <p class="text-red-500 font-semibold bg-red-100 px-3 py-1 rounded-full">Status: Pausado</p>
+        <% end %>
+      </div>
 
-<%= @dish.calories %>
+      <%= button_to "#{ @dish.active? ? 'Pausar' : 'Ativar' } vendas", toggle_status_dish_path(@dish), method: :patch,
+          class: 'bg-blue-500 hover:bg-blue-600 text-white font-semibold py-0.5 px-1.5 rounded'
+      %>
+    </div>
 
-<% if @dish.portions.any? %>
-  <ul>
-    <% @dish.portions.each do |portion| %>
-      <li><%= portion.description %></li>
-      <li><%= number_to_currency(portion.price) %></li>
-      <li><%= link_to 'Editar porção', edit_dish_portion_path(@dish, portion) %></li>
+    <div class="flex flex-col items-start mt-2 p-4 relative">
+      <div class="w-full flex items-center gap-2">
+        <p class="text-sm font-medium text-zinc-900 bg-slate-200 px-3 py-1 rounded">
+          Calorias: <%= @dish.calories %>
+        </p>
+      </div>
+
+      <div class="w-full flex gap-4 mt-4">
+        <% if @dish.image.attached? %>
+          <%= image_tag @dish.image, class: "w-36 h-36 object-cover rounded-lg shadow-lg bg-white" %>
+        <% else %>
+          <%= image_tag 'no-image.png', class: "w-36 h-36 rounded-lg shadow-lg bg-white p-2 py-5" %>
+        <% end %>
+
+        <p class="text-zinc-900 text-sm p-2"><%= @dish.description %></p>
+      </div>
+
+      <div class="flex gap-2 absolute bottom-4 right-4">
+        <%= link_to 'Editar Prato', edit_dish_path(@dish), class: 'bg-amber-500 hover:bg-amber-600 text-white font-semibold py-0.5 px-1.5 rounded' %>
+        <%= button_to 'Excluir Prato', @dish, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'bg-rose-500 hover:bg-rose-600 text-white font-semibold py-0.5 px-1.5 rounded' %>
+      </div>
+    </div>
+  </header>
+
+  <div>
+    <div class="flex items-center justify-between mt-5 px-3 py-2 bg-gray-200 rounded">
+      <h3 class="text-xl font-semibold text-zinc-800 mb-2">Porções</h3>
+      <%= link_to 'Adicionar porção', new_dish_portion_path(@dish), class: 'bg-green-500 hover:bg-green-600 text-white font-semibold py-0.5 px-1.5 rounded' %>
+    </div>
+
+    <% if @dish.portions.any? %>
+      <ul class="space-y-4">
+        <% @dish.portions.each do |portion| %>
+          <li class="flex items-center justify-between border-b py-2">
+            <div>
+              <p class="text-lg font-medium text-secondary"><%= portion.description %></p>
+              <p class="text-gray-600"><%= number_to_currency(portion.price) %></p>
+            </div>
+            <div class="flex items-center">
+              <%= link_to 'Editar porção', edit_dish_portion_path(@dish, portion),
+                class: "text-blue-500 hover:underline bg-blue-100 rounded-lg px-2 py-1"
+              %>
+              <%= button_to 'Excluir porção', dish_portion_path(@dish, portion),
+                method: :delete, data: { confirm: 'Tem certeza?' },
+                class: "text-red-500 hover:underline ml-4 bg-red-100 rounded-lg px-2 py-1"
+              %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="flex flex-col items-center justify-center mt-3 py-3">
+        <p class="text-gray-600 italic">Nenhuma porção disponível.</p>
+      </div>
     <% end %>
-  </ul>
-<% else %>
-  <p>Nenhuma porção disponível.</p>
-<% end %>
+  </div>
 
-<%= link_to "Editar Prato", edit_dish_path(@dish) %>
-<%= button_to "Excluir Prato", @dish, method: :delete, data: { confirm: "Tem certeza?" } %>
+  <h3 class="text-2xl font-semibold mt-10 mb-4">Histórico de Preços</h3>
 
-<%= button_to "#{@dish.active? ? 'Pausar' : 'Ativar'} vendas",
-  toggle_status_dish_path(@dish), method: :patch
-%>
-
-<%= link_to "Adicionar porção", new_dish_portion_path(@dish) %>
-
-<h3>Histórico de Preços</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Porção</th>
-      <th>Preço anterior</th>
-      <th>Atualizado em</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @dish.portions.each do |portion| %>
-
-      <% portion.price_histories.each do |price_history| %>
-        <tr>
-          <td>
-            <%= portion.description %>
-          </td>
-          <td>
-            <%= number_to_currency(price_history.price) %>
-          </td>
-          <td>
-            <%= I18n.l(price_history.updated_at.to_date) %>
-          </td>
-        </tr>
+  <table class="w-full text-left border border-gray-300 rounded-lg overflow-hidden">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="p-3">Porção</th>
+        <th class="p-3">Preço anterior</th>
+        <th class="p-3">Atualizado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @dish.portions.each do |portion| %>
+        <% portion.price_histories.each do |price_history| %>
+          <tr class="border-t border-gray-200">
+            <td class="p-3 text-gray-800"><%= portion.description %></td>
+            <td class="p-3 text-gray-800"><%= number_to_currency(price_history.price) %></td>
+            <td class="p-3 text-gray-500"><%= I18n.l(price_history.updated_at.to_date) %></td>
+          </tr>
+        <% end %>
       <% end %>
-
-    <% end %>
-  </tbody>
-</table>
-
-
+    </tbody>
+  </table>
+</div>

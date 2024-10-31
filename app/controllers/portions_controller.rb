@@ -68,6 +68,19 @@ class PortionsController < ApplicationController
     end
   end
 
+  def destroy
+    @portion = Portion.find_by(id: params[:id])
+    @portionable = @portion.portionable if @portion
+
+    if @portion.nil? || @portion.portionable.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
+
+    flash[:notice] = 'Porção excluída com sucesso.'
+    @portion.destroy
+    redirect_to @portionable
+  end
+
   private
 
   def portion_params

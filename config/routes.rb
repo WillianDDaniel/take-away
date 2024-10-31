@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     member do
       patch :toggle_status
     end
-    resources :portions, only: [:new, :create, :index, :edit, :update]
+    resources :portions, only: [:new, :create, :index, :edit, :update, :destroy]
   end
 
 end

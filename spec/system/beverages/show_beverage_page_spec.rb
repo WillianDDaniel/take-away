@@ -218,4 +218,38 @@ describe 'Show Beverage Page' do
 
     expect(current_path).to eq edit_beverage_portion_path(beverage.id, portion.id)
   end
+
+  it 'user see a button to delete a portion' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    restaurant = Restaurant.create!(
+      brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+      phone: '51993831972', address: 'Rua Teste',
+      doc_number: CNPJ.generate, user: user
+    )
+
+    beverage = Beverage.create!(
+      name: 'Bebida Teste', description: 'Descricão da bebida teste',
+      alcoholic: true, restaurant: restaurant
+    )
+
+    portion = Portion.create!(
+      description: 'Porção teste',
+      price: 10.0, portionable: beverage
+    )
+
+    login_as(user)
+
+    visit beverage_path(beverage.id)
+
+    expect(page).to have_button 'Excluir porção'
+
+    click_on 'Excluir porção'
+
+    expect(current_path).to eq beverage_path(beverage.id)
+    expect(page).to have_content('Porção excluída com sucesso')
+  end
 end
