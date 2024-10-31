@@ -20,7 +20,7 @@
     <% @dish.portions.each do |portion| %>
       <li><%= portion.description %></li>
       <li><%= number_to_currency(portion.price) %></li>
-      <li><%= link_to 'editar', edit_dish_portion_path(@dish, portion) %></li>
+      <li><%= link_to 'Editar porção', edit_dish_portion_path(@dish, portion) %></li>
     <% end %>
   </ul>
 <% else %>
