@@ -100,7 +100,7 @@ describe 'Show Beverage Page' do
     expect(page).to have_content('Cerveja')
     expect(page).to have_content('Cerveja lata')
     expect(page).to have_content('200')
-    expect(page).to have_content('Alcólica')
+    expect(page).to have_content('Alcoólica')
   end
 
   it 'should have a button to pause the beverage' do
