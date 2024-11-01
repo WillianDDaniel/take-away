@@ -3,8 +3,13 @@ require 'rails_helper'
 describe 'Signin Page' do
   context 'when visiting the signin page' do
     it 'should have a signin form' do
-      visit new_user_session_path
+      visit root_path
 
+      within('nav') do
+        click_on 'Entrar'
+      end
+
+      expect(current_path).to eq new_user_session_path
       expect(page).to have_selector('form')
 
       expect(page).to have_field('E-mail')

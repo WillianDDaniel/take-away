@@ -3,7 +3,13 @@ require 'rails_helper'
 describe 'Signup Page' do
   context 'when visiting the signup page' do
     it 'should have a signup form' do
-      visit new_user_registration_path
+      visit root_path
+
+      within('nav') do
+        click_on 'Criar conta'
+      end
+
+      expect(current_path).to eq new_user_registration_path
 
       expect(page).to have_selector('form')
 
