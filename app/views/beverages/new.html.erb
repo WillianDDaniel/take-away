@@ -10,6 +10,7 @@
           <li><%= msg %></li>
       <% end %>
     </ul>
+
   <% end %>
 
   <%= form_with(model: @beverage, class: "flex flex-wrap") do |f| %>
@@ -35,8 +36,8 @@
         <%= f.file_field :image, data: { action: "image-preview#previewImage", image_preview_target: "input" }, class: "hidden", id: "file-upload" %>
 
         <label for="file-upload"
-          class="cursor-pointer bg-amber-200 text-slate-700 font-semibold py-2 px-4
-            rounded-lg shadow-lg hover:bg-amber-300
+          class="cursor-pointer bg-amber-300 text-slate-700 font-semibold py-2 px-4
+            rounded-lg shadow-lg hover:bg-amber-400
           "
         >
           Selecione a Imagem
