@@ -1,0 +1,83 @@
+<%= form_with model: @dish, class: "flex flex-wrap" do |f| %>
+  <div data-controller="image-preview"
+    class="flex flex-col justify-center items-center gap-4 w-2/6 bg-gray-100 p-4 rounded-lg"
+  >
+
+    <div class="w-full flex justify-center mt-4">
+      <% if @dish.image.attached? %>
+
+        <%= image_tag @dish.image,
+          class: "w-40 h-40 rounded-lg shadow-lg object-cover",
+          alt: @dish.name,
+          data: { image_preview_target: "fallback" }
+        %>
+
+      <% else %>
+
+        <%= image_tag 'no-image.png',
+          class: "w-40 h-40 rounded-lg shadow-lg",
+          alt: "Sem Imagem",
+          data: { image_preview_target: "fallback" }
+        %>
+
+      <% end %>
+
+      <%= image_tag "",
+        data: { image_preview_target: "preview" },
+        alt: "Pré-visualização",
+        class: "w-36 h-36 object-cover rounded-lg shadow-lg hidden"
+      %>
+
+    </div>
+
+    <%= f.file_field :image, data: { action: "image-preview#previewImage", image_preview_target: "input" },
+      class: "hidden", id: "file-upload"
+    %>
+
+    <%= f.label "#{@dish.image.attached? ? "Alterar Imagem" : "Selecione a Imagem"}",
+      for:"file-upload",
+      class: "cursor-pointer bg-amber-300 text-white font-semibold
+        py-2 px-4 rounded-lg shadow-lg hover:bg-amber-400
+      "
+    %>
+
+  </div>
+
+  <div class="flex-1 flex flex-col gap-4 items-center mt-4">
+
+    <div class="flex gap-4 w-10/12">
+
+      <div class="flex flex-col flex-1">
+        <%= f.label :name, class: "font-semibold text-gray-700" %>
+        <%= f.text_field :name, class: "border-gray-300 rounded-md shadow-sm w-full" %>
+      </div>
+
+      <div class="flex flex-col w-3/12">
+        <%= f.label :calories, class: "font-semibold text-gray-700" %>
+        <%= f.number_field :calories, class: "border-gray-300 rounded-md shadow-sm w-full" %>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col w-10/12">
+      <%= f.label :description, class: "font-semibold text-gray-700" %>
+      <%= f.text_area :description, rows: 5, class: "border-gray-300 rounded-md shadow-sm w-full" %>
+    </div>
+
+  </div>
+
+  <%= render 'tag_selection', form: f %>
+
+  <div class="w-full flex justify-center mt-6 gap-4">
+
+    <%= f.submit "#{@dish.persisted? ? 'Atualizar' : 'Cadastrar'}",
+      class: "bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+    %>
+
+    <%= link_to "Cancelar", dishes_path(@dish),
+      class: "bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+    %>
+
+  </div>
+
+<% end %>

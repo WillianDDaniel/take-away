@@ -1,35 +1,13 @@
-<h1>Editar Prato</h1>
+<section class="p-6 w-11/12 mx-auto bg-white shadow-md rounded-lg">
+  <h1 class="text-2xl text-center mb-4">Editar Prato</h1>
 
-<% if @dish.errors.any? %>
-    <ul>
-        <% @dish.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
+  <% if @dish.errors.any? %>
+    <ul class="mb-4 text-red-500">
+      <% @dish.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
     </ul>
-<% end %>
+  <% end %>
 
-<%= form_with model: @dish do |f| %>
-
-<div>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %><br />
-</div>
-
-<div>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %><br />
-</div>
-
-<div>
-    <%= f.label :calories %><br />
-    <%= f.number_field :calories %>
-</div>
-
-<div>
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-</div>
-
-<%= f.submit "Atualizar" %>
-
-<% end %>
+  <%= render 'form' %>
+</section>

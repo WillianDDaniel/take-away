@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:new, :create]
   resources :schedules, only: [:new, :create, :index, :edit, :update, :destroy]
+  resources :tags, only: [:new, :create, :index, :edit, :update, :destroy]
 
   resources :dishes do
     member do

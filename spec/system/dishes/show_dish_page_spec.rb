@@ -158,7 +158,7 @@ describe 'Show Dish Page' do
 
       click_on 'Excluir Prato'
 
-      expect(current_path).to eq dashboard_path
+      expect(current_path).to eq dishes_path
       expect(page).to have_content 'Prato excluído com sucesso'
 
       expect(Dish.count).to eq 0

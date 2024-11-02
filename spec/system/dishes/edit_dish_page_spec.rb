@@ -134,5 +134,35 @@ describe 'Edit Dish Page' do
 
       expect(page).to have_content('Nome do Prato não pode ficar em branco')
     end
+
+    it 'user can create a tag inside the form' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      login_as(user)
+
+      Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      Dish.create!(
+        name: 'Prato Teste', description: 'Teste', calories: 100,
+        restaurant: Restaurant.last
+      )
+
+      visit edit_dish_path(Dish.last.id)
+
+      fill_in 'dish_tags_attributes_0_name', with: 'Sem Gluten'
+
+      click_button 'Atualizar'
+
+      visit tags_path
+
+      expect(page).to have_content('Sem Gluten')
+    end
   end
 end

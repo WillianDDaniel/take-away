@@ -94,5 +94,31 @@ describe 'New Dish Page' do
 
       expect(page).to have_content('Nome do Prato não pode ficar em branco')
     end
+
+    it 'user can create a tag inside the form' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      login_as(user)
+
+      Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      visit new_dish_path
+
+      fill_in 'Nome do Prato', with: 'Prato Teste'
+      fill_in 'dish_tags_attributes_0_name', with: 'Sem Gluten'
+
+      click_button 'Cadastrar'
+
+      visit tags_path
+
+      expect(page).to have_content('Sem Gluten')
+    end
   end
 end

@@ -1,0 +1,16 @@
+<h1>Novo Marcador</h1>
+
+<%= form_with(model: @tag, class: "flex flex-wrap") do |f| %>
+    <div class="flex flex-col w-10/12">
+        <%= f.label :name, class: "font-semibold text-gray-700" %>
+        <%= f.text_field :name, class: "border-gray-300 rounded-md shadow-sm w-full" %>
+    </div>
+
+    <div class="w-full flex justify-center mt-6 gap-4">
+        <%= f.submit "Cadastrar",
+            class: "bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md" %>
+
+        <%= link_to "Cancelar", tags_path,
+            class: "bg-gray-500 hover:bg-gray-400 text-white font-semibold py-2 px-6 rounded-lg shadow-md" %>
+    </div>
+<% end %>

@@ -9,6 +9,8 @@ class DishesController < ApplicationController
 
   def new
     @dish = Dish.new
+    @dish.tags.build
+    @tags = Tag.where(restaurant: current_user.restaurant)
   end
 
   def create
@@ -16,10 +18,10 @@ class DishesController < ApplicationController
     @dish.restaurant = current_user.restaurant
     if @dish.save
       flash[:notice] = 'Prato cadastrado com sucesso'
-      redirect_to dashboard_path
+      redirect_to dishes_path
     else
       @dish.valid?
-
+      @tags = Tag.where(restaurant: current_user.restaurant)
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,6 +36,7 @@ class DishesController < ApplicationController
 
   def edit
     @dish = Dish.find_by(id: params[:id])
+    @tags = Tag.where(restaurant: current_user.restaurant)
 
     if @dish.nil? || @dish.restaurant != current_user.restaurant
       redirect_to dashboard_path
@@ -62,7 +65,7 @@ class DishesController < ApplicationController
       flash[:alert] = 'Erro ao excluir prato'
     end
 
-    redirect_to dashboard_path
+    redirect_to dishes_path
   end
 
   def toggle_status
@@ -80,7 +83,10 @@ class DishesController < ApplicationController
   private
 
   def dish_params
-    params.require(:dish).permit(:name, :description, :calories, :image)
+    params.require(:dish).permit(:name, :description, :calories,
+      :image, tags_attributes: [:id, :name, :_destroy],
+      tag_ids: []
+    )
   end
 
   def user_have_restaurant?

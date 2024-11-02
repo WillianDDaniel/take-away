@@ -1,0 +1,9 @@
+<h1>Marcadores</h1>
+
+<%= link_to 'Novo Marcador', new_tag_path %>
+
+<% @tags.each do |tag| %>
+    <li>
+        <%= link_to tag.name, tag_path(tag) %>
+    </li>
+<% end %>
