@@ -78,8 +78,15 @@
 
 			<div class='flex-1'>
 
-				<%= flash[:notice] %>
-      	<%= flash[:alert] %>
+        <div class="w-full">
+          <div class="flex justify-center text-green-900 font-semibold">
+            <%= flash[:notice] %>
+          </div>
+
+          <div class="flex justify-center text-red-900 font-semibold">
+            <%= flash[:alert] %>
+          </div>
+        </div>
 
 				<%= yield %>
 			</div>

@@ -39,7 +39,7 @@ class DishesController < ApplicationController
     @tags = Tag.where(restaurant: current_user.restaurant)
 
     if @dish.nil? || @dish.restaurant != current_user.restaurant
-      redirect_to dashboard_path
+      redirect_to dishes_path
     end
   end
 
@@ -48,7 +48,7 @@ class DishesController < ApplicationController
 
     if @dish.update(dish_params)
       flash[:notice] = 'Prato atualizado com sucesso'
-      redirect_to dashboard_path
+      redirect_to dishes_path
     else
       @dish.valid?
       render :edit, status: :unprocessable_entity

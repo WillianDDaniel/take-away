@@ -2,8 +2,18 @@ Arrumar as mensagems de erro das paginas internas e externas do site.
 
 Dar estilo as paginas de horarios e resultados de bucas
 
-Dar estilo as paginas de edição de bebidas e pratos
+Corrigir o enum
 
-Dar estilo as paginas de cadastro de bebidas e pratos
+testar a imagem
 
-Dar estilo as paginas de cadastro de restaurante
+estilizar as paginas de nova porção e de editar porção
+
+estilizar as paginas de marcadores adicionar, editar e index
+
+estilizar as paginas index de bebidas e pratos
+
+testar links do dashboard
+
+criar testes de request
+
+criar testes unitarios para os novos models
