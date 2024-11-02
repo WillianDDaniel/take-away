@@ -39,7 +39,7 @@ class DishesController < ApplicationController
     @tags = Tag.where(restaurant: current_user.restaurant)
 
     if @dish.nil? || @dish.restaurant != current_user.restaurant
-      redirect_to dishes_path
+      redirect_to dashboard_path
     end
   end
 

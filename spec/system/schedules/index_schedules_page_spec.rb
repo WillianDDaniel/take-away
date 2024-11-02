@@ -68,11 +68,11 @@ describe 'Index Schedules Page' do
 
       visit schedules_path
 
-      expect(page).to have_content('domingo')
+      expect(page).to have_content('Domingo')
       expect(page).to have_content('08:00')
       expect(page).to have_content('10:00')
 
-      expect(page).to have_content('segunda-feira')
+      expect(page).to have_content('Segunda-feira')
       expect(page).to have_content('09:00')
       expect(page).to have_content('11:00')
 

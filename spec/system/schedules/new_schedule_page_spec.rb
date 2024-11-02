@@ -72,7 +72,7 @@ describe 'New Schedule Page' do
       expect(current_path).to eq schedules_path
       expect(page).not_to have_content('Nenhum horário cadastrado')
 
-      expect(page).to have_content('segunda-feira')
+      expect(page).to have_content('Segunda-feira')
       expect(page).to have_content('08:00')
       expect(page).to have_content('22:00')
     end

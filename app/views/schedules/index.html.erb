@@ -1,38 +1,64 @@
-<section class="flex flex-col w-full">
-  <h1 class="w-full text-center">Horários de Funcionamento</h1>
+<section class="flex flex-col w-full items-center">
 
-  <%= link_to 'Novo horário', new_schedule_path %>
+  <div class="flex justify-between w-11/12 mt-3 bg-gray-300 py-3 px-3 rounded items-center">
+    <h1 class="w-full font-semibold">Horários de Funcionamento</h1>
+
+    <%= link_to 'Novo horário', new_schedule_path,
+      class: 'whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md'
+    %>
+  </div>
+
+  <p class="w-11/12 text-center p-3 bg-slate-100 italic">
+    Aqui você pode cadastrar, editar e/ou remover os horários de funcionamento do seu restaurante.
+  </p>
 
   <% if @schedules.empty? %>
-    <p class="w-full text-center">Nenhum horário cadastrado</p>
+  <div class="flex flex-col items-center gap-5">
+    <p class="w-full text-center p-5">
+      <strong>Nenhum horário cadastrado!</strong>
+      <br>
+      Cadastre novos horários clicando no botão abaixo.
+    </p>
 
-    <%= link_to "Cadastrar novo horário", new_schedule_path %>
+    <%= link_to "Cadastrar novo horário", new_schedule_path,
+      class: 'whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md'
+    %>
   <% end %>
+
+  <br>
 
   <% @schedules.sort_by(&:week_day).each do |schedule| %>
 
-  <div class="flex flex-col w-full items-center gap-5">
+    <div class="flex flex-col w-full items-center gap-5 py-1">
 
-    <div class="flex items-center gap-2">
-      <%= I18n.t("date.day_names")[schedule.week_day] %>
+      <div class="flex items-center gap-2 bg-gray-200 py-2 px-4 rounded">
 
-      <div>
-        Abertura
-        <%= schedule.open_time %>
+        <p class="font-semibold">
+          <%= I18n.t("date.day_names")[schedule.week_day].capitalize %>:
+        </p>
+
+        <div>
+          <span class="italic">Abertura</span> =>
+          <%= schedule.open_time.to_time.strftime("%I:%M %p") %>
+        </div>
+
+        <div>
+          <span class="italic">Fechamento</span> =>
+          <%= schedule.close_time.to_time.strftime("%I:%M %p") %>
+        </div>
+
+        <div class="flex gap-5 ml-5">
+          <%= link_to 'Editar', edit_schedule_path(schedule),
+            class: 'bg-amber-600 hover:bg-amber-700 text-white px-1.5 rounded-md'
+          %>
+
+          <%= button_to 'Excluir', schedule, method: :delete, data: { confirm: 'Tem certeza?' },
+            class: 'bg-rose-600 hover:bg-rose-700 text-white px-1.5 rounded-md'
+          %>
+        </div>
+
       </div>
-
-      <div>
-        Fechamento
-        <%= schedule.close_time %>
-      </div>
-
-      <div class="flex gap-5">
-        <%= link_to 'Editar', edit_schedule_path(schedule) %>
-        <%= button_to 'Excluir', schedule, method: :delete, data: { confirm: 'Tem certeza?' } %>
-      </div>
-
     </div>
-  </div>
 
   <% end %>
 

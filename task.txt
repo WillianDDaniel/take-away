@@ -17,3 +17,5 @@ testar links do dashboard
 criar testes de request
 
 criar testes unitarios para os novos models
+
+corrigir os confims dos formularios para exibir um alerta ao usuario
