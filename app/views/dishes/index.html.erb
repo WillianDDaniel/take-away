@@ -1,33 +1,68 @@
 <section class="flex flex-col items-center">
 
-  <div class="flex justify-between w-5/6 p-4 bg-gray-300 rounded mt-2">
-    <h1 class="text-2xl">Lista de Pratos</h1>
+  <div class="flex justify-between w-11/12 mt-3 bg-gray-300 py-3 px-3 rounded items-center">
+    <h1 class="w-full font-semibold">Lista de Pratos</h1>
 
     <%= link_to 'Cadastrar Prato', new_dish_path,
-      class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+      class: 'whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md'
     %>
   </div>
 
+  <p class="w-11/12 text-center p-3 bg-slate-100 italic">
+    Aqui você pode cadastrar, editar e/ou remover os pratos do seu restaurante.
+  </p>
 
-  <% @dishes.each do |dish| %>
-    <div class="w-5/6 p-4 bg-gray-400 rounded mt-2 flex gap-2 justify-between">
-      <div>
-        <%= "Ativo" if dish.active? %>
-        <%= "Pausado" if dish.paused? %>
-      </div>
-      <div>
-        <%= link_to dish.name, dish %>
-        <%= truncate dish.description, length: 25 %>
-      </div>
+  <% if @dishes.empty? %>
+    <div class="flex flex-col items-center gap-5">
+      <p class="w-full text-center p-5">
+        <strong>Nenhum prato cadastrado!</strong>
+        <br>
+        Cadastre novos pratos clicando no botão abaixo.
+      </p>
 
-      <div class="flex gap-4">
-        <%= link_to "Editar", edit_dish_path(dish), class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-1 px-6 rounded-lg shadow-md" %>
-        <%= button_to "Excluir", dish, method: :delete, data: { confirm: "Tem certeza?" },
-          class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
-        %>
-      </div>
+      <%= link_to "Cadastrar novo prato", new_dish_path,
+        class: 'whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md'
+      %>
+
     </div>
   <% end %>
 
-  <%= "Nenhum prato encontrado." unless @dishes.any? %>
+
+  <% @dishes.each do |dish| %>
+    <div class="w-11/12 p-2 px-4 bg-gray-200 rounded mt-2 flex gap-2 justify-between">
+
+      <div class="flex flex-1 justify-between">
+        <div class="flex items-center gap-5">
+          <strong><%= link_to dish.name, dish %></strong>
+          <i><%= truncate dish.description, length: 30 %></i>
+        </div>
+
+        <div
+          class="flex items-center text-sm mr-5 px-3 py-1 rounded-full font-medium
+            <%= dish.active? ? 'text-green-900 bg-green-200' : 'text-red-900 bg-red-100' %>
+          "
+        >
+          <%= "Status: Ativo" if dish.active? %>
+          <%= "Status: Pausado" if dish.paused? %>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+
+        <%= link_to "Detalhes", dish,
+          class: "bg-blue-700 hover:bg-blue-800 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+        %>
+
+        <%= link_to "Editar", edit_dish_path(dish),
+          class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+        %>
+
+        <%= button_to "Excluir", dish, method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir esse prato?' },
+          class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+        %>
+
+      </div>
+
+    </div>
+  <% end %>
 </section>

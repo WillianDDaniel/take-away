@@ -34,7 +34,7 @@ describe 'Dishes Index Page' do
       login_as(user)
       visit dishes_path
 
-      expect(page).to have_content('Nenhum prato encontrado.')
+      expect(page).to have_content('Nenhum prato cadastrado!')
     end
 
     it 'should see a button to register a new dish' do
