@@ -63,7 +63,7 @@ describe 'New Schedule Page' do
 
       select 'segunda-feira', from: 'Dia da semana'
       fill_in 'Abertura', with: '08:00'
-      fill_in 'Fechamento', with: '22:00'
+      fill_in 'Fechamento', with: '11:00'
 
       click_button 'Salvar'
 
@@ -74,7 +74,7 @@ describe 'New Schedule Page' do
 
       expect(page).to have_content('Segunda-feira')
       expect(page).to have_content('08:00')
-      expect(page).to have_content('22:00')
+      expect(page).to have_content('11:00')
     end
 
     it 'should show an error message with blank fields' do

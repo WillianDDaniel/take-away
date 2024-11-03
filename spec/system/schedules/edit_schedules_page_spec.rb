@@ -84,7 +84,7 @@ describe 'Edit Schedule Page' do
 
       Schedule.create!(
         week_day: 0,
-        open_time: '08:00', close_time: '22:00',
+        open_time: '08:00', close_time: '09:00',
         restaurant: Restaurant.first
       )
 
@@ -92,7 +92,7 @@ describe 'Edit Schedule Page' do
 
       select 'segunda-feira', from: 'Dia da semana'
       fill_in 'Abertura', with: '08:00'
-      fill_in 'Fechamento', with: '22:00'
+      fill_in 'Fechamento', with: '11:00'
 
       click_button 'Salvar'
 
@@ -102,7 +102,7 @@ describe 'Edit Schedule Page' do
 
       expect(page).to have_content('Segunda-feira')
       expect(page).to have_content('08:00')
-      expect(page).to have_content('22:00')
+      expect(page).to have_content('11:00')
     end
 
     it 'should show an error message with invalid opening time' do
