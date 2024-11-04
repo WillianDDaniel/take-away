@@ -21,7 +21,7 @@
 
       <div class="flex gap-4">
         <%= link_to "Editar", edit_beverage_path(beverage), class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-1 px-6 rounded-lg shadow-md" %>
-        <%= button_to "Excluir", beverage_path(beverage), method: :delete, data: { confirm: "Tem certeza?" },
+        <%= button_to "Excluir", beverage_path(beverage), method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir essa bebida?' },
           class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
         %>
       </div>

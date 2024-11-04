@@ -70,7 +70,7 @@
                 class: "text-blue-500 hover:underline bg-blue-100 rounded-lg px-2 py-1"
               %>
               <%= button_to 'Excluir porção', dish_portion_path(@dish, portion),
-                method: :delete, data: { confirm: 'Tem certeza?' },
+                method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir essa porção?' },
                 class: "text-red-500 hover:underline ml-4 bg-red-100 rounded-lg px-2 py-1"
               %>
             </div>

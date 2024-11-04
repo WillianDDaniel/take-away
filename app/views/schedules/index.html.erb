@@ -54,7 +54,8 @@
             class: 'bg-amber-600 hover:bg-amber-700 text-white px-1.5 rounded-md'
           %>
 
-          <%= button_to 'Excluir', schedule, method: :delete, data: { confirm: 'Tem certeza?' },
+          <%= button_to 'Excluir', schedule, method: :delete,
+            data: { turbo_confirm: 'Tem certeza que deseja excluir esse horário?' },
             class: 'bg-rose-600 hover:bg-rose-700 text-white px-1.5 rounded-md'
           %>
         </div>
