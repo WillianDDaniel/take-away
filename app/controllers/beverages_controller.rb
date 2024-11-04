@@ -22,6 +22,7 @@ class BeveragesController < ApplicationController
   def create
     @beverage = Beverage.new(beverage_params)
     @beverage.restaurant = current_user.restaurant
+
     if @beverage.save
       flash[:notice] = 'Bebida cadastrada com sucesso'
       redirect_to beverages_path

@@ -1,6 +1,4 @@
-Arrumar as mensagems de erro das paginas internas e externas do site.
-
-Dar estilo as paginas de horarios e resultados de bucas
+Dar estilo as paginas de resultados de bucas
 
 Corrigir o enum
 
@@ -10,7 +8,7 @@ estilizar as paginas de nova porção e de editar porção
 
 estilizar as paginas de marcadores adicionar, editar e index
 
-estilizar as paginas index de bebidas e pratos
+estilizar as paginas index de bebidas
 
 testar links do dashboard
 
@@ -19,3 +17,7 @@ criar testes de request
 criar testes unitarios para os novos models
 
 corrigir os confims dos formularios para exibir um alerta ao usuario
+
+colocar um readme na tela de screenshots
+
+driagrama banco de dados
