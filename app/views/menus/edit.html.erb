@@ -1,0 +1,12 @@
+<h1>Editar Cardápio</h1>
+
+<%= form_with(model: @menu) do |f| %>
+  <div class="w-full">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="w-full">
+    <%= f.submit "Atualizar Cardápio" %>
+  </div>
+<% end %>

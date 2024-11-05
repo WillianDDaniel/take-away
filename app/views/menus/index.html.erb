@@ -3,5 +3,9 @@
 <%= link_to 'Novo Cardápio', new_menu_path %>
 
 <% @menus.each do |menu| %>
+<div>
   <%= link_to menu.name, menu_path(menu) %>
+  <%= link_to 'Editar', edit_menu_path(menu) %>
+  <%= link_to 'Excluir', menu_path(menu), method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir este cardápio?' } %>
+</div>
 <% end %>

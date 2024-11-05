@@ -26,6 +26,28 @@ class MenusController < ApplicationController
     end
   end
 
+  def edit
+    @menu = Menu.find_by(id: params[:id])
+
+    if @menu.nil? || @menu.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
+  end
+
+  def update
+    @menu = Menu.find_by(id: params[:id])
+    return unless @menu.restaurant == current_user.restaurant
+
+    if @menu.update(menu_params)
+      flash[:notice] = 'Cardápio atualizado com sucesso'
+      redirect_to menus_path
+    else
+      @menu.valid?
+      flash[:alert] = 'Erro ao atualizar cardápio'
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def menu_params
