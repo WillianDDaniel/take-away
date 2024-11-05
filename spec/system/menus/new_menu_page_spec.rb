@@ -1,64 +1,111 @@
 require 'rails_helper'
 
 describe 'Menus' do
-  context 'when visiting the menus page' do
-    it 'if user is not logged in, should redirect to the signin page' do
-      visit new_menu_path
 
-      expect(current_path).to eq new_user_session_path
-    end
+  it 'if user is not logged in, should redirect to the signin page' do
+    visit new_menu_path
 
-    it 'if user not have a restaurant, should redirect to the new restaurant page' do
-      user = User.create!(
-        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
-        password: 'password12345', document_number: CPF.generate
-      )
-      login_as(user)
+    expect(current_path).to eq new_user_session_path
+  end
 
-      visit new_menu_path
+  it 'if user not have a restaurant, should redirect to the new restaurant page' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+    login_as(user)
 
-      expect(current_path).to eq new_restaurant_path
-    end
+    visit new_menu_path
 
-    it 'if user have a restaurant, must can reach the new menu page' do
-      user = User.create!(
-        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
-        password: 'password12345', document_number: CPF.generate
-      )
+    expect(current_path).to eq new_restaurant_path
+  end
 
-      Restaurant.create!(
-        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
-        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
-      )
+  it 'if user have a restaurant, must can reach the new menu page' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
 
-      login_as(user)
+    Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
 
-      visit new_menu_path
+    login_as(user)
 
-      expect(current_path).to eq new_menu_path
-      expect(page).to have_content('Novo Cardápio')
-    end
+    visit new_menu_path
 
-    it 'user can create a new menu' do
-      user = User.create!(
-        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
-        password: 'password12345', document_number: CPF.generate
-      )
+    expect(current_path).to eq new_menu_path
+    expect(page).to have_content('Novo Cardápio')
+  end
 
-      Restaurant.create!(
-        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
-        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
-      )
+  it 'user can create a new menu' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
 
-      login_as(user)
+    Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
 
-      visit new_menu_path
+    login_as(user)
 
-      fill_in 'Nome do Cardápio', with: 'Teste'
-      click_on 'Cadastrar Cardápio'
+    visit new_menu_path
 
-      expect(current_path).to eq menus_path
-      expect(page).to have_link('Teste')
-    end
+    fill_in 'Nome do Cardápio', with: 'Teste'
+    click_on 'Cadastrar Cardápio'
+
+    expect(current_path).to eq menus_path
+    expect(page).to have_link('Teste')
+  end
+
+  it 'user can not create a new menu without name' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+
+    login_as(user)
+
+    visit new_menu_path
+
+    fill_in 'Nome do Cardápio', with: ''
+    click_on 'Cadastrar Cardápio'
+
+    expect(page).to have_content('Erro ao cadastrar cardápio')
+    expect(page).to have_content('Nome do Cardápio não pode ficar em branco')
+  end
+
+  it 'user cannot create menus with the same name' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+
+    Menu.create!(
+      name: 'Teste', restaurant: Restaurant.first
+    )
+
+    login_as(user)
+
+    visit new_menu_path
+
+    fill_in 'Nome do Cardápio', with: 'Teste'
+    click_on 'Cadastrar Cardápio'
+
+    expect(page).to have_content('Erro ao cadastrar cardápio')
+    expect(page).to have_content('Já existe um menu com esse nome neste restaurante.')
   end
 end

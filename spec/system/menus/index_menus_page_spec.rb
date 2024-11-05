@@ -39,6 +39,38 @@ describe 'Menus' do
       expect(page).to have_link('Novo Cardápio')
     end
 
+    it 'user can see all of your menus' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      login_as(user)
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      menu = Menu.create!(
+        name: 'Teste', restaurant: Restaurant.last
+      )
+
+      second_menu = Menu.create!(
+        name: 'Teste2', restaurant: Restaurant.last
+      )
+
+      visit menus_path
+
+      within "#menu-#{menu.id}" do
+        expect(page).to have_content('Teste')
+      end
+
+      within "#menu-#{second_menu.id}" do
+        expect(page).to have_content('Teste2')
+      end
+    end
+
     it 'user can delete menu' do
       user = User.create!(
         email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
@@ -61,6 +93,33 @@ describe 'Menus' do
       click_on 'Excluir'
 
       expect(page).to have_content('Cardápio excluído com sucesso')
+    end
+
+    it 'user click on add new itens on menu' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      login_as(user)
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      Menu.create!(
+        name: 'Teste', restaurant: Restaurant.last
+      )
+
+      visit menus_path
+
+      within "#menu-#{Menu.last.id}" do
+        click_on 'Adicionar Itens'
+      end
+
+      expect(current_path).to eq manage_menu_path(Menu.last)
+      expect(page).to have_content('Adicionar itens ao menu Teste')
     end
   end
 end

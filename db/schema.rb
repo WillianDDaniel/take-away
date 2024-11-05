@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_05_004633) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_05_030519) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +60,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_004633) do
     t.datetime "updated_at", null: false
     t.string "status", default: "active", null: false
     t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
+  end
+
+  create_table "menu_items", force: :cascade do |t|
+    t.integer "menu_id", null: false
+    t.string "menuable_type", null: false
+    t.integer "menuable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_id"], name: "index_menu_items_on_menu_id"
+    t.index ["menuable_type", "menuable_id"], name: "index_menu_items_on_menuable"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -148,6 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_004633) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "beverages", "restaurants"
   add_foreign_key "dishes", "restaurants"
+  add_foreign_key "menu_items", "menus"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "price_histories", "portions"
   add_foreign_key "restaurants", "users"
