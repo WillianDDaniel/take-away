@@ -48,6 +48,19 @@ class MenusController < ApplicationController
     end
   end
 
+  def destroy
+    @menu = Menu.find_by(id: params[:id])
+    return unless @menu.restaurant == current_user.restaurant
+
+    if @menu.destroy
+      flash[:notice] = 'Cardápio excluído com sucesso'
+      redirect_to menus_path
+    else
+      flash[:alert] = 'Erro ao excluir cardápio'
+      redirect_to menus_path
+    end
+  end
+
   private
 
   def menu_params
