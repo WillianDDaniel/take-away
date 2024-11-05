@@ -3,8 +3,8 @@
   <% menu_items.each do |item| %>
     <div class="flex items-center space-x-3 p-2 hover:bg-gray-50">
 
-      <%= check_box_tag 'dish_ids[]', item.id,
-        @selected_dish_ids.include?(item.id),
+      <%= check_box_tag "#{type}_ids[]", item.id,
+        selected_ids.include?(item.id),
         id: dom_id(item, :checkbox),
         class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
       %>

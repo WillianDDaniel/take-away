@@ -15,7 +15,11 @@
         </h2>
 
         <% if @dishes.any? %>
-        <%= render 'menu_items', menu_items: @dishes %>
+
+          <%= render 'menu_items', menu_items: @dishes, selected_ids: @selected_dish_ids,
+            type: 'dish'
+          %>
+
         <% else %>
         <p class="text-gray-700 p-5">
           Nenhum prato cadastrado.
@@ -29,7 +33,11 @@
         </h2>
 
         <% if @beverages.any? %>
-        <%= render 'menu_items', menu_items: @beverages %>
+
+          <%= render 'menu_items', menu_items: @beverages, selected_ids: @selected_beverage_ids,
+            type: 'beverage'
+          %>
+
         <% else %>
         <p class="text-gray-700 p-5">
           Nenhuma bebida cadastrada.
