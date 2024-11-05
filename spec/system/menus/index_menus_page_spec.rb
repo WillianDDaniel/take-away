@@ -62,16 +62,16 @@ describe 'Menus' do
 
       visit menus_path
 
-      within "#menu-#{menu.id}" do
+      within "#content_menu_#{menu.id}" do
         expect(page).to have_content('Teste')
       end
 
-      within "#menu-#{second_menu.id}" do
+      within "#content_menu_#{second_menu.id}" do
         expect(page).to have_content('Teste2')
       end
     end
 
-    it 'user can delete menu' do
+    it 'user can delete a menu' do
       user = User.create!(
         email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
         password: 'password12345', document_number: CPF.generate
@@ -114,12 +114,12 @@ describe 'Menus' do
 
       visit menus_path
 
-      within "#menu-#{Menu.last.id}" do
-        click_on 'Adicionar Itens'
+      within "#content_menu_#{Menu.last.id}" do
+        click_on 'Gerenciar Cardápio'
       end
 
       expect(current_path).to eq manage_menu_path(Menu.last)
-      expect(page).to have_content('Adicionar itens ao menu Teste')
+      expect(page).to have_content('Gerenciar Itens do Cardápio: Teste')
     end
   end
 end

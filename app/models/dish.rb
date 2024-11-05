@@ -4,6 +4,8 @@ class Dish < ApplicationRecord
   has_many :portions, as: :portionable
   has_many :tag_dishes, dependent: :destroy
   has_many :tags, through: :tag_dishes
+  has_many :menu_items, as: :menuable, dependent: :destroy
+  has_many :menus, through: :menu_items
 
   has_one_attached :image
 

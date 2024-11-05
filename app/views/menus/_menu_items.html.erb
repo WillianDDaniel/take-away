@@ -1,0 +1,20 @@
+<div class="space-y-2 max-h-96 overflow-y-auto">
+
+  <% menu_items.each do |item| %>
+    <div class="flex items-center space-x-3 p-2 hover:bg-gray-50">
+
+      <%= check_box_tag 'dish_ids[]', item.id,
+        @selected_dish_ids.include?(item.id),
+        id: dom_id(item, :checkbox),
+        class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+      %>
+
+      <%= label_tag dom_id(item, :checkbox), class: "flex-1 cursor-pointer" do %>
+        <div class="font-medium"><%= item.name %></div>
+        <div class="text-sm text-gray-500"><%= item.description %></div>
+      <% end %>
+
+    </div>
+  <% end %>
+
+</div>

@@ -54,4 +54,34 @@ describe 'Manage Menu Page' do
 
     expect(page).to have_content('Itens do cardápio atualizados com sucesso!')
   end
+
+  it 'if there is no dishes or/and a beverage should show a message' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+
+    Menu.create!(
+      name: 'Teste', restaurant: Restaurant.last
+    )
+
+    login_as(user)
+
+    visit dashboard_path
+
+    click_on 'Cardápios'
+
+    within "#content_menu_#{Menu.last.id}" do
+      click_on 'Gerenciar Cardápio'
+    end
+
+    expect(page).to have_content('Nenhum prato cadastrado')
+    expect(page).to have_content('Nenhuma bebida cadastrada')
+  end
+
 end

@@ -1,5 +1,3 @@
-<h1>Adicionar itens ao menu <%= @menu.name %></h1>
-
 <div class="container mx-auto px-4 py-8">
 
   <div class="mb-6">
@@ -16,65 +14,39 @@
           Pratos Disponíveis
         </h2>
 
-        <div class="space-y-2 max-h-96 overflow-y-auto">
-
-          <% @dishes.each do |dish| %>
-            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50">
-
-              <%= check_box_tag 'dish_ids[]', dish.id,
-                @selected_dish_ids.include?(dish.id),
-                id: dom_id(dish, :checkbox),
-                class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              %>
-
-              <%= label_tag dom_id(dish, :checkbox), class: "flex-1 cursor-pointer" do %>
-                <div class="font-medium"><%= dish.name %></div>
-                <div class="text-sm text-gray-500"><%= dish.description %></div>
-              <% end %>
-
-            </div>
-          <% end %>
-        </div>
-
+        <% if @dishes.any? %>
+        <%= render 'menu_items', menu_items: @dishes %>
+        <% else %>
+        <p class="text-gray-700 p-5">
+          Nenhum prato cadastrado.
+        </p>
+        <% end %>
       </div>
 
       <div class="bg-white rounded-lg shadow p-6">
-
         <h2 class="text-xl font-semibold mb-4">
           Bebidas Disponíveis
         </h2>
 
-        <div class="space-y-2 max-h-96 overflow-y-auto">
-
-          <% @beverages.each do |beverage| %>
-            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50">
-
-              <%= check_box_tag 'beverage_ids[]', beverage.id,
-                @selected_beverage_ids.include?(beverage.id),
-                id: dom_id(beverage, :checkbox),
-                class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              %>
-
-              <%= label_tag dom_id(beverage, :checkbox), class: "flex-1 cursor-pointer" do %>
-                <div class="font-medium"><%= beverage.name %></div>
-                <div class="text-sm text-gray-500"><%= beverage.description %></div>
-              <% end %>
-            </div>
-
-          <% end %>
-        </div>
+        <% if @beverages.any? %>
+        <%= render 'menu_items', menu_items: @beverages %>
+        <% else %>
+        <p class="text-gray-700 p-5">
+          Nenhuma bebida cadastrada.
+        </p>
+        <% end %>
       </div>
 
     </div>
 
-    <div class="flex justify-end space-x-4">
+    <div class="flex justify-center space-x-4">
 
-      <%= link_to 'Cancelar', menu_path(@menu),
-        class: "px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+      <%= link_to 'Cancelar', menus_path,
+        class: "px-4 py-2 bg-red-400 rounded-md text-white hover:bg-red-500"
       %>
 
       <%= f.submit 'Salvar Alterações',
-        class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
       %>
 
     </div>

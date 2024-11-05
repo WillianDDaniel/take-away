@@ -2,6 +2,8 @@ class Beverage < ApplicationRecord
   belongs_to :restaurant
 
   has_many :portions, as: :portionable
+  has_many :menu_items, as: :menuable, dependent: :destroy
+  has_many :menus, through: :menu_items
 
   validates :name, presence: true
   validates :alcoholic, inclusion: { in: [true, false] }

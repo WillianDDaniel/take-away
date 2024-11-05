@@ -1,5 +1,13 @@
 <h1>Editar Cardápio</h1>
 
+<% if @menu.errors.any? %>
+  <div>
+    <% @menu.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+<% end %>
+
 <%= form_with(model: @menu) do |f| %>
   <div class="w-full">
     <%= f.label :name %>

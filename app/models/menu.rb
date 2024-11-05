@@ -2,8 +2,8 @@ class Menu < ApplicationRecord
   belongs_to :restaurant
 
   has_many :menu_items, dependent: :destroy
-  has_many :dishes, through: :menu_items
-  has_many :beverages, through: :menu_items
+  has_many :dishes, through: :menu_items, source: :menuable, source_type: 'Dish'
+  has_many :beverages, through: :menu_items, source: :menuable, source_type: 'Beverage'
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :restaurant_id, message: "Já existe um menu com esse nome neste restaurante." }

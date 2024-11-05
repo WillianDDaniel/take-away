@@ -7,6 +7,14 @@ class MenusController < ApplicationController
     @menus = Menu.where(restaurant: current_user.restaurant)
   end
 
+  def show
+    @menu = Menu.find_by(id: params[:id])
+
+    if @menu.nil? || @menu.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
+  end
+
   def new
     @menu = Menu.new
   end

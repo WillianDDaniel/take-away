@@ -61,7 +61,7 @@ describe 'Edit menu' do
     expect(page).to have_field('Nome do Cardápio', with: 'Teste')
   end
 
-  it 'user can update menu' do
+  it 'user can edit menu with success' do
     user = User.create!(
       email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
       password: 'password12345', document_number: CPF.generate
@@ -73,18 +73,44 @@ describe 'Edit menu' do
     )
 
     menu = Menu.create!(
-      name: 'Teste', restaurant: restaurant
+      name: 'Café da manhã', restaurant: restaurant
     )
 
     login_as(user)
 
     visit edit_menu_path(menu.id)
 
-    fill_in 'Nome do Cardápio', with: 'Teste 2'
+    fill_in 'Nome do Cardápio', with: 'Almoço'
     click_on 'Atualizar Cardápio'
 
     expect(current_path).to eq menus_path
-    expect(page).to have_content('Teste 2')
+    expect(page).to have_content('Almoço')
+    expect(page).not_to have_content('Café da manhã')
   end
 
+  it 'user cant edit menu without name' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    restaurant = Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+
+    menu = Menu.create!(
+      name: 'Café da manhã', restaurant: restaurant
+    )
+
+    login_as(user)
+
+    visit edit_menu_path(menu.id)
+
+    fill_in 'Nome do Cardápio', with: ''
+    click_on 'Atualizar Cardápio'
+
+    expect(page).to have_content('Nome do Cardápio não pode ficar em branco')
+    expect(page).to have_content('Erro ao atualizar cardápio')
+  end
 end
