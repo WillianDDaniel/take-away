@@ -44,5 +44,23 @@ describe 'Dashboard Page' do
 
       expect(page).to have_link('Cadastrar restaurante')
     end
+
+    it 'user see a link to access the menus of his restaurants' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      login_as(user)
+
+      visit dashboard_path
+
+      expect(page).to have_link('Cardápios')
+    end
   end
 end

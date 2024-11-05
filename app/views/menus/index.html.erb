@@ -1,0 +1,7 @@
+<h1>Cardápios</h1>
+
+<%= link_to 'Novo Cardápio', new_menu_path %>
+
+<% @menus.each do |menu| %>
+  <%= link_to menu.name, menu_path(menu) %>
+<% end %>
