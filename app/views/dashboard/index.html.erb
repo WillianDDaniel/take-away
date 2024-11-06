@@ -8,3 +8,13 @@
   <%= link_to "Cadastrar restaurante", new_restaurant_path %>
 <% end %>
 
+<% if @menus.any? %>
+  <h2>Cardápios Cadastrados</h2>
+  <ul>
+    <% @menus.each do |menu| %>
+      <li>Cardápio: <%= link_to menu.name, menu_path(menu) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum menu encontrado</p>
+<% end %>

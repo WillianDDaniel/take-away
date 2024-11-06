@@ -4,5 +4,7 @@ class DashboardController < ApplicationController
 
   def index
     @user = current_user
+
+    @menus = Menu.where(restaurant: @user.restaurant)
   end
 end
