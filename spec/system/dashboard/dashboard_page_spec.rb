@@ -62,5 +62,46 @@ describe 'Dashboard Page' do
 
       expect(page).to have_link('Cardápios')
     end
+
+    it 'user can see the menus of his restaurants' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      Dish.create!(name: 'Dog', description: 'Teste', restaurant: restaurant)
+      Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
+      Beverage.create!(name: 'Fanta', description: 'Teste', restaurant: restaurant)
+
+      menu_01 = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu_02 = Menu.create!(name: 'Café', restaurant: restaurant)
+      menu_03 = Menu.create!(name: 'Almoço', restaurant: restaurant)
+
+      menu_01.dishes << Dish.first
+      menu_01.beverages << Beverage.first
+
+      menu_02.dishes << Dish.last
+      menu_02.beverages << Beverage.last
+
+      menu_03.dishes << Dish.first
+      menu_03.beverages << Beverage.last
+
+      login_as(user)
+
+      visit dashboard_path
+
+      expect(page).to have_content('Cardápios Cadastrados')
+
+      expect(page).to have_content('Cardápio: Janta')
+      expect(page).to have_content('Cardápio: Café')
+      expect(page).to have_content('Cardápio: Almoço')
+
+    end
   end
 end
