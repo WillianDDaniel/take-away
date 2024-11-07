@@ -98,10 +98,20 @@ describe 'Dashboard Page' do
 
       expect(page).to have_content('Cardápios Cadastrados')
 
-      expect(page).to have_content('Cardápio: Janta')
-      expect(page).to have_content('Cardápio: Café')
-      expect(page).to have_content('Cardápio: Almoço')
+      within "#menu_#{menu_01.id}" do
+        expect(page).to have_content('Cardápio: Janta')
+        expect(page).to have_link('Criar Pedido')
+      end
 
+      within "#menu_#{menu_02.id}" do
+        expect(page).to have_content('Cardápio: Café')
+        expect(page).to have_link('Criar Pedido')
+      end
+
+      within "#menu_#{menu_03.id}" do
+        expect(page).to have_content('Cardápio: Almoço')
+        expect(page).to have_link('Criar Pedido')
+      end
     end
   end
 end

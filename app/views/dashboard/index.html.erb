@@ -12,7 +12,10 @@
   <h2>Cardápios Cadastrados</h2>
   <ul>
     <% @menus.each do |menu| %>
-      <li>Cardápio: <%= link_to menu.name, menu_path(menu) %></li>
+      <%= content_tag :li, id: dom_id(menu) do %>
+        Cardápio: <%= link_to menu.name, menu_path(menu) %>
+        <%= link_to 'Criar Pedido', new_menu_order_path(menu) %>
+      <% end %>
     <% end %>
   </ul>
 <% else %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_05_030519) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_06_231823) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,6 +78,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_030519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "portion_id", null: false
+    t.integer "quantity"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["portion_id"], name: "index_order_items_on_portion_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "code"
+    t.string "customer_name"
+    t.string "customer_phone"
+    t.string "customer_email"
+    t.string "customer_doc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "portions", force: :cascade do |t|
@@ -160,6 +181,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_030519) do
   add_foreign_key "dishes", "restaurants"
   add_foreign_key "menu_items", "menus"
   add_foreign_key "menus", "restaurants"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "portions"
   add_foreign_key "price_histories", "portions"
   add_foreign_key "restaurants", "users"
   add_foreign_key "schedules", "restaurants"

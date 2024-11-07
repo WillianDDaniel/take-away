@@ -1,0 +1,30 @@
+<% menu_items.each do |item| %>
+
+	<div class="mb-4">
+		<h3 class="font-semibold text-gray-700"><%= item.name %></h3>
+
+		<% item.portions.each do |portion| %>
+
+			<div class="flex justify-between items-center text-gray-600 p-2 rounded hover:bg-gray-100">
+
+				<span>
+					<%= portion.description %> - R$ <%= portion.price %>
+				</span>
+
+				<button type="button"
+					class="text-indigo-600 hover:underline"
+					data-action="order#addItem"
+					data-order-item-name-param="<%= portion.portionable.name %>"
+					data-order-portion-id-param="<%= portion.id %>"
+					data-order-portion-description-param="<%= j portion.description %>"
+					data-order-portion-price-param="<%= portion.price %>"
+				>
+					Adicionar
+				</button>
+
+			</div>
+		<% end %>
+
+	</div>
+
+<% end %>
