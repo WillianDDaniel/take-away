@@ -75,5 +75,36 @@ RSpec.describe Order, type: :model do
       expect(order.valid?).to be true
     end
 
+    it 'must generate a random code with 8 alphanumeric characters' do
+      user = User.create!(
+        email: 'johndoe@example.com', document_number: CPF.generate, name: 'John',
+        last_name: 'Doe', password: 'password12345'
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste',
+        user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', calories: 500, restaurant: restaurant)
+      portion = Portion.create!(description: 'Descricão da porção teste', price: 10.00, portionable: dish)
+
+      ordem_item = OrderItem.new(
+        portion: portion, quantity: 1, note: 'Sem cebola'
+      )
+
+      order = Order.new(
+        customer_name: 'John Doe', customer_phone: '11999999999',
+        customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
+        order_items: [ordem_item]
+      )
+
+      expect(order.valid?).to be true
+      expect(order.code).not_to be nil
+      expect(order.code.length).to eq(8)
+      expect(order.code).to match(/\A[a-zA-Z0-9]{8}\z/)
+    end
+
   end
 end

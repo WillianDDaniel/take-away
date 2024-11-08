@@ -3,11 +3,15 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
   validates :customer_name, presence: true
+
   validate :phone_or_email_present
+  validate :must_have_at_least_one_item
+
+  validate :phone_must_be_valid
   validate :doc_must_be_valid
   validate :email_must_be_valid
-  validate :phone_must_be_valid
-  validate :must_have_at_least_one_item
+
+  before_validation :generate_code
 
   private
 
@@ -43,5 +47,9 @@ class Order < ApplicationRecord
     if order_items.empty?
       errors.add(:base, "Nenhum item adicionado ao pedido")
     end
+  end
+
+  def generate_code
+    self.code = SecureRandom.alphanumeric(8).upcase
   end
 end
