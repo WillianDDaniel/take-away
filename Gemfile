@@ -50,6 +50,7 @@ group :development, :test do
 
   gem "rspec-rails"
   gem "capybara"
+  gem "cuprite"
 end
 
 group :development do

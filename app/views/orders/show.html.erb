@@ -1,0 +1,13 @@
+<h1>Pedido</h1>
+
+<p><%= @order.customer_name %></p>
+<p><%= @order.customer_phone %></p>
+<p><%= @order.customer_email %></p>
+
+<% @order_items.each do |item| %>
+
+    <%= item.portion.portionable.name %>
+    <%= item.portion.description %>
+<% end %>
+
+<%= number_to_currency @total_price %>

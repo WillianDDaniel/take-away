@@ -5,7 +5,9 @@
 
 		<% item.portions.each do |portion| %>
 
-			<div class="flex justify-between items-center text-gray-600 p-2 rounded hover:bg-gray-100">
+			<%= content_tag :div,
+				class: "flex justify-between items-center text-gray-600 p-2 rounded hover:bg-gray-100",
+				id: "order_portion_#{portion.id}" do %>
 
 				<span>
 					<%= portion.description %> - R$ <%= portion.price %>
@@ -22,7 +24,7 @@
 					Adicionar
 				</button>
 
-			</div>
+			<% end %>
 		<% end %>
 
 	</div>

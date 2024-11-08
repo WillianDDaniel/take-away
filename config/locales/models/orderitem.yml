@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      order_items: Item do Pedido
+    attributes:
+      order_items:
+        quantity: Quantidade
+        price: Preço
+        note: Observações
+        created_at: Criado em
+        updated_at: Atualizado em

@@ -18,6 +18,8 @@ export default class extends Controller {
       "shadow-sm"
     )
 
+    itemDiv.id = `order_portion_${portionId}`
+
     const portionField = document.createElement("input")
     portionField.type = "hidden"
     portionField.name = "order[order_items_attributes][][portion_id]"

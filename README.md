@@ -27,26 +27,42 @@ Projeto em desenvolvimento para o sistema **PaLevá (Take Away)**, um aplicativo
 
 1. Clone o repositório:
 
-    ```bash
-    git clone https://github.com/seu_usuario/paleva_take_away.git
-    ```
+```bash
+git clone https://github.com/seu_usuario/paleva_take_away.git
+```
 
 2. Instale as dependências:
 
-    ```bash
-    bundle install
-    ```
+```bash
+bundle install
+```
 
 3. Configure o banco de dados:
 
-    ```bash
-    rails db:migrate
-    ```
+```bash
+rails db:migrate
+```
 
 4. Inicie o servidor:
 
-    ```bash
-    rails server
-    ```
+```bash
+rails server
+```
 
+5. Para os testes usando javascript você vai precisar de chrome instalado.
 
+```bash
+sudo apt update
+sudo apt install -y wget
+```
+
+6. Baixe o pacote do Google Chrome
+
+```bash
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+```
+
+7. Instale o Google Chrome
+```bash
+sudo apt install -y ./google-chrome-stable_current_amd64.deb
+```

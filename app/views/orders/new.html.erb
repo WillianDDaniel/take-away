@@ -2,7 +2,19 @@
   Novo Pedido para o Menu: <%= @menu.name %>
 </h1>
 
-<%= form_with model: @order, url: menu_orders_path(@menu), local: true,
+<% if @order.errors.any? %>
+  <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg
+    dark:bg-red-200 dark:text-red-800"
+  >
+    <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: [@menu, @order],
   class: "space-y-4", data: { controller: "order" } do |f|
 %>
 

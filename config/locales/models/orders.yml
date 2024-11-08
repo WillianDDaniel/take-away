@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      order: Pedido
+    attributes:
+      order:
+        customer_name: Nome do Cliente
+        customer_phone: Telefone
+        customer_email: E-mail
+        customer_doc: CPF
+        created_at: Criado em
+        updated_at: Atualizado em

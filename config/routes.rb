@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get :manage_menu, as: :manage
       post :update_menu_items, as: :update_items
     end
-    resources :orders, only: [:new, :create]
+    resources :orders, only: [:new, :create, :index, :show]
   end
 
   resources :dishes do
