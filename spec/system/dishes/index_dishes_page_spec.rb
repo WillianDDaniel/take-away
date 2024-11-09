@@ -13,7 +13,7 @@ describe 'Dishes Index Page' do
         email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
         password: 'password12345', document_number: CPF.generate
       )
-      login_as(user)  
+      login_as(user)
       visit dishes_path
 
       expect(current_path).to eq new_restaurant_path
@@ -71,14 +71,34 @@ describe 'Dishes Index Page' do
         doc_number: CNPJ.generate, user: user
       )
 
-      Dish.create!(
+      dish_01 = Dish.create!(
         name: 'Prato Teste', description: 'Descrição Teste',
         calories: 100, restaurant: restaurant
       )
 
-      Dish.create!(
+      Portion.create!(
+        description: 'Pequeno',
+        price: 10, portionable: dish_01
+      )
+
+      Portion.create!(
+        description: 'Grande',
+        price: 20, portionable: dish_01
+      )
+
+      dish_02 = Dish.create!(
         name: 'Outro Teste', description: 'Outra Descrição',
         calories: 200, restaurant: restaurant
+      )
+
+      Portion.create!(
+        description: 'Pequeno',
+        price: 25, portionable: dish_02
+      )
+
+      Portion.create!(
+        description: 'Grande',
+        price: 35, portionable: dish_02
       )
 
       login_as(user)
@@ -86,10 +106,43 @@ describe 'Dishes Index Page' do
 
       expect(page).to have_content('Prato Teste')
       expect(page).to have_content('Descrição Teste')
+      expect(page).to have_content('Pequeno')
+      expect(page).to have_content('R$ 10,00')
+      expect(page).to have_content('Grande')
+      expect(page).to have_content('R$ 20,00')
 
       expect(page).to have_content('Outro Teste')
       expect(page).to have_content('Outra Descrição')
+      expect(page).to have_content('Pequeno')
+      expect(page).to have_content('R$ 25,00')
+      expect(page).to have_content('Grande')
+      expect(page).to have_content('R$ 35,00')
+    end
 
+    it 'should show a message if the dish have no portion' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      Dish.create!(
+        name: 'Prato Teste', description: 'Descrição Teste',
+        calories: 100, restaurant: restaurant
+      )
+
+      login_as(user)
+
+      visit dishes_path
+
+      expect(page).to have_content('Nenhuma porção cadastrada para esse prato.')
+      expect(page).to have_content('Clique no botão abaixo para adicionar porções.')
+      expect(page).to have_link('Cadastrar porção')
     end
 
     it 'should delete a dish' do

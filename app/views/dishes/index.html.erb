@@ -8,7 +8,7 @@
     %>
   </div>
 
-  <p class="w-11/12 text-center p-3 bg-slate-100 italic">
+  <p class="w-11/12 text-center p-3 mb-3 bg-slate-100 italic">
     Aqui você pode cadastrar, editar e/ou remover os pratos do seu restaurante.
   </p>
 
@@ -29,16 +29,18 @@
 
 
   <% @dishes.each do |dish| %>
-    <div class="w-11/12 p-2 px-4 bg-gray-200 rounded mt-2 flex gap-2 justify-between">
+    <div class="w-11/12 p-2 px-4 bg-gray-300 rounded-t flex gap-2 justify-between">
 
       <div class="flex flex-1 justify-between">
         <div class="flex items-center gap-5">
-          <strong><%= link_to dish.name, dish %></strong>
-          <i><%= truncate dish.description, length: 30 %></i>
+          <strong class="font-semibold underline text-rose-800 hover:text-rose-700">
+            <%= link_to dish.name, dish %>
+          </strong>
+          <i><%= truncate dish.description, length: 35 %></i>
         </div>
 
         <div
-          class="flex items-center text-sm mr-5 px-3 py-1 rounded-full font-medium
+          class="flex items-center text-sm mr-5 px-2 py-0.75 rounded-full font-medium
             <%= dish.active? ? 'text-green-900 bg-green-200' : 'text-red-900 bg-red-100' %>
           "
         >
@@ -47,22 +49,57 @@
         </div>
       </div>
 
-      <div class="flex gap-4">
+      <div class="flex gap-4 items-center">
 
         <%= link_to "Detalhes", dish,
-          class: "bg-blue-700 hover:bg-blue-800 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+          class: "text-sm h-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-0.5 px-3 rounded shadow-md"
         %>
 
         <%= link_to "Editar", edit_dish_path(dish),
-          class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+          class: "text-sm h-6 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-0.5 px-3 rounded shadow-md"
         %>
 
         <%= button_to "Excluir", dish, method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir esse prato?' },
-          class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+          class: "text-sm h-6 bg-red-600 hover:bg-red-700 text-white font-semibold py-0.5 px-3 rounded shadow-md"
         %>
 
       </div>
 
+    </div>
+
+    <div
+      class="w-11/12 p-2 px-4 rounded-b mb-3 flex gap-3 flex-wrap
+        border-b border-x border-gray-400 bg-gray-50
+      "
+    >
+
+      <% if dish.portions.any? %>
+
+        <h3 class="w-full italic text-sm">Porções cadastradas para esse prato:</h3>
+
+        <% dish.portions.each do |portion| %>
+          <div class="flex gap-2">
+            <span class="font-semibold text-zinc-900">
+              <%= portion.description %> ->
+            </span>
+            <i><%= number_to_currency portion.price %></i>
+          </div>
+        <% end %>
+
+      <% else %>
+
+        <p class="italic w-full text-center text-sm mt-2">
+          Nenhuma porção cadastrada para esse prato. <br>
+          Clique no botão abaixo para adicionar porções.
+        </p>
+
+        <div class="w-full flex justify-center mt-1 mb-2">
+          <%= link_to 'Cadastrar porção', new_dish_portion_path(dish),
+            class: "bg-green-700 hover:bg-green-600 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+          %>
+        </div>
+
+      <% end %>
     </div>
   <% end %>
 </section>
