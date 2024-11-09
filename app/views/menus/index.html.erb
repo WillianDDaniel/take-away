@@ -1,12 +1,48 @@
-<h1>Cardápios</h1>
+<section class="flex flex-col items-center">
 
-<%= link_to 'Novo Cardápio', new_menu_path %>
+  <div class="flex justify-between w-11/12 mt-3 bg-gray-300 py-3 px-3 rounded items-center">
+    <h1 class="w-full font-semibold">Cardápios</h1>
 
-<% @menus.each do |menu| %>
-  <%= content_tag :div, id: dom_id(menu, :content) do %>
-    <%= link_to menu.name, menu_path(menu) %>
-    <%= link_to 'Gerenciar Cardápio', manage_menu_path(menu) %>
-    <%= link_to 'Editar', edit_menu_path(menu) %>
-    <%= button_to 'Excluir', menu_path(menu), method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir este cardápio?' } %>
-  <% end %>
-<% end %>
+    <%= link_to 'Novo Cardápio', new_menu_path,
+      class: "whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md"
+    %>
+  </div>
+
+  <div class=" flex flex-wrap gap-3 justify-between w-11/12 mt-3">
+    <% @menus.each do |menu| %>
+
+      <%= content_tag :div, id: dom_id(menu, :content),
+        class: "flex flex-col justify-between w-[32%] gap-2 py-2 px-4 bg-gray-200 rounded" do %>
+
+        <div class="flex items-center gap-2 ml-1">
+          <span class="text-nowrap text-sm">Cardápio =></span>
+          <%= link_to menu.name, menu_path(menu),
+            class: "font-bold text-lg underline text-rose-700 hover:text-rose-600"
+          %>
+        </div>
+
+        <div class="text-md flex gap-2 flex-wrap p-3 bg-gray-300">
+
+          <div class="w-full">
+            <b>Total de Itens:</b> <%= menu.menu_items.count %>
+          </div>
+
+          <div class="w-full">
+            <b><%= menu.dishes.count %></b> Pratos e
+
+            <b><%= menu.beverages.count %></b> Bebidas
+          </div>
+
+          <div class="w-full">
+            <% paused_dishes = menu.dishes.where(status: :paused).count %>
+            <% paused_beverages = menu.beverages.where(status: :paused).count %>
+            <b>Itens pausados:</b> <%= paused_dishes + paused_beverages %>
+          </div>
+        </div>
+
+        <%= render 'menu_buttons_container', menu: menu %>
+
+      <% end %>
+    <% end %>
+  </div>
+</section>

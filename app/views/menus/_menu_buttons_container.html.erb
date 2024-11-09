@@ -1,0 +1,23 @@
+<div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-2 items-center">
+    <p class="text-sm">Adicione ou remova itens do cardápio:</p>
+
+    <%= link_to 'Gerenciar Itens', manage_menu_path(menu),
+      class: "bg-blue-700 hover:bg-blue-800 text-white font-semibold
+        py-0.5 px-3 rounded-lg shadow-md text-center
+      "
+    %>
+
+  </div>
+
+  <div class="flex gap-2 w-full justify-center bg-gray-300 p-3 rounded">
+    <%= link_to 'Editar', edit_menu_path(menu),
+      class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-0.5 px-3 rounded-lg shadow-md"
+    %>
+
+    <%= button_to 'Excluir', menu_path(menu), method: :delete,
+      class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-0.5 px-3 rounded-lg shadow-md",
+      data: { turbo_confirm: 'Tem certeza que deseja excluir este cardápio?' }
+    %>
+  </div>
+</div>

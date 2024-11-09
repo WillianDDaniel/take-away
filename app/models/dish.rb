@@ -12,7 +12,10 @@ class Dish < ApplicationRecord
   validates :name, presence: true
   validate :calories_must_be_positive
 
-  enum status: { active: 'active', paused: 'paused' }
+  enum status: {
+    active: 1,
+    paused: 5
+  }
 
   before_validation :set_tags_restaurant
 

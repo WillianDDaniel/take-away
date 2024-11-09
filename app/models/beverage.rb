@@ -12,7 +12,10 @@ class Beverage < ApplicationRecord
 
   has_one_attached :image
 
-  enum status: { active: 'active', paused: 'paused' }
+  enum status: {
+    active: 1,
+    paused: 5
+  }
 
   before_validation :set_default_alcoholic
 

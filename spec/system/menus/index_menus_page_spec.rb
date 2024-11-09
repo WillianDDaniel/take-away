@@ -115,7 +115,7 @@ describe 'Menus' do
       visit menus_path
 
       within "#content_menu_#{Menu.last.id}" do
-        click_on 'Gerenciar Cardápio'
+        click_on 'Gerenciar Itens'
       end
 
       expect(current_path).to eq manage_menu_path(Menu.last)

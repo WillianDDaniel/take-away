@@ -6,5 +6,6 @@ class DashboardController < ApplicationController
     @user = current_user
 
     @menus = Menu.where(restaurant: @user.restaurant)
+
   end
 end

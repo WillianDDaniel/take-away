@@ -1,7 +1,5 @@
 Dar estilo as paginas de resultados de bucas
 
-Corrigir o enum
-
 testar a imagem
 
 estilizar as paginas de nova porção e de editar porção

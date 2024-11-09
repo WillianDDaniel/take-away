@@ -77,7 +77,7 @@ describe 'Manage Menu Page' do
     click_on 'Cardápios'
 
     within "#content_menu_#{Menu.last.id}" do
-      click_on 'Gerenciar Cardápio'
+      click_on 'Gerenciar Itens'
     end
 
     expect(page).to have_content('Nenhum prato cadastrado')
