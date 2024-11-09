@@ -13,6 +13,11 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @menu = Menu.find_by(id: params[:menu_id])
+
+    if @menu.nil? || @menu.restaurant != current_user.restaurant
+      redirect_to dashboard_path
+    end
     @order = Order.new(menu_id: params[:menu_id])
   end
 

@@ -21,6 +21,36 @@ describe 'New Order Page' do
       expect(current_path).to eq new_restaurant_path
     end
 
+    it 'can not see new order page with no menu or menu not belong to user' do
+      first_user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: first_user
+      )
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+
+      second_user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: second_user
+      )
+
+
+      login_as(second_user)
+      visit new_order_path(menu_id: menu.id)
+
+      expect(current_path).to eq dashboard_path
+    end
+
     it 'user can add a new order' do
 
       Capybara.current_driver = :cuprite
