@@ -1,27 +1,35 @@
-<h1>Editar porção de <%= @portionable.name %></h1>
+<section class="p-6 w-11/12 mx-auto bg-white shadow-md rounded-lg">
+  <h1 class="text-2xl text-center mb-4">Editar porção de <%= @portionable.name %></h1>
 
-<% if @portion.errors.any? %>
-  <div>
-    <% @portion.errors.full_messages.each do |message| %>
-      <p><%= message %></p>
-    <% end %>
-  </div>
-<% end %>
+  <% if @portion.errors.any? %>
+    <div>
+      <% @portion.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
 
-<%= form_with(model: [@portionable, @portion]) do |f| %>
+  <%= form_with(model: [@portionable, @portion], class: "flex flex-col items-center gap-4") do |f| %>
 
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
+    <div class="flex flex-col w-2/6">
+      <%= f.label :description %>
+      <%= f.text_field :description, class: "border-gray-500 rounded-md shadow-sm w-full" %>
+    </div>
 
-  <div>
-    <%= f.label :price %>
-    <%= f.number_field :price %>
-  </div>
+    <div class="flex flex-col">
+      <%= f.label :price %>
+      <%= f.number_field :price, class: "border-gray-500 rounded-md shadow-sm w-full" %>
+    </div>
 
-  <div>
-    <%= f.submit "Atualizar" %>
-  </div>
+    <div class="w-full flex justify-center gap-5 mt-6">
+      <%= link_to 'Cancelar', dish_path(@portionable),
+        class: "bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+      %>
 
-<% end %>
+      <%= f.submit "Atualizar",
+        class: "bg-green-700 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+      %>
+    </div>
+
+  <% end %>
+</section>

@@ -2,8 +2,6 @@ Dar estilo as paginas de resultados de buscas
 
 testar a imagem
 
-estilizar as paginas de nova porção e de editar porção
-
 estilizar as paginas de marcadores adicionar, editar e index
 
 estilizar as paginas index de bebidas
