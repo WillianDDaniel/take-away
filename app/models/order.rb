@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
+  belongs_to :menu
+
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
   validates :customer_name, presence: true

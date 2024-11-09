@@ -1,5 +1,5 @@
 <h1 class="text-2xl font-semibold text-gray-800 mb-4">
-  Novo Pedido para o Menu: <%= @menu.name %>
+  Novo Pedido para o Menu: <%= @order.menu.name %>
 </h1>
 
 <% if @order.errors.any? %>
@@ -14,9 +14,10 @@
   </div>
 <% end %>
 
-<%= form_with model: [@menu, @order],
+<%= form_with model:(@order),
   class: "space-y-4", data: { controller: "order" } do |f|
 %>
+  <%= f.hidden_field :menu_id %>
 
   <%= render 'customer_fields', f: f %>
 
@@ -28,9 +29,9 @@
       </h2>
 
       <div id="menu-items" class="space-y-4 p-4 border border-gray-300 rounded-lg overflow-auto h-80">
-        <%= render 'menu_items', menu_items: @menu.dishes %>
+        <%= render 'menu_items', menu_items: @order.menu.dishes %>
 
-        <%= render 'menu_items', menu_items: @menu.beverages %>
+        <%= render 'menu_items', menu_items: @order.menu.beverages %>
       </div>
     </div>
 

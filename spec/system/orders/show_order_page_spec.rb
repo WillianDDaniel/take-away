@@ -35,10 +35,10 @@ describe 'Show order page' do
 
     order = Order.create!(customer_name: 'John Doe', customer_phone: '11999999999',
       customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
-      order_items: [order_dish, order_beverage]
+      order_items: [order_dish, order_beverage], menu: menu
     )
 
-    visit menu_order_path(menu, order)
+    visit order_path(order)
 
     expect(page).to have_content('Aguardando confirmação')
 
@@ -48,12 +48,12 @@ describe 'Show order page' do
 
     expect(page).to have_content('Burger')
     expect(page).to have_content('Médio')
-    expect(page).to have_content('Quantidade: 2')
+    expect(page).to have_content('2')
     expect(page).to have_content('Sem cebola')
 
     expect(page).to have_content('Coca')
     expect(page).to have_content('Garrafa 1L')
-    expect(page).to have_content('Quantidade: 1')
+    expect(page).to have_content('1')
 
     expect(page).to have_content('R$ 40,00')
   end

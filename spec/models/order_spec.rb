@@ -62,6 +62,9 @@ RSpec.describe Order, type: :model do
       dish = Dish.create!(name: 'Burger', description: 'Teste', calories: 500, restaurant: restaurant)
       portion = Portion.create!(description: 'Descricão da porção teste', price: 10.00, portionable: dish)
 
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << dish
+
       ordem_item = OrderItem.new(
         portion: portion, quantity: 1, note: 'Sem cebola'
       )
@@ -69,7 +72,7 @@ RSpec.describe Order, type: :model do
       order = Order.new(
         customer_name: 'John Doe', customer_phone: '11999999999',
         customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
-        order_items: [ordem_item]
+        order_items: [ordem_item], menu: menu
       )
 
       expect(order.valid?).to be true
@@ -90,6 +93,9 @@ RSpec.describe Order, type: :model do
       dish = Dish.create!(name: 'Burger', description: 'Teste', calories: 500, restaurant: restaurant)
       portion = Portion.create!(description: 'Descricão da porção teste', price: 10.00, portionable: dish)
 
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << dish
+
       ordem_item = OrderItem.new(
         portion: portion, quantity: 1, note: 'Sem cebola'
       )
@@ -97,7 +103,7 @@ RSpec.describe Order, type: :model do
       order = Order.new(
         customer_name: 'John Doe', customer_phone: '11999999999',
         customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
-        order_items: [ordem_item]
+        order_items: [ordem_item], menu: menu
       )
 
       expect(order.valid?).to be true

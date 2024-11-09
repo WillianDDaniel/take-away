@@ -4,7 +4,7 @@ describe 'New Order Page' do
 
   context 'when visiting the new order page' do
     it 'if user is not logged in, should redirect to the signin page' do
-      visit new_menu_order_path(1)
+      visit new_order_path(menu_id: 1)
 
       expect(current_path).to eq new_user_session_path
     end
@@ -16,7 +16,7 @@ describe 'New Order Page' do
       )
       login_as(user)
 
-      visit new_menu_order_path(1)
+      visit new_order_path(menu_id: 1)
 
       expect(current_path).to eq new_restaurant_path
     end
@@ -41,14 +41,14 @@ describe 'New Order Page' do
       Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
       Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
 
-      menu_01 = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
-      menu_01.dishes << Dish.first
-      menu_01.beverages << Beverage.first
+      menu.dishes << Dish.first
+      menu.beverages << Beverage.first
 
       login_as(user)
 
-      visit new_menu_order_path(menu_01.id)
+      visit new_order_path(menu_id: menu.id)
 
       fill_in 'Nome do Cliente', with: 'John Doe'
       fill_in 'Telefone', with: '51999999999'
@@ -64,7 +64,7 @@ describe 'New Order Page' do
 
       click_on 'Finalizar Pedido'
 
-      expect(current_path).to eq menu_order_path(menu_01, Order.last)
+      expect(current_path).to eq order_path(Order.last)
 
       expect(page).to have_content('Pedido cadastrado com sucesso')
 
@@ -96,14 +96,14 @@ describe 'New Order Page' do
       Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
       Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
 
-      menu_01 = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
-      menu_01.dishes << Dish.first
-      menu_01.beverages << Beverage.first
+      menu.dishes << Dish.first
+      menu.beverages << Beverage.first
 
       login_as(user)
 
-      visit new_menu_order_path(menu_01.id)
+      visit new_order_path(menu_id: menu.id)
 
       fill_in 'Nome do Cliente', with: ''
       fill_in 'Telefone', with: ''
@@ -134,14 +134,14 @@ describe 'New Order Page' do
       Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
       Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
 
-      menu_01 = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
-      menu_01.dishes << Dish.first
-      menu_01.beverages << Beverage.first
+      menu.dishes << Dish.first
+      menu.beverages << Beverage.first
 
       login_as(user)
 
-      visit new_menu_order_path(menu_01.id)
+      visit new_order_path(menu_id: menu.id)
 
       fill_in 'Nome do Cliente', with: 'John Doe'
       fill_in 'Telefone', with: '5199999999999'
@@ -172,14 +172,14 @@ describe 'New Order Page' do
       Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
       Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
 
-      menu_01 = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
-      menu_01.dishes << Dish.first
-      menu_01.beverages << Beverage.first
+      menu.dishes << Dish.first
+      menu.beverages << Beverage.first
 
       login_as(user)
 
-      visit new_menu_order_path(menu_01.id)
+      visit new_order_path(menu_id: menu.id)
 
       fill_in 'Nome do Cliente', with: 'John Doe'
       fill_in 'Telefone', with: '51999999999'

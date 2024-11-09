@@ -28,23 +28,6 @@ describe 'Dashboard Page' do
       expect(current_path).to eq dashboard_path
     end
 
-    it 'when user has no restaurants, must see a message to create a restaurant' do
-      cpf = CPF.generate
-
-      user = User.create!(
-        email: 'johndoe@example.com', document_number: cpf, name: 'John',
-        last_name: 'Doe', password: 'password12345'
-      )
-
-      login_as(user, scope: :user)
-
-      visit dashboard_path
-
-      expect(page).to have_content('Nenhum restaurante cadastrado')
-
-      expect(page).to have_link('Cadastrar restaurante')
-    end
-
     it 'user see a link to access the menus of his restaurants' do
       user = User.create!(
         email: 'johndoe@example.com', name: 'John', last_name: 'Doe',

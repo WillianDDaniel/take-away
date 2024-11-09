@@ -7,13 +7,13 @@ Rails.application.routes.draw do
   resources :restaurants, only: [:new, :create]
   resources :schedules, only: [:new, :create, :index, :edit, :update, :destroy]
   resources :tags, only: [:new, :create, :index, :edit, :update, :destroy]
+  resources :orders, only: [:new, :create, :index, :show]
 
   resources :menus do
     member do
       get :manage_menu, as: :manage
       post :update_menu_items, as: :update_items
     end
-    resources :orders, only: [:new, :create, :index, :show]
   end
 
   resources :dishes do
@@ -29,5 +29,4 @@ Rails.application.routes.draw do
     end
     resources :portions, only: [:new, :create, :index, :edit, :update, :destroy]
   end
-
 end

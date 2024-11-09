@@ -26,7 +26,7 @@
             </div>
 
             <div>
-              <%= link_to 'Criar Pedido', new_menu_order_path(menu),
+              <%= link_to 'Criar Pedido', new_order_path(menu_id: menu.id),
                 class: "text-sm bg-green-600 hover:bg-green-700 text-white px-1 py-0.5 rounded font-semibold" %>
             </div>
           <% end %>
