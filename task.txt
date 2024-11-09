@@ -1,4 +1,4 @@
-Dar estilo as paginas de resultados de bucas
+Dar estilo as paginas de resultados de buscas
 
 testar a imagem
 
@@ -21,3 +21,5 @@ mudar a data de atualização das porções para campo especifico para esta fun�
 quando clicar para adicionar um pedido não perder os itens adicionados na area de stage
 
 agrupar adições da mesma porção do mesmo item
+
+redirecionar para adicionar items quando cadastrar um cardapio
