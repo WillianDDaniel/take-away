@@ -10,3 +10,11 @@ pt-BR:
         customer_doc: CPF
         created_at: Criado em
         updated_at: Atualizado em
+        status: Status
+        enums:
+          status:
+            pending: "Aguardando confirmação"
+            preparing: "Em preparação"
+            canceled: "Cancelado"
+            ready: "Pronto"
+            delivered: "Entregue"

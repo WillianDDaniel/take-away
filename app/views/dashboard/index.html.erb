@@ -1,23 +1,39 @@
-<h1>Dashboard</h1>
+<section class="flex flex-col p-6 w-[95%] mx-auto bg-white shadow-md rounded-lg">
+  <div class="flex flex-col items-center">
+    <h1 class="text-2xl font-bold p-3">Controle de pedidos</h1>
+  </div>
 
-<p>Seja bem-vindo(a) ao seu controle de pedidos</p>
+  <div>
+    <h2 class="text-2xl font-bold p-3">Cardápios Cadastrados</h2>
 
-<% if @user.restaurant.nil? %>
-  <p>Nenhum restaurante cadastrado</p>
+    <% if @menus.any? %>
+      <ul class="flex flex-col gap-2">
+        <% @menus.each do |menu| %>
+          <%= content_tag :li, id: dom_id(menu),
+            class: "flex flex-wrap gap-x-4 gap-y-1 p-2 bg-gray-200" do %>
+            <div class="w-full">
+              Cardápio: <%= link_to menu.name, menu_path(menu), class: "font-bold text-lg" %>
+            </div>
 
-  <%= link_to "Cadastrar restaurante", new_restaurant_path %>
-<% end %>
+            <div>
+              <%= link_to 'Vizualizar', menu_path(menu),
+                class: "text-sm bg-blue-500 hover:bg-blue-600 text-white px-1 py-0.5 rounded font-semibold" %>
+            </div>
 
-<% if @menus.any? %>
-  <h2>Cardápios Cadastrados</h2>
-  <ul>
-    <% @menus.each do |menu| %>
-      <%= content_tag :li, id: dom_id(menu) do %>
-        Cardápio: <%= link_to menu.name, menu_path(menu) %>
-        <%= link_to 'Criar Pedido', new_menu_order_path(menu) %>
-      <% end %>
+            <div>
+              <%= link_to 'Gerenciar', manage_menu_path(menu),
+                class: "text-sm bg-amber-600 hover:bg-amber-700 text-white px-1 py-0.5 rounded font-semibold" %>
+            </div>
+
+            <div>
+              <%= link_to 'Criar Pedido', new_menu_order_path(menu),
+                class: "text-sm bg-green-600 hover:bg-green-700 text-white px-1 py-0.5 rounded font-semibold" %>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Nenhum menu encontrado</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>Nenhum menu encontrado</p>
-<% end %>
+  </div>
+</section>

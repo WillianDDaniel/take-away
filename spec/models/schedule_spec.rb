@@ -4,7 +4,6 @@ RSpec.describe Schedule, type: :model do
 
   describe '#valid?' do
     it 'is invalid without an open_time' do
-
       user = User.create!(
         email: 'johndoe@example.com',
         name: 'John',
@@ -24,7 +23,6 @@ RSpec.describe Schedule, type: :model do
     end
 
     it 'is invalid without a close_time' do
-
       user = User.create!(
         email: 'johndoe@example.com',
         name: 'John',

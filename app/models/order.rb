@@ -11,7 +11,20 @@ class Order < ApplicationRecord
   validate :doc_must_be_valid
   validate :email_must_be_valid
 
+  enum status: {
+    pending: 0,
+    preparing: 1,
+    cancelled: 2,
+    ready: 3,
+    delivered: 4
+  }
+
   before_validation :generate_code
+  before_create :set_default_status
+
+  def status_i18n
+    I18n.t("activerecord.attributes.order.enums.status.#{status}")
+  end
 
   private
 
@@ -51,5 +64,9 @@ class Order < ApplicationRecord
 
   def generate_code
     self.code = SecureRandom.alphanumeric(8).upcase
+  end
+
+  def set_default_status
+    self.status ||= :pending
   end
 end

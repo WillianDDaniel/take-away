@@ -23,7 +23,6 @@ Rails.application.routes.draw do
     resources :portions, only: [:new, :create, :index, :edit, :update]
   end
 
-
   resources :beverages do
     member do
       patch :toggle_status

@@ -14,8 +14,12 @@ testar links do dashboard
 
 criar testes de request
 
-corrigir os confims dos formularios para exibir um alerta ao usuario
-
 colocar um readme na tela de screenshots
 
-driagrama banco de dados
+driagramar banco de dados
+
+mudar a data de atualização das porções para campo especifico para esta função
+
+quando clicar para adicionar um pedido não perder os itens adicionados na area de stage
+
+agrupar adições da mesma porção do mesmo item
