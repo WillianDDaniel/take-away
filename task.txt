@@ -20,12 +20,5 @@ agrupar adições da mesma porção do mesmo item
 
 redirecionar para adicionar items quando cadastrar um cardapio
 
-corrigir erros ao carregar items sem porções
-
-corrigir erros ao carregar bebidas sem porções
-
-corrigir erro ao mostrar items inativos na pagina de novo pedido
-
 ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
 
-adicionar as porções na exibição de bebidas na pagina index dos mesmos

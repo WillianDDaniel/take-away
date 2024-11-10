@@ -29,9 +29,9 @@
       </h2>
 
       <div id="menu-items" class="space-y-4 p-4 border border-gray-300 rounded-lg overflow-auto h-80">
-        <%= render 'menu_items', menu_items: @order.menu.dishes %>
+        <%= render 'menu_items', menu_items: @order.menu.dishes.where(status: :active) %>
 
-        <%= render 'menu_items', menu_items: @order.menu.beverages %>
+        <%= render 'menu_items', menu_items: @order.menu.beverages.where(status: :active) %>
       </div>
     </div>
 

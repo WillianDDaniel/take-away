@@ -1,32 +1,37 @@
 <% menu_items.each do |item| %>
 
-	<div class="mb-4">
-		<h3 class="font-semibold text-gray-700"><%= item.name %></h3>
+  <% if item.portions.any? %>
 
-		<% item.portions.each do |portion| %>
+    <div class="mb-4">
+      <h3 class="font-semibold text-gray-700"><%= item.name %></h3>
 
-			<%= content_tag :div,
-				class: "flex justify-between items-center text-gray-600 p-2 rounded hover:bg-gray-100",
-				id: "order_portion_#{portion.id}" do %>
+      <% item.portions.each do |portion| %>
 
-				<span>
-					<%= portion.description %> - R$ <%= portion.price %>
-				</span>
+        <%= content_tag :div,
+          class: "flex justify-between items-center text-gray-600 p-2 rounded hover:bg-gray-100",
+          id: "order_portion_#{portion.id}" do %>
 
-				<button type="button"
-					class="text-indigo-600 hover:underline"
-					data-action="order#addItem"
-					data-order-item-name-param="<%= portion.portionable.name %>"
-					data-order-portion-id-param="<%= portion.id %>"
-					data-order-portion-description-param="<%= j portion.description %>"
-					data-order-portion-price-param="<%= portion.price %>"
-				>
-					Adicionar
-				</button>
+          <span>
+            <%= portion.description %> - R$ <%= portion.price %>
+          </span>
 
-			<% end %>
-		<% end %>
+          <button type="button"
+            class="text-indigo-600 hover:underline"
+            data-action="order#addItem"
+            data-order-item-name-param="<%= portion.portionable.name %>"
+            data-order-portion-id-param="<%= portion.id %>"
+            data-order-portion-description-param="<%= j portion.description %>"
+            data-order-portion-price-param="<%= portion.price %>"
+          >
+            Adicionar
+          </button>
 
-	</div>
+        <% end %>
+
+      <% end %>
+
+    </div>
+
+  <% end %>
 
 <% end %>

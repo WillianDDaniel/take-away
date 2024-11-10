@@ -220,5 +220,42 @@ describe 'New Order Page' do
       expect(page).to have_content('Erro ao cadastrar pedido')
       expect(page).to have_content('Nenhum item adicionado ao pedido')
     end
+
+    it 'user can not see inactive items on new order page' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
+
+      Portion.create!(description: 'Prato Teste', price: 10.00, portionable: dish)
+      Portion.create!(description: 'Bebida Teste', price: 10.00, portionable: beverage)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+
+      menu.dishes << dish
+      menu.beverages << beverage
+
+      dish.update(status: "paused")
+      beverage.update(status: "paused")
+
+      login_as(user)
+
+      visit new_order_path(menu_id: menu.id)
+
+      expect(page).not_to have_content('Burger')
+      expect(page).not_to have_content('Prato Teste')
+
+      expect(page).not_to have_content('Coca')
+      expect(page).not_to have_content('Bebida Teste')
+    end
+
   end
 end
