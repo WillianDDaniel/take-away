@@ -34,7 +34,7 @@ describe 'Dashboard Page' do
       expect(current_path).to eq dashboard_path
     end
 
-    it 'user see a link to access the menus of his restaurants' do
+    it 'user see all link of the site menus aside' do
       user = User.create!(
         email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
         password: 'password12345', document_number: CPF.generate
@@ -49,7 +49,14 @@ describe 'Dashboard Page' do
 
       visit dashboard_path
 
-      expect(page).to have_link('Cardápios')
+      within 'aside' do
+        expect(page).to have_link('Inicio')
+        expect(page).to have_link('Cardápios')
+        expect(page).to have_link('Pratos')
+        expect(page).to have_link('Bebidas')
+        expect(page).to have_link('Marcadores')
+        expect(page).to have_link('Horários')
+      end
     end
 
     it 'user can see the menus of his restaurants' do
