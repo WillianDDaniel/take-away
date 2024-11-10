@@ -95,7 +95,7 @@ describe 'Signin Page' do
       expect(page).to have_content('Login efetuado com sucesso')
     end
 
-    it 'should be redirected to dashboard page after signing in' do
+    it 'should be redirected to new restaurant page after signing in' do
       cpf = CPF.generate
 
       User.create!(
@@ -112,7 +112,7 @@ describe 'Signin Page' do
         click_button 'Entrar'
       end
 
-      expect(current_path).to eq(dashboard_path)
+      expect(current_path).to eq(new_restaurant_path)
     end
   end
 end

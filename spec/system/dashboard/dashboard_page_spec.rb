@@ -16,6 +16,12 @@ describe 'Dashboard Page' do
         last_name: 'Doe', password: 'password12345'
       )
 
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+        phone: '11999999999', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: User.last
+      )
+
       visit new_user_session_path
 
       fill_in 'E-mail', with: 'johndoe@example.com'

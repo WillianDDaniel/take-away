@@ -4,8 +4,6 @@ testar a imagem
 
 estilizar as paginas de marcadores adicionar, editar e index
 
-estilizar as paginas index de bebidas
-
 testar links do dashboard
 
 criar testes de request
