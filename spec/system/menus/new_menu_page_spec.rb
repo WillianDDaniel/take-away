@@ -57,6 +57,8 @@ describe 'Menus' do
     fill_in 'Nome do Cardápio', with: 'Teste'
     click_on 'Cadastrar Cardápio'
 
+    visit menus_path
+
     expect(current_path).to eq menus_path
     expect(page).to have_link('Teste')
   end

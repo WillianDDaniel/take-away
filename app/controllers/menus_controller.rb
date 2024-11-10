@@ -25,7 +25,7 @@ class MenusController < ApplicationController
 
     if @menu.save
       flash[:notice] = 'Cardápio criado com sucesso'
-      redirect_to menus_path
+      redirect_to manage_menu_path(@menu)
     else
       @menu.valid?
       flash.now[:alert] = 'Erro ao cadastrar cardápio'

@@ -1,20 +1,34 @@
-<h1>Editar Cardápio</h1>
+<section class="p-6 w-11/12 mx-auto bg-white shadow-md rounded-lg">
+  <h1 class="text-2xl text-center mb-4">Editar Cardápio <%= @menu.name %></h1>
 
-<% if @menu.errors.any? %>
-  <div>
-    <% @menu.errors.full_messages.each do |message| %>
-      <p><%= message %></p>
-    <% end %>
-  </div>
-<% end %>
+  <p class="mb-4 text-sm italic text-center bg-gray-200 p-3 rounded">
+    Edite o nome do seu cardápio aqui. <br>
+    Caso queira escolher os items que irão compor o seu cardápio,
+    clique em => <%= link_to 'Gerenciar Itens', manage_menu_path(@menu),
+      class: "underline text-blue-700 font-semibold"
+    %>
+  </p>
 
-<%= form_with(model: @menu) do |f| %>
-  <div class="w-full">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <% if @menu.errors.any? %>
+    <div>
+      <% @menu.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
 
-  <div class="w-full">
-    <%= f.submit "Atualizar Cardápio" %>
-  </div>
-<% end %>
+  <%= form_with(model: @menu, class: "flex flex-col items-center gap-4") do |f| %>
+    <div class="w-7/12 flex flex-col mb-2">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="w-full flex justify-center">
+      <%= f.submit "Atualizar Cardápio",
+        class: "bg-green-700 hover:bg-green-600 text-white
+          font-semibold py-2 px-8 rounded-lg shadow-md mb-4
+        "
+      %>
+    </div>
+  <% end %>
+</section>

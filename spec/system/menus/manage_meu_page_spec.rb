@@ -50,7 +50,7 @@ describe 'Manage Menu Page' do
     check "#{dish.name}", id: "checkbox_dish_#{dish.id}"
     check "#{beverage.name}", id: "checkbox_beverage_#{beverage.id}"
 
-    click_on 'Salvar Alterações'
+    click_on 'Salvar'
 
     expect(page).to have_content('Itens do cardápio atualizados com sucesso!')
   end

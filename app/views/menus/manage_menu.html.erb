@@ -1,7 +1,11 @@
 <div class="container mx-auto px-4 py-8">
 
-  <div class="mb-6">
-    <h1 class="text-2xl font-bold">Gerenciar Itens do Cardápio: <%= @menu.name %></h1>
+  <div class="w-full text-center mb-6">
+    <h1 class="text-2xl mb-4">Gerenciar Itens do Cardápio: <b><%= @menu.name %></b></h1>
+
+    <p class="text-gray-900 mt-2 bg-gray-200 p-3 rounded">
+      Escolha os itens (pratos e bebidas) que irão compor o seu cardápio e clique em <b>Salvar</b>. <br>
+    </p>
   </div>
 
   <%= form_with url: update_items_menu_path(@menu), method: :post, class: "space-y-8" do |f| %>
@@ -53,7 +57,7 @@
         class: "px-4 py-2 bg-red-400 rounded-md text-white hover:bg-red-500"
       %>
 
-      <%= f.submit 'Salvar Alterações',
+      <%= f.submit 'Salvar',
         class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
       %>
 

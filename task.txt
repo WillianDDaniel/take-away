@@ -4,8 +4,6 @@ testar a imagem
 
 estilizar as paginas de marcadores adicionar, editar e index
 
-testar links do dashboard
-
 criar testes de request
 
 colocar um readme na tela de screenshots
@@ -18,7 +16,6 @@ quando clicar para adicionar um pedido não perder os itens adicionados na area 
 
 agrupar adições da mesma porção do mesmo item
 
-redirecionar para adicionar items quando cadastrar um cardapio
-
 ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
 
+quando o cardápio não tiver items com porções não aparecer na tela order
