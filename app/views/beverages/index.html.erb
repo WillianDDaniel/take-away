@@ -1,32 +1,105 @@
 <section class="flex flex-col items-center">
 
-  <div class="flex justify-between w-5/6 p-4 bg-gray-300 rounded mt-2">
-    <h1 class="text-2xl">Lista de Bebidas</h1>
+  <div class="flex justify-between w-11/12 mt-3 bg-gray-300 py-3 px-3 rounded items-center">
+    <h1 class="w-full font-semibold">Lista de Bebidas</h1>
 
     <%= link_to 'Cadastrar Bebida', new_beverage_path,
-      class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+      class: 'whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md'
     %>
   </div>
 
-  <% @beverages.each do |beverage| %>
-    <div class="w-5/6 p-4 bg-gray-400 rounded mt-2 flex gap-2 justify-between">
-      <div>
-        <%= "Ativo" if beverage.active? %>
-        <%= "Pausado" if beverage.paused? %>
-      </div>
-      <div class="flex gap-2">
-        <%= link_to beverage.name, beverage_path(beverage), class: "font-semibold text-lg" %>
-        <p><%= truncate beverage.description, length: 25 %></p>
-      </div>
+  <p class="w-11/12 text-center p-3 mb-3 bg-slate-100 italic">
+    Aqui você pode cadastrar, editar e/ou remover as bebidas do seu restaurante.
+  </p>
 
-      <div class="flex gap-4">
-        <%= link_to "Editar", edit_beverage_path(beverage), class: "bg-orange-700 hover:bg-orange-800 text-white font-semibold py-1 px-6 rounded-lg shadow-md" %>
-        <%= button_to "Excluir", beverage_path(beverage), method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir essa bebida?' },
-          class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
-        %>
-      </div>
+  <% if @beverages.empty? %>
+    <div class="flex flex-col items-center gap-5">
+      <p class="w-full text-center p-5">
+        <strong>Nenhuma bebida cadastrada.</strong>
+        <br>
+        Cadastre novos Bebidas clicando no botão abaixo.
+      </p>
+
+      <%= link_to "Cadastrar novo Bebida", new_beverage_path,
+        class: 'whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md'
+      %>
+
     </div>
   <% end %>
 
-  <%= "Nenhuma bebida cadastrada." unless @beverages.any? %>
+
+  <% @beverages.each do |beverage| %>
+    <div class="w-11/12 p-2 px-4 bg-gray-300 rounded-t flex gap-2 justify-between">
+
+      <div class="flex flex-1 justify-between">
+        <div class="flex items-center gap-5">
+          <strong class="font-semibold underline text-rose-800 hover:text-rose-700">
+            <%= link_to beverage.name, beverage %>
+          </strong>
+          <i><%= truncate beverage.description, length: 35 %></i>
+        </div>
+
+        <div
+          class="flex items-center text-sm mr-5 px-2 py-0.75 rounded-full font-medium
+            <%= beverage.active? ? 'text-green-900 bg-green-200' : 'text-red-900 bg-red-100' %>
+          "
+        >
+          <%= "Status: Ativo" if beverage.active? %>
+          <%= "Status: Pausado" if beverage.paused? %>
+        </div>
+      </div>
+
+      <div class="flex gap-4 items-center">
+
+        <%= link_to "Detalhes", beverage,
+          class: "text-sm h-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-0.5 px-3 rounded shadow-md"
+        %>
+
+        <%= link_to "Editar", edit_beverage_path(beverage),
+          class: "text-sm h-6 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-0.5 px-3 rounded shadow-md"
+        %>
+
+        <%= button_to "Excluir", beverage, method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir esse bebida?' },
+          class: "text-sm h-6 bg-red-600 hover:bg-red-700 text-white font-semibold py-0.5 px-3 rounded shadow-md"
+        %>
+
+      </div>
+
+    </div>
+
+    <div
+      class="w-11/12 p-2 px-4 rounded-b mb-3 flex gap-3 flex-wrap
+        border-b border-x border-gray-400 bg-gray-50
+      "
+    >
+
+      <% if beverage.portions.any? %>
+
+        <h3 class="w-full italic text-sm">Porções cadastradas para esse Bebida:</h3>
+
+        <% beverage.portions.each do |portion| %>
+          <div class="flex gap-2">
+            <span class="font-semibold text-zinc-900">
+              <%= portion.description %> ->
+            </span>
+            <i><%= number_to_currency portion.price %></i>
+          </div>
+        <% end %>
+
+      <% else %>
+
+        <p class="italic w-full text-center text-sm mt-2">
+          Nenhuma porção cadastrada para essa bebida. <br>
+          Clique no botão abaixo para adicionar porções.
+        </p>
+
+        <div class="w-full flex justify-center mt-1 mb-2">
+          <%= link_to 'Cadastrar porção', new_beverage_portion_path(beverage),
+            class: "bg-green-700 hover:bg-green-600 text-white font-semibold py-0.5 px-4 rounded-lg shadow-md"
+          %>
+        </div>
+
+      <% end %>
+    </div>
+  <% end %>
 </section>
