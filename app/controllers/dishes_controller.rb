@@ -1,7 +1,7 @@
 class DishesController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!
 
   def index
     @dishes = current_user.restaurant.dishes
@@ -87,9 +87,5 @@ class DishesController < ApplicationController
       :image, tags_attributes: [:id, :name, :_destroy],
       tag_ids: []
     )
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path unless current_user.restaurant
   end
 end

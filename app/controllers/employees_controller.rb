@@ -1,7 +1,11 @@
 class EmployeesController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!
+
+  def index
+    @employees = current_user.restaurant.employees
+  end
 
   def new
     @restaurant = current_user.restaurant
@@ -28,9 +32,5 @@ class EmployeesController < ApplicationController
 
   def employee_params
     params.require(:employee).permit(:email, :doc_number)
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path if current_user.restaurant.nil?
   end
 end

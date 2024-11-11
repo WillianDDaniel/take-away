@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
     dashboard_path
   end
 
+  private
+
+  def authorize_owners!
+    unless current_user.owner? && current_user.restaurant
+      redirect_to dashboard_path
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

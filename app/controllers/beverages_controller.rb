@@ -1,7 +1,7 @@
 class BeveragesController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!
 
   def index
     @beverages = current_user.restaurant.beverages
@@ -83,9 +83,5 @@ class BeveragesController < ApplicationController
 
   def beverage_params
     params.require(:beverage).permit(:name, :description, :alcoholic, :calories, :image)
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path unless current_user.restaurant
   end
 end

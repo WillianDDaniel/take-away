@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_one :restaurant
 
-  enum role: { owner: 1, staff: 5 }
+  enum role: {regular: 0, owner: 3, staff: 5 }
 
   validates :name, :last_name, :document_number, presence: true
   validates :document_number, uniqueness: true
@@ -16,7 +16,34 @@ class User < ApplicationRecord
   validate :cpf_must_be_valid
   validate :only_letters
 
+  before_create :set_user_role
+
+  def current_restaurant
+    find_user_restaurant
+  end
+
   private
+
+  def find_user_restaurant
+    if owner?
+      restaurant
+    elsif staff?
+      employee = Employee.find_by(email: email)
+      employee&.restaurant
+    else
+      false
+    end
+  end
+
+  def set_user_role
+    employee = Employee.find_by(email: email)
+
+    if employee && employee.doc_number == document_number
+      self.role = 'staff'
+    else
+      self.role = 'regular'
+    end
+  end
 
   def cpf_must_be_valid
     errors.add(:document_number, 'inválido') unless CPF.valid?(document_number)

@@ -1,7 +1,7 @@
 class SchedulesController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!
 
   def index
     @schedules = current_user.restaurant.schedules
@@ -63,9 +63,5 @@ class SchedulesController < ApplicationController
 
   def schedule_params
     params.require(:schedule).permit(:week_day, :open_time, :close_time)
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path unless current_user.restaurant
   end
 end

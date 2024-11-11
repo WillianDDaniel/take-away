@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!
 
   def index
     @tags = Tag.where(restaurant: current_user.restaurant)
@@ -27,9 +27,5 @@ class TagsController < ApplicationController
 
   def tag_params
     params.require(:tag).permit(:name)
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path unless current_user.restaurant
   end
 end

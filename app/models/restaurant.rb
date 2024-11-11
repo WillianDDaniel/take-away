@@ -3,6 +3,7 @@ class Restaurant < ApplicationRecord
 
   has_many :schedules
   has_many :dishes
+  has_many :employees
   has_many :beverages
   has_many :menus
 
@@ -23,7 +24,7 @@ class Restaurant < ApplicationRecord
   private
 
   def set_user_as_owner
-    user.role = 'owner'
+    user.update(role: 'owner')
   end
 
   def doc_must_be_valid

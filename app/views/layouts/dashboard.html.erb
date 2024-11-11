@@ -41,7 +41,7 @@
     </header>
 
     <main class='flex'>
-			<% if current_user.restaurant %>
+			<% if current_user.current_restaurant %>
 				<aside class='w-44 bg-zinc-800 text-white min-h-screen pt-5'>
 
           <div class="w-full flex flex-col items-center">
@@ -60,26 +60,27 @@
               <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
                 <%= link_to "Cardápios", menus_path %>
               </li>
+              <% if current_user.owner? && current_user.restaurant %>
+                <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                  <%= link_to "Pratos", dishes_path %>
+                </li>
 
-              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
-                <%= link_to "Pratos", dishes_path %>
-              </li>
+                <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                  <%= link_to "Bebidas", beverages_path %>
+                </li>
 
-              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
-                <%= link_to "Bebidas", beverages_path %>
-              </li>
+                <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                  <%= link_to "Marcadores", tags_path %>
+                </li>
 
-              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
-                <%= link_to "Marcadores", tags_path %>
-              </li>
+                <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                  <%= link_to "Funcionários", employees_path %>
+                </li>
 
-              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
-                <%= link_to "Funcionários", employees_path %>
-              </li>
-
-              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
-                <%= link_to "Horários", schedules_path %>
-              </li>
+                <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                  <%= link_to "Horários", schedules_path %>
+                </li>
+              <% end %>
             </ul>
 
           </nav>

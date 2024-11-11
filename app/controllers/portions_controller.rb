@@ -1,7 +1,7 @@
 class PortionsController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!
 
   def new
     @dish = Dish.find_by(id: params[:dish_id])
@@ -85,9 +85,5 @@ class PortionsController < ApplicationController
 
   def portion_params
     params.require(:portion).permit(:description, :price)
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path unless current_user.restaurant
   end
 end
