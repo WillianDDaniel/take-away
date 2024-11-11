@@ -1,6 +1,14 @@
 <section class="w-11/12 mx-auto">
 
-  <h1 class=" w-full text-center text-3xl font-bold p-4">Funcionários</h1>
+  <div class=" w-full flex justify-between bg-gray-200 p-4 mb-4 items-center">
+    <h1 class=" w-full text-3xl font-bold p-4">Funcionários</h1>
+
+    <div>
+      <%= link_to 'Novo Funcionário', new_employee_path,
+        class: 'text-nowrap bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+      %>
+    </div>
+  </div>
 
   <% @employees.each do |employee| %>
     <div class="flex justify-between bg-gray-200 p-4 rounded gap-3">

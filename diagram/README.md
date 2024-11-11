@@ -8,6 +8,7 @@ erDiagram
     RESTAURANTS ||--o{ BEVERAGES : "has"
     RESTAURANTS ||--o{ SCHEDULES : "has"
     RESTAURANTS ||--o{ TAGS : "has"
+    RESTAURANTS ||--o{ EMPLOYEES : "has"
 
     MENUS ||--o{ MENU_ITEMS : "has"
     MENU_ITEMS ||--o{ DISHES : "belongs to as menuable"
@@ -31,6 +32,17 @@ erDiagram
         string name
         string last_name
         string document_number
+        int role
+        datetime created_at
+        datetime updated_at
+    }
+
+    EMPLOYEES {
+        int id PK
+        int restaurant_id FK
+        string email
+        string doc_number
+        boolean registered
         datetime created_at
         datetime updated_at
     }
