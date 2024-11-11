@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def new
     @menu = Menu.find_by(id: params[:menu_id])
 
-    if @menu.nil? || @menu.restaurant != current_user.restaurant
+    if @menu.nil? || @menu.restaurant != current_user.current_restaurant
       redirect_to dashboard_path
     end
     @order = Order.new(menu_id: params[:menu_id])
@@ -45,6 +45,6 @@ class OrdersController < ApplicationController
   end
 
   def check_user_restaurant
-    redirect_to new_restaurant_path unless current_user.restaurant
+    redirect_to new_restaurant_path unless current_user.current_restaurant
   end
 end

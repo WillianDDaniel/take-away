@@ -75,5 +75,32 @@ RSpec.describe Employee, type: :model do
       employee = Employee.create!(email: 'employee@example.com', doc_number: CPF.generate, restaurant: restaurant)
       expect(employee.registered).to be false
     end
+
+    it 'is active after registration' do
+      user = User.create!(
+        email: 'user@example.com', document_number: CPF.generate, name: 'John',
+        last_name: 'Doe', password: 'password12345'
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', email: 'restaurant@example.com',
+        phone: '11999999999', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      staff_document = CPF.generate
+      employee = Employee.create!(
+        email: 'employee@example.com', doc_number: staff_document, restaurant: restaurant
+      )
+
+      staff_user = User.new(
+        email: 'employee@example.com', document_number: staff_document, name: 'John',
+        last_name: 'Doe', password: 'password12345'
+      )
+      staff_user.save!
+
+      expect(staff_user.staff?).to be true
+      expect(employee.reload.registered).to be true
+    end
   end
 end

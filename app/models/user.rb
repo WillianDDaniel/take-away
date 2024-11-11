@@ -40,6 +40,7 @@ class User < ApplicationRecord
 
     if employee && employee.doc_number == document_number
       self.role = 'staff'
+      employee.update(registered: true)
     else
       self.role = 'regular'
     end

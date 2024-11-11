@@ -1,16 +1,20 @@
 class MenusController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :check_user_restaurant
+  before_action :authorize_owners!, only: [:new, :create, :edit, :update, :destroy, :manage_menu, :update_menu_items]
 
   def index
-    @menus = Menu.where(restaurant: current_user.restaurant)
+    @menus = Menu.where(restaurant: current_user.current_restaurant)
+
+    unless current_user.current_restaurant
+      redirect_to new_restaurant_path
+    end
   end
 
   def show
     @menu = Menu.find_by(id: params[:id])
 
-    if @menu.nil? || @menu.restaurant != current_user.restaurant
+    if @menu.nil? || @menu.restaurant != current_user.current_restaurant
       redirect_to dashboard_path
     end
   end
@@ -107,9 +111,5 @@ class MenusController < ApplicationController
 
   def menu_params
     params.require(:menu).permit(:name, menu_items_attributes: [:id, :menuable_id])
-  end
-
-  def check_user_restaurant
-    redirect_to new_restaurant_path if current_user.restaurant.nil?
   end
 end

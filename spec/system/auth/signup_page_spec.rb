@@ -183,5 +183,36 @@ describe 'Signup Page' do
       expect(User.last.name).to eq('John')
       expect(User.last.last_name).to eq('Doe')
     end
+
+    it 'should redirect to the dashboard page when user is staff' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      staff_document = CPF.generate
+
+      Employee.create!(email: 'employee@example.com', doc_number: staff_document, restaurant: restaurant)
+
+      User.create!(
+        email: 'employee@example.com', name: 'Xavier', last_name: 'Doe',
+        password: 'password12345', document_number: staff_document
+      )
+
+      visit new_user_session_path
+
+      within('form') do
+        fill_in 'E-mail', with: 'employee@example.com'
+        fill_in 'Senha', with: 'password12345'
+        click_button 'Entrar'
+      end
+
+      expect(current_path).to eq(dashboard_path)
+    end
   end
 end
