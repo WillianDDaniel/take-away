@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      employee: Funcionário
+    attributes:
+      employee:
+        email: E-mail do Funcionário
+        doc_number: CPF do Funcionário
+        created_at: Criado em
+        updated_at: Atualizado em

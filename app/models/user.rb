@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_one :restaurant
 
+  enum role: { owner: 1, staff: 5 }
+
   validates :name, :last_name, :document_number, presence: true
   validates :document_number, uniqueness: true
 

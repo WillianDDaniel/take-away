@@ -145,5 +145,21 @@ RSpec.describe Restaurant, type: :model do
         expect(restaurant).not_to be_valid
       end
     end
+
+    context 'after create' do
+      it 'user role must be owner after this user create a restaurant' do
+        user = User.new(
+          document_number: CPF.generate, name: 'John', last_name: 'Doe',
+          email: 'johndoe@example.com', password: 'password12345'
+        )
+
+        Restaurant.create!(
+          brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+          email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+        )
+
+        expect(user.role).to eq 'owner'
+      end
+    end
   end
 end

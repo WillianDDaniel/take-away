@@ -55,6 +55,7 @@ describe 'Dashboard Page' do
         expect(page).to have_link('Pratos')
         expect(page).to have_link('Bebidas')
         expect(page).to have_link('Marcadores')
+        expect(page).to have_link('Funcionários')
         expect(page).to have_link('Horários')
       end
     end

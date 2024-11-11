@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  describe 'Valid?' do
+  describe '#valid?' do
 
     context 'when user information is missing' do
       it 'should not be valid without document_number' do
@@ -191,3 +191,4 @@ RSpec.describe User, type: :model do
     end
   end
 end
+

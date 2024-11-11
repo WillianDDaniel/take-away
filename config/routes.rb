@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :schedules, only: [:new, :create, :index, :edit, :update, :destroy]
   resources :tags, only: [:new, :create, :index, :edit, :update, :destroy]
   resources :orders, only: [:new, :create, :index, :show]
+  resources :employees, only: [:new, :create, :index]
 
   resources :menus do
     member do

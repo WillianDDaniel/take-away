@@ -1,0 +1,27 @@
+
+<h1>Novo Funcionário</h1>
+
+<% if @employee.errors.any? %>
+  <ul>
+    <% @employee.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with(model: @employee) do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :doc_number %>
+    <%= f.text_field :doc_number %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+    <%= f.submit "Cadastrar Funcionário" %>
+  </div>
+<% end %>

@@ -18,7 +18,13 @@ class Restaurant < ApplicationRecord
 
   before_validation :generate_code
 
+  after_create :set_user_as_owner
+
   private
+
+  def set_user_as_owner
+    user.role = 'owner'
+  end
 
   def doc_must_be_valid
     unless CNPJ.valid?(doc_number)
