@@ -121,5 +121,43 @@ describe 'Menus' do
       expect(current_path).to eq manage_menu_path(Menu.last)
       expect(page).to have_content('Gerenciar Itens do Cardápio: Teste')
     end
+
+    it 'employee should cannot see the edit, manage and delete buttons on menu index' do
+      user = User.create!(
+        email: 'user@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      staff_document = CPF.generate
+      Employee.create!(
+        email: 'employee@example.com', doc_number: staff_document,
+        restaurant: Restaurant.last
+      )
+
+      Menu.create!(
+        name: 'Teste', restaurant: Restaurant.last
+      )
+
+      staff = User.create!(
+        email: 'employee@example.com', name: 'Ana', last_name: 'Doe',
+        password: 'password12345', document_number: staff_document,
+      )
+      login_as(staff)
+
+      visit menus_path
+
+      expect(page).not_to have_link('Novo Cardápio')
+      expect(page).not_to have_link('Editar')
+      expect(page).not_to have_link('Gerenciar Itens')
+      expect(page).not_to have_link('Excluir')
+
+      expect(page).to have_link('Ver Cardápio')
+      expect(page).to have_link('Novo Pedido')
+    end
   end
 end

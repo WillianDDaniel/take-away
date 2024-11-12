@@ -3,9 +3,12 @@
   <div class="flex justify-between w-11/12 mt-3 bg-gray-300 py-3 px-3 rounded items-center">
     <h1 class="w-full font-semibold">Cardápios</h1>
 
-    <%= link_to 'Novo Cardápio', new_menu_path,
-      class: "whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md"
-    %>
+    <% if current_user.owner? %>
+      <%= link_to 'Novo Cardápio', new_menu_path,
+        class: "whitespace-nowrap bg-rose-700 hover:bg-rose-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md"
+      %>
+    <% end %>
+
   </div>
 
   <div class=" flex flex-wrap gap-3 justify-between w-11/12 mt-3">
@@ -40,7 +43,22 @@
           </div>
         </div>
 
-        <%= render 'menu_buttons_container', menu: menu %>
+        <% if current_user.owner? %>
+          <%= render 'menu_buttons_owners', menu: menu %>
+
+        <% else %>
+          <%= link_to 'Ver Cardápio', menu_path(menu),
+            class: "bg-rose-700 hover:bg-rose-600 text-white font-semibold
+              py-1 px-4 rounded-lg shadow-md text-center mx-2 my-0.5
+            "
+          %>
+
+          <%= link_to 'Novo Pedido', new_order_path(menu_id: menu.id),
+            class: "bg-green-700 hover:bg-green-600 text-white font-semibold
+              py-1 px-4 rounded-lg shadow-md text-center m-2 my-0.5
+            "
+          %>
+        <% end %>
 
       <% end %>
     <% end %>
