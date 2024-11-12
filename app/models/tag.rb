@@ -5,4 +5,5 @@ class Tag < ApplicationRecord
   has_many :dishes, through: :tag_dishes
 
   validates :name, presence: true
+  validates :name, uniqueness: { scope: :restaurant_id }
 end

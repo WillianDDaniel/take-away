@@ -84,8 +84,7 @@ describe 'Search' do
         click_on 'Buscar'
       end
 
-      expect(page).to have_content('Nenhum prato encontrado')
-      expect(page).to have_content('Nenhuma bebida encontrada')
+      expect(page).to have_content('Nenhum resultado encontrado.')
     end
 
     it 'if theres no restaurant, the input should be not visible' do

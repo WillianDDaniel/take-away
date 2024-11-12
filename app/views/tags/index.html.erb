@@ -1,9 +1,45 @@
-<h1>Marcadores</h1>
+<section class="flex flex-col items-center">
 
-<%= link_to 'Novo Marcador', new_tag_path %>
+  <div class="flex justify-between w-11/12 mt-3 bg-gray-300 py-3 px-3 rounded items-center">
+    <h1 class="w-full font-semibold">
+      Marcadores
+    </h1>
 
-<% @tags.each do |tag| %>
-    <li>
-        <%= link_to tag.name, tag_path(tag) %>
-    </li>
-<% end %>
+    <%= link_to 'Novo Marcador', new_tag_path,
+      class: "whitespace-nowrap bg-rose-700 hover:bg-rose-600
+        text-white font-semibold py-1 px-4 rounded-lg shadow-md
+      "
+    %>
+  </div>
+
+  <p class="w-11/12 text-center p-3 mb-3 bg-slate-100 italic">
+    Marcadores são uma forma de adicionar características especiais aos seus pratos.
+  </p>
+
+  <h2 class="mb-3"> Marcadores cadastrados </h2>
+
+  <ul class="w-11/12 flex flex-wrap gap-2 justify-around">
+    <% @tags.each do |tag| %>
+      <%= content_tag :li, id: dom_id(tag),
+        class: "bg-gray-200 py-1 px-2 rounded flex justify-between w-5/12" do %>
+        <%= tag.name %>
+
+        <div class="flex gap-3 items-center">
+          <%= link_to "Editar", edit_tag_path(tag),
+            class: "whitespace-nowrap text-sm text-amber-700 hover:text-amber-600
+              underline font-semibold px-2
+            "
+          %>
+
+          <%= button_to "Remover", tag,
+            method: :delete,
+            data: { turbo_confirm: "Tem certeza?" },
+            class: "whitespace-nowrap text-sm text-rose-700 hover:text-rose-600
+              underline font-semibold px-2
+            "
+          %>
+        </div>
+      <% end %>
+    <% end %>
+  </ul>
+</section>

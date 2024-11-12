@@ -1,8 +1,8 @@
 <section class="p-6 w-11/12 mx-auto bg-white shadow-md rounded-lg">
-  <h1 class="text-2xl text-center mb-4">Novo Marcador</h1>
+  <h1 class="text-2xl text-center mb-4">Editar Marcador</h1>
 
   <p class="w-full text-center p-3 mb-5 bg-slate-100 italic">
-    Crie um novo marcador para organizar seus pratos.
+    Edite o nome do marcador aqui. Lembrando que será alterado em todos os pratos vinculados.
   </p>
 
   <% if @tag.errors.any? %>
@@ -15,5 +15,5 @@
     </div>
   <% end %>
 
-  <%= render 'form' %>
+ <%= render 'form' %>
 </section>

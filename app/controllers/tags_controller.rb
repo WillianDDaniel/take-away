@@ -19,7 +19,30 @@ class TagsController < ApplicationController
       redirect_to tags_path
     else
       @tag.valid?
-      render :new
+      flash.now[:alert] = 'Erro ao cadastrar marcador'
+
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @tag = Tag.find_by(id: params[:id])
+
+    if @tag.nil? || @tag.restaurant != current_user.restaurant
+      redirect_to tags_path
+    end
+  end
+
+  def update
+    @tag = Tag.find_by(id: params[:id])
+    if @tag.update(tag_params)
+      flash[:notice] = 'Marcador atualizado com sucesso'
+      redirect_to tags_path
+    else
+      @tag.valid?
+      flash.now[:alert] = 'Erro ao atualizar marcador'
+
+      render :edit, status: :unprocessable_entity
     end
   end
 

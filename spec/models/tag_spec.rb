@@ -13,6 +13,74 @@ RSpec.describe Tag, type: :model do
       expect(tag).not_to be_valid
       expect(tag.errors.include?(:restaurant)).to be true
     end
+
+    it 'is valid with all attributes' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '11999999999', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      tag = Tag.new(name: 'Teste', restaurant: Restaurant.first)
+      expect(tag).to be_valid
+    end
+
+    it 'is invalid with a name already in use' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '11999999999', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      tag = Tag.new(name: 'Teste', restaurant: Restaurant.first)
+      tag.save!
+
+      tag2 = Tag.new(name: 'Teste', restaurant: Restaurant.first)
+      expect(tag2).not_to be_valid
+      expect(tag2.errors.include?(:name)).to be true
+    end
+
+    it 'diferent users can have the same name' do
+      user_01 = User.create!(
+        email: 'firstjohndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      user_02 = User.create!(
+        email: 'secondjohndoes@example.com', name: 'Ana', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      first_restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '11999999999', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user_01
+      )
+
+      second_restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', email: 'johndoes@example.com',
+        phone: '11999999999', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user_02
+      )
+
+      tag_01 = Tag.new(name: 'Teste', restaurant: first_restaurant)
+      tag_01.save!
+
+      tag_02 = Tag.new(name: 'Teste', restaurant: second_restaurant)
+      tag_02.save!
+
+      expect(tag_02).to be_valid
+    end
   end
 
   describe 'associations' do
