@@ -8,8 +8,6 @@ criar testes de request
 
 colocar um readme na tela de screenshots
 
-driagramar banco de dados
-
 mudar a data de atualização das porções para campo especifico para esta função
 
 agrupar adições da mesma porção do mesmo item
@@ -17,3 +15,15 @@ agrupar adições da mesma porção do mesmo item
 ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
 
 quando o cardápio não tiver items com porções não aparecer na tela order
+
+Adicionar um botão para acessar os pedidos da loja
+
+Tirar os botões de editar pedidos para funcionários
+
+Adicionar pedidos recentes na tela inicial
+
+adicionar a busca por tags
+
+adicionar a pagina informações do restaurante
+
+resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro
