@@ -7,9 +7,6 @@ class SearchController < ApplicationController
     if @query.present?
       @dishes = current_user.restaurant.dishes.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")
       @beverages = current_user.restaurant.beverages.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")
-    else
-      @dishes = []
-      @beverages = []
     end
   end
 

@@ -1,5 +1,3 @@
-Dar estilo as paginas de resultados de buscas
-
 testar a imagem
 
 estilizar as paginas de marcadores adicionar, editar e index
@@ -18,12 +16,12 @@ quando o cardápio não tiver items com porções não aparecer na tela order
 
 Adicionar um botão para acessar os pedidos da loja
 
-Tirar os botões de editar pedidos para funcionários
-
 Adicionar pedidos recentes na tela inicial
 
 adicionar a busca por tags
 
 adicionar a pagina informações do restaurante
+
+dar estilo a pagina de novo pedido
 
 resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro

@@ -1,46 +1,25 @@
-<% if @query.blank? %>
-	<p>Nenhum resultado encontrado</p>
-<% end %>
+<section class="p-6 w-11/12 mx-auto bg-white shadow-md rounded-lg">
+  <h1 class="text-2xl text-center mb-4 font-semibold">Resultados da busca</h1>
 
-<% if @query.present? %>
+  <% if @dishes.empty? && @beverages.empty? %>
     <div>
-      <h2>Pratos Encontrados</h2>
-      <% if @dishes.any? %>
-        <div>
-          <% @dishes.each do |dish| %>
-            <div>
-              <h3><%= dish.name %></h3>
-              <p><%= truncate(dish.description, length: 100) %></p>
-              <div>
-                <%= link_to "Ver Detalhes", dish_path(dish) %>
-                <%= link_to "Editar", edit_dish_path(dish) %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p>Nenhum prato encontrado.</p>
-      <% end %>
-    </div>
-
-    <div>
-      <h2>Bebidas Encontradas</h2>
-      <% if @beverages.any? %>
-        <div>
-          <% @beverages.each do |beverage| %>
-            <div>
-              <h3><%= beverage.name %></h3>
-              <p><%= truncate(beverage.description, length: 100) %></p>
-              <div>
-                <%= link_to "Ver Detalhes", beverage_path(beverage) %>
-                <%= link_to "Editar", edit_beverage_path(beverage) %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p>Nenhuma bebida encontrada.</p>
-      <% end %>
+      <p class="text-center">Nenhum resultado encontrado.</p>
     </div>
   <% end %>
-</div>
+
+  <div class="flex flex-col gap-2">
+    <% if @dishes.any? %>
+
+      <h2 class="text-2xl font-semibold mb-6 ml-4">Pratos</h2>
+
+      <%= render 'result_items', items: @dishes %>
+    <% end %>
+
+    <% if @beverages.any? %>
+
+      <h2 class="text-2xl font-semibold mb-6 ml-4">Bebidas</h2>
+
+      <%= render 'result_items', items: @beverages %>
+    <% end %>
+  </div>
+</section>

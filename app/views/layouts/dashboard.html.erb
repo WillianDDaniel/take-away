@@ -27,9 +27,15 @@
 
         <% if current_user.restaurant %>
           <%= form_with(url: search_path, method: :get) do |f| %>
-            <%= f.label :query, 'Buscar Itens' %>
-            <%= f.text_field :query, class: 'w-64 h-8 text-sm text-zinc-800' %>
-            <%= f.submit 'Buscar', class: 'ml-2' %>
+            <%= f.label :query, 'Buscar Itens: ' %>
+            <%= f.text_field :query, minlength: '1', required: true,
+              placeholder: 'Nome, descrição ou caracteriscas do item',
+              class: 'w-64 h-7 text-sm text-zinc-800 rounded-md border border-zinc-600'
+            %>
+            <%= f.submit 'Buscar',
+              class: "ml-2 py-1 px-2 bg-zinc-600 hover:bg-zinc-700
+              cursor-pointer text-white text-sm rounded shadow-sm font-semibold"
+            %>
           <% end %>
         <% end %>
 

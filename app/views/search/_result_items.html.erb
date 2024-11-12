@@ -1,0 +1,31 @@
+<% items.each do |item| %>
+<div class="shadow-md py-1 px-4 mb-2 rounded-sm">
+  <div class="flex gap-4">
+    <%= image_tag item.image.attached? ? item.image : 'no-image.png', alt: item.name,
+      class: "w-16 h-14 object-cover rounded-lg shadow-lg"
+    %>
+
+    <div>
+      <h2 class="text-lg underline text-rose-800 font-semibold mb-2">
+        <%= link_to item.name, item %>
+      </h2>
+      <p><%= truncate(item.description, length: 100) %></p>
+    </div>
+  </div>
+
+  <div>
+
+    <% if item.portions.any? %>
+      <div class="p-4">
+        <ul class="flex flex-wrap gap-4">
+          <% item.portions.each do |portion| %>
+            <li><%= portion.description %></li> =>
+            <li><%= number_to_currency portion.price %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+<% end %>
