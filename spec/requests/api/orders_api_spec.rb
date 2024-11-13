@@ -268,4 +268,114 @@ describe 'Orders API' do
       expect(res['message']).to eq('Verifique o código do restaurante e tente novamente')
     end
   end
+
+  context 'GET /api/v1/restaurants/:code/orders/:code' do
+    it 'should show a order with the correct codes' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
+
+      portion_dish = Portion.create!(description: 'Teste', price: 10, portionable: dish)
+      portion_beverage = Portion.create!(description: 'Teste', price: 10, portionable: beverage)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << Dish.first
+      menu.beverages << Beverage.first
+
+      ordem_dish = OrderItem.new(portion: portion_dish, quantity: 1, note: 'Sem cebola')
+      ordem_beverage = OrderItem.new(portion: portion_beverage, quantity: 1)
+
+      order = Order.create!(
+        customer_name: 'Ana Doe', customer_phone: '11999955555',
+        customer_email: 'ana@example.com', customer_doc: CPF.generate,
+        order_items: [ordem_dish, ordem_beverage], menu: menu, status: :pending
+      )
+
+      get "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}"
+
+      res = JSON.parse(response.body)
+
+      expect(response).to have_http_status(200)
+
+      expect(res['code']).to eq(order.code)
+      expect(res['customer_name']).to eq(order.customer_name)
+      expect(res['status']).to eq(order.status)
+      expect(res['order_date']).to eq(order.created_at.strftime('%d/%m/%Y %H:%M:%S'))
+
+      expect(res['items'].count).to eq(2)
+
+      expect(res['items'][0]['name']).to eq(dish.name)
+      expect(res['items'][0]['quantity']).to eq(1)
+      expect(res['items'][0]['note']).to eq('Sem cebola')
+
+      expect(res['items'][1]['name']).to eq(beverage.name)
+      expect(res['items'][1]['quantity']).to eq(1)
+      expect(res['items'][1]['note']).to eq(nil)
+    end
+
+    it 'should show a error message if the order code is not valid' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      get "/api/v1/restaurants/#{restaurant.code}/orders/invalid_code"
+
+      res = JSON.parse(response.body)
+
+      expect(response).to have_http_status(404)
+
+      expect(res['error']).to eq('Código de pedido inválido ou inexistente')
+      expect(res['message']).to eq('Verifique o código do pedido e tente novamente')
+    end
+
+    it 'should show a error message if the restaurant code is not valid' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      portion_dish = Portion.create!(description: 'Teste', price: 10, portionable: dish)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << Dish.first
+
+      ordem_dish = OrderItem.new(portion: portion_dish, quantity: 1, note: 'Sem cebola')
+
+      order = Order.create!(
+        customer_name: 'Ana Doe', customer_phone: '11999955555',
+        customer_email: 'ana@example.com', customer_doc: CPF.generate,
+        order_items: [ordem_dish], menu: menu
+      )
+
+      get "/api/v1/restaurants/invalid_code/orders/#{order.code}"
+
+      res = JSON.parse(response.body)
+
+      expect(response).to have_http_status(404)
+
+      expect(res['error']).to eq('Restaurante não encontrado')
+      expect(res['message']).to eq('Verifique o código do restaurante e tente novamente')
+    end
+  end
 end
