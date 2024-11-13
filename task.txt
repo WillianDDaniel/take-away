@@ -1,7 +1,5 @@
 testar a imagem
 
-estilizar as paginas de marcadores adicionar, editar e index
-
 criar testes de request
 
 colocar um readme na tela de screenshots

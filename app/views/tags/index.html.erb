@@ -33,7 +33,7 @@
 
           <%= button_to "Remover", tag,
             method: :delete,
-            data: { turbo_confirm: "Tem certeza?" },
+            data: { turbo_confirm: "Tem certeza? Esta ação é irreversível e a tag será desvinculada de todos os pratos que está associada." },
             class: "whitespace-nowrap text-sm text-rose-700 hover:text-rose-600
               underline font-semibold px-2
             "

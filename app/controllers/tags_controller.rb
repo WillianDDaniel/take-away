@@ -46,6 +46,16 @@ class TagsController < ApplicationController
     end
   end
 
+  def destroy
+    @tag = Tag.find_by(id: params[:id])
+    if @tag.destroy
+      flash[:notice] = 'Marcador excluído com sucesso'
+      redirect_to tags_path
+    else
+      flash.now[:alert] = 'Erro ao excluir marcador'
+    end
+  end
+
   private
 
   def tag_params
