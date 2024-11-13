@@ -30,4 +30,12 @@ Rails.application.routes.draw do
     end
     resources :portions, only: [:new, :create, :index, :edit, :update, :destroy]
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :restaurants, param: :code, only: [] do
+        resources :orders, only: [:index]
+      end
+    end
+  end
 end

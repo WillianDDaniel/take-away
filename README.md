@@ -46,7 +46,7 @@ rails db:migrate
 
 4. Insira dados de exemplo (opcional):
 
-Existe um arquivo SEED no projeto que trás alguns dados fictícios para melhor visualização do projetos.
+Existe um arquivo SEED no projeto que trás alguns dados fictícios para melhor visualização do projeto.
 ```bash
 rails db:seed
 ```

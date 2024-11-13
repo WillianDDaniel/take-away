@@ -6,6 +6,7 @@ class Restaurant < ApplicationRecord
   has_many :employees
   has_many :beverages
   has_many :menus
+  has_many :orders, through: :menus
 
   validates(
     :brand_name, :corporate_name, :doc_number,
