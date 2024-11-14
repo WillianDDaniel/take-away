@@ -100,7 +100,7 @@ RSpec.describe Order, type: :model do
         portion: portion, quantity: 1, note: 'Sem cebola'
       )
 
-      order = Order.new(
+      order = Order.create!(
         customer_name: 'John Doe', customer_phone: '11999999999',
         customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
         order_items: [ordem_item], menu: menu

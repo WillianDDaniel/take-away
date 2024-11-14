@@ -21,7 +21,7 @@ class Order < ApplicationRecord
     delivered: 4
   }
 
-  before_validation :generate_code
+  before_create :generate_code
   before_create :set_default_status
 
   def status_i18n

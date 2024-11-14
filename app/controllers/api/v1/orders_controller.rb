@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < ActionController::API
-  before_action :find_restaurant, only: [:index, :show]
+  before_action :find_restaurant, only: [:index, :show, :update]
 
   def index
     status = params[:status]
@@ -32,6 +32,37 @@ class Api::V1::OrdersController < ActionController::API
     }
 
     render json: response, status: :ok
+  end
+
+  def update
+    order = @restaurant.orders.find_by(code: params[:code])
+
+    unless order
+      render json: {
+        error: 'Código de pedido inválido ou inexistente',
+        message: 'Verifique o código do pedido e tente novamente'
+      }, status: :not_found
+
+      return
+    end
+
+    unless order.pending? || order.preparing?
+      render json: {
+        error: 'Pedido não pode ser alterado',
+        message: 'Alteração de pedido não autorizada'
+      }, status: :forbidden
+
+      return
+    end
+
+    if order.pending?
+      order.update(status: :preparing)
+
+    elsif order.preparing?
+      order.update(status: :ready)
+    end
+
+    render json: order, status: :ok
   end
 
   private
