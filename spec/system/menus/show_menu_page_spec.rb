@@ -60,4 +60,46 @@ describe 'Show Menu Page' do
     expect(page).to have_content('Refrigerante')
     expect(page).to have_content('Refrigerante lata')
   end
+
+  it 'should not see paused items' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+    restaurant = Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+    menu = Menu.create!(name: 'Lanches', restaurant: restaurant)
+
+    dish_01 = Dish.create!(name: 'X-Burguer', description: 'Um Burguer', restaurant: restaurant)
+    dish_02 = Dish.create!(name: 'X-Salada', description: 'Um com X com Salada', restaurant: restaurant)
+
+    beverage_01 = Beverage.create!(name: 'Cerveja', description: 'Cerveja lata', restaurant: restaurant)
+    beverage_02 = Beverage.create!(name: 'Refrigerante', description: 'Refrigerante lata', restaurant: restaurant)
+
+    menu.dishes << dish_01
+    menu.dishes << dish_02
+    menu.beverages << beverage_01
+    menu.beverages << beverage_02
+
+    dish_01.paused!
+    beverage_01.paused!
+
+    login_as(user)
+
+    visit menu_path(menu.id)
+
+    expect(page).not_to have_content('X-Burguer')
+    expect(page).not_to have_content('Um Burguer')
+
+    expect(page).not_to have_content('Cerveja')
+    expect(page).not_to have_content('Cerveja lata')
+
+    expect(page).to have_content('X-Salada')
+    expect(page).to have_content('Um com X com Salada')
+
+    expect(page).to have_content('Refrigerante')
+    expect(page).to have_content('Refrigerante lata')
+  end
 end

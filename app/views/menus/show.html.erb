@@ -11,7 +11,7 @@
     <h2 class="text-2xl font-semibold text-gray-700 mb-3">Pratos</h2>
 
     <div class="flex flex-wrap gap-4">
-      <% @menu.dishes.each do |dish| %>
+      <% @menu.dishes.where(status: :active).each do |dish| %>
         <div class="flex flex-col w-[49%] items-center bg-gray-100 p-4 rounded-lg shadow-md">
 
           <div class="flex gap-4">
@@ -67,7 +67,7 @@
   <div class="w-[95%] mt-6">
     <h2 class="text-2xl font-semibold text-gray-700 mb-3">Bebidas</h2>
     <div class="flex flex-wrap gap-4">
-      <% @menu.beverages.each do |beverage| %>
+      <% @menu.beverages.where(status: :active).each do |beverage| %>
         <div class="flex flex-col w-[32%] items-center bg-gray-100 p-4 rounded-lg shadow-md">
 
           <div class="flex gap-4">
