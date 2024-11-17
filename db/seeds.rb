@@ -35,95 +35,95 @@ end
 # Dishes
 dish_01 = Dish.create!(name: 'X-Burguer', description: 'Hambúrguer clássico com queijo e alface',
   calories: 500, restaurant: restaurant)
-create_portions(dish_01, { 'Pequeno' => 12.0, 'Médio' => 18.0, 'Grande' => 25.0 })
+create_portions(dish_01, { 'Pequeno' => 1200, 'Médio' => 1800, 'Grande' => 2500 })
 
 dish_02 = Dish.create!(name: 'X-Salada Especial', description: 'Hambúrguer com queijo, alface, tomate e maionese especial',
   calories: 400, restaurant: restaurant)
-create_portions(dish_02, { 'Pequeno' => 14.0, 'Médio' => 20.0, 'Grande' => 28.0 })
+create_portions(dish_02, { 'Pequeno' => 1400, 'Médio' => 2000, 'Grande' => 2800 })
 
 dish_03 = Dish.create!(name: 'Veggie Burger', description: 'Hambúrguer vegetariano com grão-de-bico e especiarias',
   calories: 300, restaurant: restaurant)
-create_portions(dish_03, { 'Pequeno' => 15.0, 'Médio' => 22.0, 'Grande' => 30.0 })
+create_portions(dish_03, { 'Pequeno' => 1500, 'Médio' => 2200, 'Grande' => 3000 })
 
 dish_04 = Dish.create!(name: 'Chicken Burger', description: 'Sanduíche de frango grelhado com molho de iogurte',
   calories: 350, restaurant: restaurant)
-create_portions(dish_04, { 'Pequeno' => 13.0, 'Médio' => 19.0, 'Grande' => 27.0 })
+create_portions(dish_04, { 'Pequeno' => 1300, 'Médio' => 1900, 'Grande' => 2700 })
 
 dish_05 = Dish.create!(name: 'Cheese Bacon', description: 'Hambúrguer com queijo cheddar e bacon crocante',
   calories: 600, restaurant: restaurant)
-create_portions(dish_05, { 'Pequeno' => 16.0, 'Médio' => 23.0, 'Grande' => 31.0 })
+create_portions(dish_05, { 'Pequeno' => 1600, 'Médio' => 2300, 'Grande' => 3100 })
 
 dish_06 = Dish.create!(name: 'X-Salada Light', description: 'Versão light com pão integral e queijo branco',
   calories: 250, restaurant: restaurant)
-create_portions(dish_06, { 'Pequeno' => 12.0, 'Médio' => 18.0, 'Grande' => 26.0 })
+create_portions(dish_06, { 'Pequeno' => 1200, 'Médio' => 1800, 'Grande' => 2600 })
 
 dish_07 = Dish.create!(name: 'Fettuccine ao Fungi',
   description: 'Massa artesanal com mix de cogumelos frescos e molho bechamel',
   calories: 450, restaurant: restaurant
 )
-create_portions(dish_07, { 'Individual' => 32.0, 'Para Dois' => 58.0 })
+create_portions(dish_07, { 'Individual' => 3200, 'Para Dois' => 5800 })
 
 dish_08 = Dish.create!(name: 'Nhoque da Casa',
   description: 'Nhoque de batata com molho pomodoro e manjericão fresco',
   calories: 380, restaurant: restaurant
 )
-create_portions(dish_08, { 'Individual' => 28.0, 'Família' => 65.0 })
+create_portions(dish_08, { 'Individual' => 2800, 'Família' => 6500 })
 
 dish_09 = Dish.create!(
   name: 'Caesar Suprema',
   description: 'Mix de folhas, frango grelhado, croutons e molho caesar',
   calories: 280, restaurant: restaurant
 )
-create_portions(dish_09, { 'Entrada' => 22.0, 'Refeição' => 34.0, 'Para Compartilhar' => 48.0 })
+create_portions(dish_09, { 'Entrada' => 2200, 'Refeição' => 3400, 'Para Compartilhar' => 4800 })
 
 dish_10 = Dish.create!(
   name: 'Bowl Mediterrâneo',
   description: 'Quinoa, grão-de-bico, homus, falafel e molho tahine',
   calories: 320, restaurant: restaurant
 )
-create_portions(dish_10, { 'Bowl Clássico' => 29.0, 'Super Bowl' => 42.0 })
+create_portions(dish_10, { 'Bowl Clássico' => 2900, 'Super Bowl' => 4200 })
 
 dish_11 = Dish.create!(
   name: 'Salmão Grelhado',
   description: 'Filé de salmão com crosta de ervas e legumes ao vapor',
   calories: 420, restaurant: restaurant
 )
-create_portions(dish_11, { 'Classic' => 45.0, 'Premium' => 62.0 })
+create_portions(dish_11, { 'Classic' => 4500, 'Premium' => 6200 })
 
 dish_12 = Dish.create!(
   name: 'Picanha na Brasa',
   description: 'Picanha grelhada com arroz, farofa e vinagrete',
   calories: 580, restaurant: restaurant
 )
-create_portions(dish_12, { 'Solo' => 52.0, 'Duo' => 98.0, 'Família' => 145.0 })
+create_portions(dish_12, { 'Solo' => 5200, 'Duo' => 9800, 'Família' => 14500 })
 
 dish_13 = Dish.create!(
   name: 'Curry de Legumes',
   description: 'Mix de legumes com curry indiano e leite de coco, acompanha arroz integral',
   calories: 290, restaurant: restaurant
 )
-create_portions(dish_13, { 'Tigela' => 26.0, 'Panela' => 48.0 })
+create_portions(dish_13, { 'Tigela' => 2600, 'Panela' => 4800 })
 
 dish_14 = Dish.create!(
   name: 'Paella Marinera',
   description: 'Arroz com açafrão, camarões, lulas, mariscos e pescado do dia',
   calories: 460, restaurant: restaurant
 )
-create_portions(dish_14, { 'Individual' => 68.0, 'Casal' => 125.0, 'Família (4 pessoas)' => 230.0 })
+create_portions(dish_14, { 'Individual' => 6800, 'Casal' => 12500, 'Família (4 pessoas)' => 23000 })
 
 dish_15 = Dish.create!(
   name: 'Petit Gateau',
   description: 'Bolo quente de chocolate com sorvete de baunilha',
   calories: 380, restaurant: restaurant
 )
-create_portions(dish_15, { 'Classic' => 22.0, 'Double' => 38.0 })
+create_portions(dish_15, { 'Classic' => 2200, 'Double' => 3800 })
 
 dish_16 = Dish.create!(
   name: 'Tiramisù',
   description: 'Sobremesa italiana com café, mascarpone e cacau',
   calories: 320, restaurant: restaurant
 )
-create_portions(dish_16, { 'Taça' => 18.0, 'Para Compartilhar' => 32.0 })
+create_portions(dish_16, { 'Taça' => 1800, 'Para Compartilhar' => 3200 })
 
 dish_17 = Dish.create!(
   name: 'Feijoada Completa',
@@ -131,14 +131,14 @@ dish_17 = Dish.create!(
   calories: 850,
   restaurant: restaurant
 )
-create_portions(dish_17, { 'Individual' => 42.0, 'Família (3-4 pessoas)' => 120.0, 'Festiva (6-8 pessoas)' => 220.0 })
+create_portions(dish_17, { 'Individual' => 4200, 'Família (3-4 pessoas)' => 12000, 'Festiva (6-8 pessoas)' => 22000 })
 
 dish_18 = Dish.create!(
   name: 'Moqueca de Peixe',
   description: 'Peixe fresco com leite de coco, dendê e pimentões, acompanha arroz e pirão',
   calories: 440, restaurant: restaurant
 )
-create_portions(dish_18, { 'Individual' => 48.0, 'Casal' => 89.0, 'Panela Grande' => 165.0 })
+create_portions(dish_18, { 'Individual' => 4800, 'Casal' => 8900, 'Panela Grande' => 16500 })
 
 # Menu Café (breakfast)
 menu_cafe.dishes << [
@@ -175,75 +175,75 @@ menu_lanches.dishes << [
 
 beverage_01 = Beverage.create!(name: 'Suco de Laranja', description: 'Suco natural de laranja',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_01, { 'Pequeno' => 8.0, 'Médio' => 12.0, 'Grande' => 16.0 })
+create_portions(beverage_01, { 'Pequeno' => 800, 'Médio' => 1200, 'Grande' => 1600 })
 
 beverage_02 = Beverage.create!(name: 'Refrigerante', description: 'Refrigerante de cola',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_02, { 'Pequeno' => 6.0, 'Médio' => 10.0, 'Grande' => 14.0 })
+create_portions(beverage_02, { 'Pequeno' => 600, 'Médio' => 1000, 'Grande' => 1400 })
 
 beverage_03 = Beverage.create!(name: 'Chá Gelado', description: 'Chá verde com hortelã e gelo',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_03, { 'Pequeno' => 7.0, 'Médio' => 11.0, 'Grande' => 15.0 })
+create_portions(beverage_03, { 'Pequeno' => 700, 'Médio' => 1100, 'Grande' => 1500 })
 
 beverage_04 = Beverage.create!(name: 'Cerveja Artesanal', description: 'Cerveja artesanal tipo IPA',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_04, { 'Pequeno' => 10.0, 'Médio' => 15.0, 'Grande' => 20.0 })
+create_portions(beverage_04, { 'Pequeno' => 1000, 'Médio' => 1500, 'Grande' => 2000 })
 
 beverage_05 = Beverage.create!(name: 'Vinho Tinto', description: 'Vinho tinto seco',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_05, { 'Taça' => 18.0, 'Garrafa' => 75.0 })
+create_portions(beverage_05, { 'Taça' => 1800, 'Garrafa' => 7500 })
 
 beverage_06 = Beverage.create!(name: 'Água Mineral', description: 'Água mineral sem gás',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_06, { 'Pequeno' => 3.0, 'Médio' => 5.0, 'Grande' => 7.0 })
+create_portions(beverage_06, { 'Pequeno' => 300, 'Médio' => 500, 'Grande' => 700 })
 
 beverage_07 = Beverage.create!(name: 'Caipirinha', description: 'Drink tradicional com limão, cachaça e açúcar',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_07, { 'Clássica' => 16.0, 'Premium' => 22.0, 'Jarra' => 45.0 })
+create_portions(beverage_07, { 'Clássica' => 1600, 'Premium' => 2200, 'Jarra' => 4500 })
 
 beverage_08 = Beverage.create!(name: 'Smoothie Verde', description: 'Blend de frutas verdes, spirulina e hortelã',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_08, { 'Regular' => 14.0, 'Super' => 19.0 })
+create_portions(beverage_08, { 'Regular' => 1400, 'Super' => 1900 })
 
 beverage_09 = Beverage.create!(name: 'Mojito', description: 'Drink cubano com rum, hortelã e limão',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_09, { 'Classic' => 18.0, 'Double' => 28.0, 'Pitcher' => 52.0 })
+create_portions(beverage_09, { 'Classic' => 1800, 'Double' => 2800, 'Pitcher' => 5200 })
 
 beverage_10 = Beverage.create!(name: 'Kombucha', description: 'Chá fermentado com frutas vermelhas',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_10, { 'Copo' => 12.0, 'Garrafa 500ml' => 22.0 })
+create_portions(beverage_10, { 'Copo' => 1200, 'Garrafa 500ml' => 2200 })
 
 beverage_11 = Beverage.create!(name: 'Espumante', description: 'Espumante brut nacional',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_11, { 'Taça' => 20.0, 'Garrafa' => 85.0 })
+create_portions(beverage_11, { 'Taça' => 2000, 'Garrafa' => 8500 })
 
 beverage_12 = Beverage.create!(name: 'Limonada Suíça', description: 'Limão batido com leite condensado e hortelã',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_12, { 'Individual' => 9.0, 'Jarra 500ml' => 18.0, 'Jarra 1L' => 32.0 })
+create_portions(beverage_12, { 'Individual' => 900, 'Jarra 500ml' => 1800, 'Jarra 1L' => 3200 })
 
 beverage_13 = Beverage.create!(name: 'Whisky Single Malt', description: '12 anos, servido com gelo',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_13, { 'Dose 45ml' => 28.0, 'Dose Dupla' => 52.0, 'Garrafa' => 280.0 })
+create_portions(beverage_13, { 'Dose 45ml' => 2800, 'Dose Dupla' => 5200, 'Garrafa' => 28000 })
 
 beverage_14 = Beverage.create!(name: 'Café Especial', description: 'Blend especial da casa',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_14, { 'Espresso' => 5.0, 'Duplo' => 8.0, 'Jarra' => 15.0 })
+create_portions(beverage_14, { 'Espresso' => 500, 'Duplo' => 800, 'Jarra' => 1500 })
 
 beverage_15 = Beverage.create!(name: 'Gin Tônica', description: 'Gin premium com tônica artesanal e especiarias',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_15, { 'Classic' => 24.0, 'Premium' => 32.0, 'Jarra' => 68.0 })
+create_portions(beverage_15, { 'Classic' => 2400, 'Premium' => 3200, 'Jarra' => 6800 })
 
 beverage_16 = Beverage.create!(name: 'Água de Coco', description: 'Água de coco natural gelada',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_16, { 'Copo 300ml' => 8.0, 'Coco Verde' => 12.0 })
+create_portions(beverage_16, { 'Copo 300ml' => 800, 'Coco Verde' => 1200 })
 
 beverage_17 = Beverage.create!(name: 'Sangria', description: 'Vinho tinto com frutas da estação',
   alcoholic: true, restaurant: restaurant)
-create_portions(beverage_17, { 'Taça' => 16.0, 'Jarra 500ml' => 42.0, 'Jarra 1L' => 75.0 })
+create_portions(beverage_17, { 'Taça' => 1600, 'Jarra 500ml' => 4200, 'Jarra 1L' => 7500 })
 
 beverage_18 = Beverage.create!(name: 'Milkshake', description: 'Shake cremoso de chocolate belga',
   alcoholic: false, restaurant: restaurant)
-create_portions(beverage_18, { 'Classic' => 16.0, 'Super' => 22.0, 'Família' => 38.0 })
+create_portions(beverage_18, { 'Classic' => 1600, 'Super' => 2200, 'Família' => 3800 })
 
 # Menu Café (breakfast)
 menu_cafe.beverages << [
