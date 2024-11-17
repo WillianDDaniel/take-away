@@ -1,0 +1,57 @@
+<section class="px-2 w-11/12 mx-auto shadow-md rounded-lg">
+
+  <div class="flex justify-between items-center bg-gray-300 p-3 rounded mb-4 mt-3">
+    <h1 class="w-full font-semibold">Pedidos</h1>
+
+    <%= link_to 'Novo Pedido', dashboard_path,
+      class: "bg-green-700 hover:bg-green-600 text-white cursor-pointer
+        font-semibold py-2 px-8 rounded-lg shadow-md text-nowrap
+      "
+    %>
+  </div>
+
+  <% if @orders.empty? %>
+    <p>Nenhum pedido cadastrado</p>
+  <% end %>
+
+  <% if @orders.any? %>
+
+    <% @orders.each do |order| %>
+      <%= content_tag :div, id: dom_id(order), class: "w-full bg-gray-200 p-3 mb-3 rounded" do %>
+        <div class="flex justify-between">
+          <div>
+            <span class="font-semibold">
+              Pedido #<%= order.code %> -
+              <%= order.customer_name %>
+            </span>
+            =>
+            <%= link_to 'Ver Pedido', order_path(order),
+              class: "font-semibold text-blue-600 hover:text-blue-800 underline"
+            %>
+          </div>
+
+          <div>
+            <span class="font-semibold">Status:</span>
+            <span class="font-semibold text-green-600"><%= order.status_i18n %></span>
+          </div>
+        </div>
+
+        <div class="flex justify-between">
+          <div>
+            <span class="font-semibold">Data:</span>
+            <span class="font-semibold"><%= order.created_at.strftime('%d/%m/%Y') %></span>
+          </div>
+
+          <div>
+            <span class="font-semibold">Total:</span>
+            <span class="font-semibold">
+              <%= number_to_currency(order.total_price) %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+</section>

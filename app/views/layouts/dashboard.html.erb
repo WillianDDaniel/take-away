@@ -64,8 +64,13 @@
               </li>
 
               <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                <%= link_to "Pedidos", orders_path %>
+              </li>
+
+              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
                 <%= link_to "Cardápios", menus_path %>
               </li>
+
               <% if current_user.owner? && current_user.restaurant %>
                 <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
                   <%= link_to "Pratos", dishes_path %>

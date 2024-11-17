@@ -3,6 +3,10 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user_restaurant
 
+  def index
+    @orders = current_user.current_restaurant.orders
+  end
+
   def show
     @order = Order.find_by(id: params[:id])
 

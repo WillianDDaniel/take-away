@@ -28,6 +28,10 @@ class Order < ApplicationRecord
     I18n.t("activerecord.attributes.order.enums.status.#{status}")
   end
 
+  def total_price
+    order_items.reduce(0) { |acc, item| acc + item.portion.price * item.quantity }
+  end
+
   private
 
   def phone_or_email_present
