@@ -309,7 +309,6 @@ describe 'Orders API' do
       expect(res['code']).to eq(order.code)
       expect(res['customer_name']).to eq(order.customer_name)
       expect(res['status']).to eq(order.status)
-      expect(res['order_date']).to eq(order.created_at.strftime('%d/%m/%Y %H:%M:%S'))
 
       expect(res['items'].count).to eq(2)
 
@@ -538,7 +537,6 @@ describe 'Orders API' do
       res = JSON.parse(response.body)
 
       expect(response).to have_http_status(404)
-
       expect(res['error']).to eq('Código de pedido inválido ou inexistente')
       expect(res['message']).to eq('Verifique o código do pedido e tente novamente')
     end

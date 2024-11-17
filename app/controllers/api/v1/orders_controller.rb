@@ -26,9 +26,9 @@ class Api::V1::OrdersController < ActionController::API
     response = {
       code: order.code,
       customer_name: order.customer_name,
-      order_date: order.created_at.strftime('%d/%m/%Y %H:%M:%S'),
+      created_at: order.created_at,
       status: order.status,
-      items: parse_order_items(order.order_items)
+      items: parse_order_items(order.order_items),
     }
 
     render json: response, status: :ok
@@ -89,6 +89,7 @@ class Api::V1::OrdersController < ActionController::API
       {
         name: order_item.portion.portionable.name,
         description: order_item.portion.description,
+        price: order_item.portion.price,
         quantity: order_item.quantity,
         note: order_item.note
       }

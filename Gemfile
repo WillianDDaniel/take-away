@@ -68,3 +68,4 @@ end
 gem "devise", "~> 4.9"
 gem "cpf_cnpj"
 gem 'image_processing', '~> 1.2'
+gem 'rack-cors'
