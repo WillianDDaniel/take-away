@@ -1,0 +1,48 @@
+<section class="max-w-4xl mx-auto p-6">
+  <h1 class="text-2xl font-bold text-center mb-8 text-gray-800">
+    Informações do Restaurante #<%= @restaurant.code %>
+  </h1>
+
+  <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">Nome Fantasia</span>
+          <span class="text-gray-800"><%= @restaurant.brand_name %></span>
+        </p>
+
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">Código</span>
+          <span class="text-gray-800"><%= @restaurant.code %></span>
+        </p>
+
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">Telefone</span>
+          <span class="text-gray-800"><%= @restaurant.phone %></span>
+        </p>
+
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">CNPJ</span>
+          <span class="text-gray-800"><%= @restaurant.doc_number%></span>
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">Razão Social</span>
+          <span class="text-gray-800"><%= @restaurant.corporate_name %></span>
+        </p>
+
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">Endereço</span>
+          <span class="text-gray-800"><%= @restaurant.address %></span>
+        </p>
+
+        <p class="flex flex-col">
+          <span class="text-sm text-gray-500 font-medium">E-mail</span>
+          <span class="text-gray-800"><%= @restaurant.email %></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

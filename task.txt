@@ -12,8 +12,6 @@ ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
 
 quando o cardápio não tiver items com porções não aparecer na tela order
 
-Adicionar um botão para acessar os pedidos da loja
-
 Adicionar pedidos recentes na tela inicial
 
 adicionar a busca por tags

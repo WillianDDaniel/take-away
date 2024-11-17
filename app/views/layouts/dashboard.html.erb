@@ -71,6 +71,10 @@
                 <%= link_to "Cardápios", menus_path %>
               </li>
 
+              <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
+                <%= link_to "Restaurante", restaurant_path(current_user.current_restaurant) %>
+              </li>
+
               <% if current_user.owner? && current_user.restaurant %>
                 <li class="hover:bg-zinc-700 px-2 py-1 rounded-sm">
                   <%= link_to "Pratos", dishes_path %>

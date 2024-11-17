@@ -53,6 +53,7 @@ describe 'Dashboard Page' do
         expect(page).to have_link('Inicio')
         expect(page).to have_link('Pedidos')
         expect(page).to have_link('Cardápios')
+        expect(page).to have_link('Restaurante')
         expect(page).to have_link('Pratos')
         expect(page).to have_link('Bebidas')
         expect(page).to have_link('Marcadores')

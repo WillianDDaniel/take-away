@@ -1,6 +1,11 @@
 class RestaurantsController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
+  before_action :check_user_restaurant, only: [:show]
+
+  def show
+    @restaurant = current_user.current_restaurant
+  end
 
   def new
     redirect_to dashboard_path if current_user.restaurant
@@ -26,5 +31,9 @@ class RestaurantsController < ApplicationController
       :brand_name, :corporate_name, :email,
       :doc_number, :phone, :address
     )
+  end
+
+  def check_user_restaurant
+    redirect_to new_restaurant_path unless current_user.current_restaurant
   end
 end
