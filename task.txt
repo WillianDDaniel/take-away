@@ -4,8 +4,6 @@ criar testes de request
 
 colocar um readme na tela de screenshots
 
-mudar a data de atualização das porções para campo especifico para esta função
-
 agrupar adições da mesma porção do mesmo item
 
 ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
@@ -16,8 +14,14 @@ Adicionar pedidos recentes na tela inicial
 
 adicionar a busca por tags
 
-adicionar a pagina informações do restaurante
-
 dar estilo a pagina de novo pedido
 
 resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro
+
+colocar mascara de formatação nos inputs de telefone e cnpj e cpf
+
+colocar mascara de dinheiro nos inputs de dinheiro
+
+permitir os inputs terem valores de centavos no dinheiro
+
+adicionar os testes de staff

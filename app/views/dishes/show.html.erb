@@ -100,7 +100,7 @@
           <tr class="border-t border-gray-200">
             <td class="p-3 text-gray-800"><%= portion.description %></td>
             <td class="p-3 text-gray-800"><%= number_to_currency(price_history.price) %></td>
-            <td class="p-3 text-gray-500"><%= I18n.l(price_history.updated_at.to_date) %></td>
+            <td class="p-3 text-gray-500"><%= I18n.l(price_history.updated_price_date) %></td>
           </tr>
         <% end %>
       <% end %>
