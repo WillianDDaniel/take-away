@@ -77,12 +77,12 @@ describe 'Index Beverage Page' do
 
     Portion.create!(
       description: 'Lata 350ml',
-      price: 10, portionable: beverage_01
+      price: 1000, portionable: beverage_01
     )
 
     Portion.create!(
       description: 'Garafa 500ml',
-      price: 20, portionable: beverage_01
+      price: 2000, portionable: beverage_01
     )
 
     beverage_02 = Beverage.create!(
@@ -92,12 +92,12 @@ describe 'Index Beverage Page' do
 
     Portion.create!(
       description: 'Lata 350ml',
-      price: 25, portionable: beverage_02
+      price: 2500, portionable: beverage_02
     )
 
     Portion.create!(
       description: 'Garafa 2L',
-      price: 35, portionable: beverage_02
+      price: 3500, portionable: beverage_02
     )
 
     login_as(user)

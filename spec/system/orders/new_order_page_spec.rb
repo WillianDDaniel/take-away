@@ -67,8 +67,8 @@ describe 'New Order Page' do
       Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
       Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
 
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Dish.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Beverage.first)
 
       menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
@@ -124,8 +124,8 @@ describe 'New Order Page' do
       dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
       beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
 
-      Portion.create!(description: 'Prato Teste', price: 10.00, portionable: dish)
-      Portion.create!(description: 'Bebida Teste', price: 10.00, portionable: beverage)
+      Portion.create!(description: 'Prato Teste', price: 1000, portionable: dish)
+      Portion.create!(description: 'Bebida Teste', price: 1000, portionable: beverage)
 
       menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
@@ -173,8 +173,8 @@ describe 'New Order Page' do
       Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
       Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
 
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Dish.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Beverage.first)
 
       menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
@@ -211,8 +211,8 @@ describe 'New Order Page' do
       Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
       Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
 
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Dish.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Beverage.first)
 
       menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
@@ -249,8 +249,8 @@ describe 'New Order Page' do
       Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
       Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
 
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Dish.first)
-      Portion.create!(description: 'Teste', price: 10.00, portionable: Beverage.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Dish.first)
+      Portion.create!(description: 'Teste', price: 1000, portionable: Beverage.first)
 
       menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
@@ -285,8 +285,8 @@ describe 'New Order Page' do
       dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
       beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
 
-      Portion.create!(description: 'Prato Teste', price: 10.00, portionable: dish)
-      Portion.create!(description: 'Bebida Teste', price: 10.00, portionable: beverage)
+      Portion.create!(description: 'Prato Teste', price: 1000, portionable: dish)
+      Portion.create!(description: 'Bebida Teste', price: 1000, portionable: beverage)
 
       menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 

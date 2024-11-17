@@ -84,7 +84,7 @@
             <span class="font-semibold text-zinc-900">
               <%= portion.description %> ->
             </span>
-            <i><%= number_to_currency portion.price %></i>
+            <i><%= number_to_currency(portion.price / 100.0, precision: 2) %></i>
           </div>
         <% end %>
 

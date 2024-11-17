@@ -148,7 +148,7 @@ describe 'New Beverage Portion Page' do
     visit new_beverage_portion_path(beverage.id)
 
     fill_in 'Descrição', with: 'Porção Teste'
-    fill_in 'Preço', with: 10
+    fill_in 'Preço', with: 1000
     click_on 'Cadastrar'
 
     expect(current_path).to eq beverage_path(beverage.id)

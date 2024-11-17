@@ -149,12 +149,12 @@ describe 'New Portion Page' do
     visit new_dish_portion_path(dish.id)
 
     fill_in 'Descrição', with: 'Porção Teste'
-    fill_in 'Preço', with: 10
+    fill_in 'Preço', with: 1000
     click_on 'Cadastrar'
 
     expect(current_path).to eq dish_path(dish.id)
     expect(page).to have_content('Porção Teste')
-    expect(page).to have_content('R$ 10')
+    expect(page).to have_content('R$ 10,00')
     expect(page).to have_content('Porção cadastrada com sucesso')
   end
 

@@ -28,7 +28,13 @@ export default class extends Controller {
 
     const nameLabel = document.createElement("div")
     nameLabel.classList.add("text-gray-800", "flex-grow", "text-sm")
-    nameLabel.innerHTML = `${itemName} <br> ${portionDescription} - R$ ${portionPrice}`
+    let formattedPrice = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(portionPrice / 100);
+    nameLabel.innerHTML = `${itemName} <br> ${portionDescription} - R$ ${formattedPrice}`
     itemDiv.appendChild(nameLabel)
 
     const quantityField = document.createElement("input")

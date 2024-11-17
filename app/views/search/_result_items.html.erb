@@ -20,7 +20,7 @@
         <ul class="flex flex-wrap gap-4">
           <% item.portions.each do |portion| %>
             <li><%= portion.description %></li> =>
-            <li><%= number_to_currency portion.price %></li>
+            <li><%= number_to_currency(portion.price / 100.0, precision: 2) %></li>
           <% end %>
         </ul>
       </div>

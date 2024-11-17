@@ -78,12 +78,12 @@ describe 'Dishes Index Page' do
 
       Portion.create!(
         description: 'Pequeno',
-        price: 10, portionable: dish_01
+        price: 1000, portionable: dish_01
       )
 
       Portion.create!(
         description: 'Grande',
-        price: 20, portionable: dish_01
+        price: 2000, portionable: dish_01
       )
 
       dish_02 = Dish.create!(
@@ -93,12 +93,12 @@ describe 'Dishes Index Page' do
 
       Portion.create!(
         description: 'Pequeno',
-        price: 25, portionable: dish_02
+        price: 2500, portionable: dish_02
       )
 
       Portion.create!(
         description: 'Grande',
-        price: 35, portionable: dish_02
+        price: 3500, portionable: dish_02
       )
 
       login_as(user)

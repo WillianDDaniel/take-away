@@ -15,10 +15,10 @@ describe 'Show order page' do
     login_as(user)
 
     dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
-    Portion.create!(description: 'Médio', price: 15, portionable: dish)
+    Portion.create!(description: 'Médio', price: 1500, portionable: dish)
 
     beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
-    Portion.create!(description: 'Garrafa 1L', price: 10, portionable: beverage)
+    Portion.create!(description: 'Garrafa 1L', price: 1000, portionable: beverage)
 
     menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 

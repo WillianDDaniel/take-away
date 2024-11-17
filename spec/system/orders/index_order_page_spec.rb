@@ -79,10 +79,10 @@ describe 'Index orders page' do
     )
 
     dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
-    Portion.create!(description: 'Médio', price: 15, portionable: dish)
+    Portion.create!(description: 'Médio', price: 1500, portionable: dish)
 
     beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
-    Portion.create!(description: 'Garrafa 1L', price: 10, portionable: beverage)
+    Portion.create!(description: 'Garrafa 1L', price: 1000, portionable: beverage)
 
     menu = Menu.create!(name: 'Janta', restaurant: restaurant)
 
@@ -115,7 +115,7 @@ describe 'Index orders page' do
       expect(page).to have_content("Pedido ##{first_order.code} - #{first_order.customer_name}")
       expect(page).to have_content("Status: #{first_order.status_i18n}")
       expect(page).to have_content("Data: #{first_order.created_at.strftime('%d/%m/%Y')}")
-      expect(page).to have_content("Total: R$ #{first_order.total_price}")
+      expect(page).to have_content("Total: R$ 10,00")
       expect(page).to have_link("Ver Pedido")
     end
 
@@ -123,7 +123,7 @@ describe 'Index orders page' do
       expect(page).to have_content("Pedido ##{second_order.code} - #{second_order.customer_name}")
       expect(page).to have_content("Status: #{second_order.status_i18n}")
       expect(page).to have_content("Data: #{second_order.created_at.strftime('%d/%m/%Y')}")
-      expect(page).to have_content("Total: R$ #{second_order.total_price}")
+      expect(page).to have_content("Total: R$ 30,00")
       expect(page).to have_link("Ver Pedido")
     end
   end

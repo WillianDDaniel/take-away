@@ -15,15 +15,15 @@ describe 'Price History' do
 
     dish = Dish.create!(
       name: 'Prato Teste', description: 'Descricão do prato teste',
-      calories: 10, restaurant: restaurant
+      calories: 1000, restaurant: restaurant
     )
 
     portion = Portion.create!(
       description: 'Descricão da porção teste',
-      price: 10, portionable: dish
+      price: 1000, portionable: dish
     )
 
-    portion.update!(price: 20)
+    portion.update!(price: 2000)
 
     login_as(user)
 
@@ -56,10 +56,10 @@ describe 'Price History' do
 
     portion = Portion.create!(
       description: 'Descricão da porção teste',
-      price: 10, portionable: beverage
+      price: 1000, portionable: beverage
     )
 
-    portion.update!(price: 20)
+    portion.update!(price: 2000)
 
     login_as(user)
 

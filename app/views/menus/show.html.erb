@@ -98,7 +98,7 @@
             <h4 class="text-md font-semibold text-gray-700">Porções Disponíveis</h4>
             <% beverage.portions.each do |portion| %>
               <p class="text-gray-700">
-                Tamanho: <%= portion.description %> — Preço: <%= number_to_currency(portion.price) %>
+                Tamanho: <%= portion.description %> — Preço: <%= number_to_currency(portion.price / 100.0, precision: 2) %>
               </p>
             <% end %>
           </div>
