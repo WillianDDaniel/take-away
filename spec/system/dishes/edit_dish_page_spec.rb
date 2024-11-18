@@ -53,7 +53,7 @@ describe 'Edit Dish Page' do
 
       visit edit_dish_path(Dish.last.id)
 
-      expect(current_path).to eq dashboard_path
+      expect(current_path).to eq dishes_path
     end
 
     it 'if the dish does not exist, should redirect to the dashboard with an alert' do
@@ -72,7 +72,7 @@ describe 'Edit Dish Page' do
 
       visit edit_dish_path(999)
 
-      expect(current_path).to eq dashboard_path
+      expect(current_path).to eq dishes_path
     end
 
     it 'should have a edit dish form' do

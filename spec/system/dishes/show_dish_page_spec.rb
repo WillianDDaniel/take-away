@@ -52,7 +52,7 @@ describe 'Show Dish Page' do
 
       visit dish_path(dish.id)
 
-      expect(current_path).to eq dashboard_path
+      expect(current_path).to eq dishes_path
     end
 
     it 'if dish does not exist, should redirect to the dashboard' do
@@ -71,7 +71,7 @@ describe 'Show Dish Page' do
 
       visit dish_path(999)
 
-      expect(current_path).to eq dashboard_path
+      expect(current_path).to eq dishes_path
     end
 
     it 'should render the show dish page' do

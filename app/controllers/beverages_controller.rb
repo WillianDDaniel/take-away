@@ -2,19 +2,13 @@ class BeveragesController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
   before_action :authorize_owners!
-  before_action :check_beverage_owner, only: [:edit, :update, :destroy, :toggle_status]
+  before_action :check_beverage_owner, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   def index
     @beverages = current_user.restaurant.beverages
   end
 
-  def show
-    @beverage = Beverage.find_by(id: params[:id])
-
-    if @beverage.nil? || @beverage.restaurant != current_user.restaurant
-      redirect_to beverages_path
-    end
-  end
+  def show ;  end
 
   def new
     @beverage = Beverage.new
@@ -49,7 +43,11 @@ class BeveragesController < ApplicationController
   end
 
   def destroy
-    @beverage.destroy
+     if @beverage.destroy
+       flash[:notice] = 'Bebida excluida com sucesso'
+     else
+       flash[:alert] = 'Erro ao excluir bebida'
+     end
     redirect_to beverages_path
   end
 

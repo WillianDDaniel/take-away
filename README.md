@@ -53,7 +53,7 @@ rails db:seed
 
 5. Inicie o servidor:
 ```bash
-rails server
+bin/dev
 ```
 
 ## Testes e Qualidade de código
