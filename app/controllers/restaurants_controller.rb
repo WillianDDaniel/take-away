@@ -8,7 +8,7 @@ class RestaurantsController < ApplicationController
   end
 
   def new
-    redirect_to dashboard_path if current_user.restaurant
+    redirect_to dashboard_path if current_user.current_restaurant
     @restaurant = Restaurant.new
   end
 

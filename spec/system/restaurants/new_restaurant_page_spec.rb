@@ -34,13 +34,13 @@ describe 'New Restaurant Page' do
         email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
         password: 'password12345', document_number: CPF.generate
       )
-      login_as(user)
 
       Restaurant.create!(
         brand_name: 'Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
         doc_number: CNPJ.generate, phone: '11999999999', address: 'Rua Teste',
-        user_id: user.id
+        user: user
       )
+      login_as(user)
 
       visit new_restaurant_path
 
@@ -121,6 +121,60 @@ describe 'New Restaurant Page' do
       expect(page).to have_content('CNPJ inválido')
       expect(page).to have_content('E-mail inválido')
       expect(page).to have_content('Telefone inválido')
+    end
+
+    it 'should not to be visible to staff users' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      beverage = Beverage.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+
+      staff_document = CPF.generate
+
+      Employee.create!(email: 'employee@example.com', doc_number: staff_document, restaurant: restaurant)
+
+      staff = User.create!(
+        email: 'employee@example.com', name: 'Xavier', last_name: 'Doe',
+        password: 'password12345', document_number: staff_document
+      )
+
+      login_as(staff)
+      visit new_beverage_portion_path(beverage.id)
+
+      expect(current_path).to eq dashboard_path
+    end
+
+    it 'should not to be visible to staff users' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      staff_document = CPF.generate
+
+      Employee.create!(email: 'employee@example.com', doc_number: staff_document, restaurant: restaurant)
+
+      staff = User.create!(
+        email: 'employee@example.com', name: 'Xavier', last_name: 'Doe',
+        password: 'password12345', document_number: staff_document
+      )
+
+      login_as(staff)
+      visit new_restaurant_path
+
+      expect(current_path).to eq dashboard_path
     end
   end
 end

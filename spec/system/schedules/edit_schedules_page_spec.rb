@@ -168,5 +168,37 @@ describe 'Edit Schedule Page' do
       expect(page).to have_content('Abertura não pode ficar em branco')
       expect(page).to have_content('Fechamento não pode ficar em branco')
     end
+
+    it 'should not to be visible to staff users' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      schedule = Schedule.create!(
+        week_day: 0,
+        open_time: '08:00', close_time: '22:00',
+        restaurant: restaurant
+      )
+
+      staff_document = CPF.generate
+
+      Employee.create!(email: 'employee@example.com', doc_number: staff_document, restaurant: restaurant)
+
+      staff = User.create!(
+        email: 'employee@example.com', name: 'Xavier', last_name: 'Doe',
+        password: 'password12345', document_number: staff_document
+      )
+
+      login_as(staff)
+      visit edit_schedule_path(schedule)
+
+      expect(current_path).to eq dashboard_path
+    end
   end
 end
