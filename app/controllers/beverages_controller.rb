@@ -2,6 +2,7 @@ class BeveragesController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
   before_action :authorize_owners!
+  before_action :check_beverage_owner, only: [:edit, :update, :destroy, :toggle_status]
 
   def index
     @beverages = current_user.restaurant.beverages
@@ -34,21 +35,9 @@ class BeveragesController < ApplicationController
     end
   end
 
-  def edit
-    @beverage = Beverage.find_by(id: params[:id])
-
-    if @beverage.nil? || @beverage.restaurant != current_user.restaurant
-      redirect_to beverages_path
-    end
-  end
+  def edit ;  end
 
   def update
-    @beverage = Beverage.find_by(id: params[:id])
-
-    if @beverage.nil? || @beverage.restaurant != current_user.restaurant
-      return
-    end
-
     if @beverage.update(beverage_params)
       flash[:notice] = 'Bebida atualizada com sucesso'
       redirect_to beverages_path
@@ -60,16 +49,11 @@ class BeveragesController < ApplicationController
   end
 
   def destroy
-    @beverage = Beverage.find_by(id: params[:id])
-    return unless @beverage.restaurant == current_user.restaurant
-
     @beverage.destroy
     redirect_to beverages_path
   end
 
   def toggle_status
-    @beverage = Beverage.find(params[:id])
-
     if @beverage.active?
       @beverage.update(status: "paused")
     else
@@ -83,5 +67,13 @@ class BeveragesController < ApplicationController
 
   def beverage_params
     params.require(:beverage).permit(:name, :description, :alcoholic, :calories, :image)
+  end
+
+  def check_beverage_owner
+    @beverage = Beverage.find_by(id: params[:id])
+
+    if @beverage.nil? || @beverage.restaurant != current_user.restaurant
+      redirect_to beverages_path
+    end
   end
 end

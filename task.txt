@@ -19,9 +19,3 @@ dar estilo a pagina de novo pedido
 resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro
 
 colocar mascara de formatação nos inputs de telefone e cnpj e cpf
-
-colocar mascara de dinheiro nos inputs de dinheiro
-
-permitir os inputs terem valores de centavos no dinheiro
-
-adicionar os testes de staff
