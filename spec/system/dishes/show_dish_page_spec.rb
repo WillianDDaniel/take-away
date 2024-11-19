@@ -160,8 +160,6 @@ describe 'Show Dish Page' do
 
       expect(current_path).to eq dishes_path
       expect(page).to have_content 'Prato excluído com sucesso'
-
-      expect(Dish.count).to eq 0
     end
 
     it 'should have a toggle button to change status to active ou paused' do
@@ -308,6 +306,33 @@ describe 'Show Dish Page' do
       visit dish_path(Dish.first.id)
 
       expect(current_path).to eq dashboard_path
+    end
+
+    it 'if beverage is discarded should redirect to dishes page' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Cachorro Quente', description: 'Descrição Cachorro Quente',
+        calories: 100, restaurant: restaurant
+      )
+
+      login_as(user)
+      visit dishes_path
+
+      within("#dish_#{dish.id}") do
+        click_on 'Excluir'
+      end
+
+      visit dish_path(dish.id)
+
+      expect(current_path).to eq dishes_path
     end
   end
 end

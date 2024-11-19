@@ -5,10 +5,14 @@ class DishesController < ApplicationController
   before_action :check_dish_owner, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   def index
-    @dishes = current_user.restaurant.dishes
+    @dishes = current_user.restaurant.dishes.where(discarded_at: nil)
   end
 
-  def show ;  end
+  def show
+    if @dish.discarded?
+      redirect_to dishes_path
+    end
+  end
 
   def new
     @dish = Dish.new
@@ -45,7 +49,7 @@ class DishesController < ApplicationController
   end
 
   def destroy
-    if @dish.destroy
+    if @dish.discard
       flash[:notice] = 'Prato excluído com sucesso'
     else
       flash[:alert] = 'Erro ao excluir prato'

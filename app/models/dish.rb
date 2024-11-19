@@ -1,4 +1,7 @@
 class Dish < ApplicationRecord
+
+  include Discard::Model
+
   belongs_to :restaurant
 
   has_many :portions, as: :portionable

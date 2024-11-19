@@ -252,5 +252,37 @@ describe 'Dishes Index Page' do
 
       expect(current_path).to eq dashboard_path
     end
+
+    it 'should not show discarded beverages' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      Dish.create!(name: 'Hamburguer', description: 'Descrição Hamburguer',
+        calories: 200, restaurant: restaurant
+      )
+
+      dish = Dish.create!(name: 'Cachorro Quente', description: 'Descrição Cachorro Quente',
+        calories: 100, restaurant: restaurant
+      )
+
+      login_as(user)
+
+      visit dishes_path
+
+      within("#dish_#{dish.id}") do
+        click_on 'Excluir'
+      end
+
+      expect(page).not_to have_link 'Cachorro Quente'
+      expect(page).not_to have_content('Descrição Cachorro Quente')
+    end
   end
 end
