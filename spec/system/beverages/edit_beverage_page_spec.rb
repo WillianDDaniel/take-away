@@ -128,7 +128,7 @@ describe 'Edit Beverage Page' do
 
     click_on 'Atualizar'
 
-    expect(current_path).to eq beverages_path
+    expect(current_path).to eq beverage_path(beverage)
     expect(page).to have_content 'Bebida atualizada com sucesso'
     expect(page).to have_content 'Cerveja litrão'
     expect(page).to have_content 'Cerveja 1 litro'

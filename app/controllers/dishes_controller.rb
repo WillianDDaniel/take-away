@@ -22,7 +22,7 @@ class DishesController < ApplicationController
 
     if @dish.save
       flash[:notice] = 'Prato cadastrado com sucesso'
-      redirect_to dishes_path
+      redirect_to @dish
     else
       @dish.valid?
       @tags = Tag.where(restaurant: current_user.restaurant)
@@ -37,7 +37,7 @@ class DishesController < ApplicationController
   def update
     if @dish.update(dish_params)
       flash[:notice] = 'Prato atualizado com sucesso'
-      redirect_to dishes_path
+      redirect_to @dish
     else
       @dish.valid?
       render :edit, status: :unprocessable_entity

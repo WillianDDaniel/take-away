@@ -95,7 +95,12 @@ describe 'New Dish Page' do
 
       click_button 'Cadastrar'
 
+      expect(current_path).to eq dish_path(Dish.last.id)
       expect(page).to have_content('Prato cadastrado com sucesso')
+
+      expect(page).to have_content('Prato Teste')
+      expect(page).to have_content('Teste')
+      expect(page).to have_content('100')
     end
 
     it 'should show an error message with blank fields' do

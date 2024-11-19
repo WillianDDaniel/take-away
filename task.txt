@@ -15,5 +15,3 @@ adicionar a busca por tags
 dar estilo a pagina de novo pedido
 
 resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro
-
-colocar mascara de formatação nos inputs de telefone e cnpj e cpf

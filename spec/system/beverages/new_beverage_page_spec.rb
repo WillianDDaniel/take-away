@@ -69,7 +69,7 @@ describe 'New Beverage Page' do
 
       click_button 'Cadastrar'
 
-      expect(current_path).to eq beverages_path
+      expect(current_path).to eq beverage_path(Beverage.last)
       expect(page).to have_content('Bebida cadastrada com sucesso')
     end
 

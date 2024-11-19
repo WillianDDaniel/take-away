@@ -20,7 +20,7 @@ class BeveragesController < ApplicationController
 
     if @beverage.save
       flash[:notice] = 'Bebida cadastrada com sucesso'
-      redirect_to beverages_path
+      redirect_to @beverage
     else
       @beverage.valid?
       flash[:alert] = 'Erro ao cadastrar bebida'
@@ -34,7 +34,7 @@ class BeveragesController < ApplicationController
   def update
     if @beverage.update(beverage_params)
       flash[:notice] = 'Bebida atualizada com sucesso'
-      redirect_to beverages_path
+      redirect_to @beverage
     else
       @beverage.valid?
       flash[:alert] = 'Erro ao atualizar bebida'

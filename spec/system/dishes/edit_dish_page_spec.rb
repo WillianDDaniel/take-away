@@ -135,6 +135,38 @@ describe 'Edit Dish Page' do
       expect(page).to have_content('Nome do Prato não pode ficar em branco')
     end
 
+    it 'should update the dish with success' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      Restaurant.create!(
+        brand_name: 'Restaurante Teste', corporate_name: 'Teste', email: 'johndoe@example.com',
+        phone: '51993831972', address: 'Rua Teste',
+        doc_number: CNPJ.generate, user: user
+      )
+
+      dish = Dish.create!(
+        name: 'Prato Teste', description: 'Teste', calories: 100,
+        restaurant: user.restaurant
+      )
+
+      login_as(user)
+      visit edit_dish_path(dish)
+
+      fill_in 'Nome do Prato', with: 'Prato Editado'
+      fill_in 'Descrição', with: 'Descrição Editada'
+      fill_in 'Calorias', with: '200'
+
+      click_on 'Atualizar'
+
+      expect(current_path).to eq dish_path(dish.id)
+      expect(page).to have_content('Prato Editado')
+      expect(page).to have_content('Descrição Editada')
+      expect(page).to have_content('200')
+    end
+
     it 'user can create a tag inside the form' do
       user = User.create!(
         email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
