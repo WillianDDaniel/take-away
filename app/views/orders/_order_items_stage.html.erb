@@ -5,8 +5,11 @@
 >
   <% if @order.order_items %>
     <% @order.order_items.each do |item| %>
+
+      <% portion_price = Portion.find(item['portion_id']).price %>
+
       <div class="flex items-center justify-between space-x-2 bg-white p-3 rounded shadow-sm"
-        id="order_portion_<%= item['portion_id'] %>"
+        id="selected_portion_<%= item['portion_id'] %>" data-price="<%= portion_price %>"
       >
         <input type="hidden" name="order[order_items_attributes][][portion_id]"
           value="<%= item['portion_id'] %>"
@@ -15,11 +18,11 @@
         <div class="text-gray-800 flex-grow text-sm">
           <%= Portion.find(item['portion_id']).portionable.name %> <br>
           <%= Portion.find(item['portion_id']).description %> -
-          R$ <%= Portion.find(item['portion_id']).price %>
+          <%= number_to_currency( portion_price / 100.0, precision: 2) %>
         </div>
 
         <input type="number" name="order[order_items_attributes][][quantity]"
-          value="<%= item['quantity'] %>" min="1"
+          value="<%= item['quantity'] %>" min="1" data-action="change->order#calculateTotal"
           class="w-16 border border-gray-300 rounded text-center"
         >
 
@@ -29,7 +32,7 @@
         >
 
         <button type="button" class="text-red-600 hover:underline ml-2"
-          onclick="this.parentElement.remove()"
+          data-action="click->order#removeItem"
         >
           Remover
         </button>

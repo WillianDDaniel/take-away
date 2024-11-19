@@ -1,8 +1,14 @@
-// app/javascript/controllers/order_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["orderItems"]
+  static targets = ["orderItems", "total"]
+  static values = {
+    items: { type: Array, default: [] }
+  }
+
+  connect() {
+    this.calculateTotal()
+  }
 
   addItem(event) {
     event.preventDefault()
@@ -11,6 +17,14 @@ export default class extends Controller {
     const portionDescription = event.params.portionDescription
     const portionPrice = event.params.portionPrice
 
+    const alreadySelected = document.getElementById(`selected_portion_${portionId}`)
+    if (alreadySelected) {
+      const quantityField = alreadySelected.querySelector("input[name='order[order_items_attributes][][quantity]']")
+      quantityField.value = parseInt(quantityField.value) + 1
+      this.calculateTotal()
+      return
+    }
+
     const itemDiv = document.createElement("div")
     itemDiv.classList.add(
       "flex", "items-center", "justify-between",
@@ -18,7 +32,8 @@ export default class extends Controller {
       "shadow-sm"
     )
 
-    itemDiv.id = `order_portion_${portionId}`
+    itemDiv.id = `selected_portion_${portionId}`
+    itemDiv.dataset.price = portionPrice
 
     const portionField = document.createElement("input")
     portionField.type = "hidden"
@@ -33,8 +48,9 @@ export default class extends Controller {
       currency: 'BRL',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
-    }).format(portionPrice / 100);
-    nameLabel.innerHTML = `${itemName} <br> ${portionDescription} - R$ ${formattedPrice}`
+    }).format(portionPrice / 100)
+
+    nameLabel.innerHTML = `${itemName} <br> ${portionDescription} - ${formattedPrice}`
     itemDiv.appendChild(nameLabel)
 
     const quantityField = document.createElement("input")
@@ -45,6 +61,8 @@ export default class extends Controller {
     quantityField.classList.add(
       "w-16", "border", "border-gray-300", "rounded", "text-center"
     )
+
+    quantityField.addEventListener("change", () => this.calculateTotal())
     itemDiv.appendChild(quantityField)
 
     const noteField = document.createElement("input")
@@ -58,9 +76,40 @@ export default class extends Controller {
     removeButton.type = "button"
     removeButton.textContent = "Remover"
     removeButton.classList.add("text-red-600", "hover:underline", "ml-2")
-    removeButton.addEventListener("click", () => itemDiv.remove())
+    removeButton.addEventListener("click", () => {
+      itemDiv.remove()
+      this.calculateTotal()
+    })
     itemDiv.appendChild(removeButton)
 
     this.orderItemsTarget.appendChild(itemDiv)
+    this.calculateTotal()
+  }
+
+  removeItem(event) {
+    event.preventDefault()
+    const itemDiv = event.target.closest("div")
+    itemDiv.remove()
+    this.calculateTotal()
+  }
+
+  calculateTotal() {
+    let total = 0
+    const items = this.orderItemsTarget.querySelectorAll("[id^='selected_portion_']")
+
+    items.forEach(item => {
+      const price = parseInt(item.dataset.price)
+      const quantity = parseInt(item.querySelector("input[type='number']").value)
+      total += price * quantity
+    })
+
+    const formattedTotal = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(total / 100)
+
+    this.totalTarget.textContent = `Total: ${formattedTotal}`
   }
 }

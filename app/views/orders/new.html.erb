@@ -1,54 +1,61 @@
-<h1 class="text-2xl font-semibold text-gray-800 mb-4">
-  Novo Pedido para o Menu: <%= @order.menu.name %>
-</h1>
+<section class="p-6 w-[95%] mx-auto bg-white shadow-md rounded-lg">
+  <h1 class="text-2xl font-semibold text-gray-800 mb-4">
+    Novo Pedido para o Menu: <%= @order.menu.name %>
+  </h1>
 
-<% if @order.errors.any? %>
-  <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg
-    dark:bg-red-200 dark:text-red-800"
-  >
-    <ul>
-      <% @order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% if @order.errors.any? %>
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg
+      dark:bg-red-200 dark:text-red-800"
+    >
+      <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= form_with model:(@order),
-  class: "space-y-4", data: { controller: "order" } do |f|
-%>
-  <%= f.hidden_field :menu_id %>
+  <%= form_with model:(@order),
+    class: "space-y-4", data: { controller: "order" } do |f|
+  %>
+    <%= f.hidden_field :menu_id %>
 
-  <%= render 'customer_fields', f: f %>
+    <%= render 'customer_fields', f: f %>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-    <div>
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">
-        Itens do Menu
-      </h2>
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+          Itens do Menu
+        </h2>
 
-      <div id="menu-items" class="space-y-4 p-4 border border-gray-300 rounded-lg overflow-auto h-80">
-        <%= render 'menu_items', menu_items: @order.menu.dishes.where(status: :active) %>
+        <div id="menu-items" class="space-y-4 p-4 border border-gray-300 rounded-lg overflow-auto h-80">
+          <%= render 'menu_items', menu_items: @order.menu.dishes.where(status: :active) %>
 
-        <%= render 'menu_items', menu_items: @order.menu.beverages.where(status: :active) %>
+          <%= render 'menu_items', menu_items: @order.menu.beverages.where(status: :active) %>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+          Itens Selecionados
+        </h2>
+
+        <%= render 'order_items_stage' %>
+      </div>
+
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit "Finalizar Pedido",
+        class: "w-full md:w-auto px-6 py-2 rounded-md bg-indigo-600 text-white
+          font-semibold hover:bg-indigo-700
+        "
+      %>
+
+      <div class="mt-4 text-xl font-semibold text-gray-800" data-order-target="total">
+        Total: R$ 0,00
       </div>
     </div>
-
-    <div>
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">
-        Itens Selecionados
-      </h2>
-
-      <%= render 'order_items_stage' %>
-    </div>
-
-  </div>
-
-  <div class="mt-6">
-    <%= f.submit "Finalizar Pedido",
-      class: "w-full md:w-auto px-6 py-2 rounded-md bg-indigo-600 text-white
-        font-semibold hover:bg-indigo-700"
-      %>
-  </div>
-<% end %>
+  <% end %>
+</section>

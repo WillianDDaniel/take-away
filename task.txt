@@ -4,14 +4,10 @@ criar testes de request
 
 colocar um readme na tela de screenshots
 
-ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
-
 quando o cardápio não tiver items com porções não aparecer na tela order
 
 Adicionar pedidos recentes na tela inicial
 
 adicionar a busca por tags
-
-dar estilo a pagina de novo pedido
 
 resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro

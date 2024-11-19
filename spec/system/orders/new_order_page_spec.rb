@@ -51,7 +51,7 @@ describe 'New Order Page' do
       expect(current_path).to eq dashboard_path
     end
 
-    it 'user can add a new order' do
+    it 'user can add a new order with success' do
       Capybara.current_driver = :cuprite
 
       user = User.create!(
@@ -104,57 +104,6 @@ describe 'New Order Page' do
       expect(page).to have_content('Burger')
       expect(page).to have_content('Coca')
       expect(page).to have_content('R$ 20,00')
-
-      Capybara.use_default_driver
-    end
-
-    it 'if user send a request with invalid fields, should recover order_items on stage area' do
-      Capybara.current_driver = :cuprite
-
-      user = User.create!(
-        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
-        password: 'password12345', document_number: CPF.generate
-      )
-
-      restaurant = Restaurant.create!(
-        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
-        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
-      )
-
-      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
-      beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
-
-      Portion.create!(description: 'Prato Teste', price: 1000, portionable: dish)
-      Portion.create!(description: 'Bebida Teste', price: 1000, portionable: beverage)
-
-      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
-
-      menu.dishes << dish
-      menu.beverages << beverage
-
-      login_as(user)
-
-      visit new_order_path(menu_id: menu.id)
-
-      fill_in 'E-mail', with: 'johndoe@example.com'
-
-      within "#order_portion_#{Portion.first.id}" do
-        click_on 'Adicionar'
-      end
-
-      within "#order_portion_#{Portion.last.id}" do
-        click_on 'Adicionar'
-      end
-
-      click_on 'Finalizar Pedido'
-
-      within '#order-items' do
-        expect(page).to have_content('Burger')
-        expect(page).to have_content('Prato Teste - R$ 10')
-
-        expect(page).to have_content('Coca')
-        expect(page).to have_content('Bebida Teste - R$ 10')
-      end
 
       Capybara.use_default_driver
     end
@@ -305,6 +254,161 @@ describe 'New Order Page' do
 
       expect(page).not_to have_content('Coca')
       expect(page).not_to have_content('Bebida Teste')
+    end
+  end
+
+  context 'stage area' do
+    it 'if user send a request with invalid fields, should recover order_items on stage area' do
+      Capybara.current_driver = :cuprite
+
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
+
+      Portion.create!(description: 'Prato Teste', price: 1000, portionable: dish)
+      Portion.create!(description: 'Bebida Teste', price: 1000, portionable: beverage)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+
+      menu.dishes << dish
+      menu.beverages << beverage
+
+      login_as(user)
+
+      visit new_order_path(menu_id: menu.id)
+
+      fill_in 'E-mail', with: 'johndoe@example.com'
+
+      within "#order_portion_#{Portion.first.id}" do
+        click_on 'Adicionar'
+      end
+
+      within "#order_portion_#{Portion.last.id}" do
+        click_on 'Adicionar'
+      end
+
+      click_on 'Finalizar Pedido'
+
+      within '#order-items' do
+        expect(page).to have_content('Burger')
+        expect(page).to have_content('Prato Teste - R$ 10')
+
+        expect(page).to have_content('Coca')
+        expect(page).to have_content('Bebida Teste - R$ 10')
+      end
+
+      Capybara.use_default_driver
+    end
+
+    it 'user can add items to stage area and see total' do
+      Capybara.current_driver = :cuprite
+
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
+
+      dish_portion = Portion.create!(description: 'Prato Teste', price: 1000, portionable: dish)
+      beverage_portion = Portion.create!(description: 'Bebida Teste', price: 1000, portionable: beverage)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+
+      menu.dishes << dish
+      menu.beverages << beverage
+
+      login_as(user)
+
+      visit new_order_path(menu_id: menu.id)
+
+      fill_in 'E-mail', with: 'johndoe@example.com'
+
+      within "#order_portion_#{dish_portion.id}" do
+        click_on 'Adicionar'
+      end
+
+      within "#order_portion_#{beverage_portion.id}" do
+        click_on 'Adicionar'
+      end
+
+      within '#order-items' do
+        expect(page).to have_content('Burger')
+        expect(page).to have_content('Prato Teste - R$ 10,00')
+
+        expect(page).to have_content('Coca')
+        expect(page).to have_content('Bebida Teste - R$ 10,00')
+      end
+
+      expect(page).to have_content('Total: R$ 20,00')
+
+      Capybara.use_default_driver
+    end
+
+    it 'user can remove items from stage area and see total' do
+      Capybara.current_driver = :cuprite
+
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      beverage = Beverage.create!(name: 'Coca', description: 'Teste', restaurant: restaurant)
+
+      dish_portion = Portion.create!(description: 'Prato Teste', price: 1000, portionable: dish)
+      beverage_portion = Portion.create!(description: 'Bebida Teste', price: 1000, portionable: beverage)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+
+      menu.dishes << dish
+      menu.beverages << beverage
+
+      login_as(user)
+
+      visit new_order_path(menu_id: menu.id)
+
+
+      within "#order_portion_#{dish_portion.id}" do
+        click_on 'Adicionar'
+      end
+
+      within "#order_portion_#{beverage_portion.id}" do
+        click_on 'Adicionar'
+      end
+
+      within "#selected_portion_#{dish_portion.id}" do
+        click_on 'Remover'
+      end
+
+      within '#order-items' do
+        expect(page).to have_content('Coca')
+        expect(page).to have_content('Bebida Teste - R$ 10,00')
+      end
+
+      expect(page).to have_content('Total: R$ 10,00')
+
+      Capybara.use_default_driver
     end
   end
 end
