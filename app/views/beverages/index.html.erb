@@ -31,7 +31,9 @@
 
 
   <% @beverages.each do |beverage| %>
-    <div class="w-11/12 p-2 px-4 bg-gray-300 rounded-t flex gap-2 justify-between">
+
+    <%= content_tag :div, id: dom_id(beverage),
+      class: "w-11/12 p-2 px-4 bg-gray-300 rounded-t flex gap-2 justify-between" do %>
 
       <div class="flex flex-1 justify-between">
         <div class="flex items-center gap-5">
@@ -67,7 +69,7 @@
 
       </div>
 
-    </div>
+    <% end %>
 
     <div
       class="w-11/12 p-2 px-4 rounded-b mb-3 flex gap-3 flex-wrap

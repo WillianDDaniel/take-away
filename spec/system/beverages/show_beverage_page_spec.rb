@@ -284,4 +284,33 @@ describe 'Show Beverage Page' do
 
     expect(current_path).to eq dashboard_path
   end
+
+  it 'if beverage is discarded should redirect to beverages page' do
+    user = User.create!(
+      email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    restaurant = Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+
+    beverage = Beverage.create!(
+      name: 'Cerveja', description: 'Cerveja lata',
+      calories: 200, alcoholic: true,
+      restaurant: restaurant
+    )
+
+    login_as(user)
+    visit beverages_path
+
+    within("#beverage_#{beverage.id}") do
+      click_on 'Excluir'
+    end
+
+    visit beverage_path(beverage)
+
+    expect(current_path).to eq beverages_path
+  end
 end

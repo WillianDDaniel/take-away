@@ -5,10 +5,14 @@ class BeveragesController < ApplicationController
   before_action :check_beverage_owner, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   def index
-    @beverages = current_user.restaurant.beverages
+    @beverages = current_user.restaurant.beverages.where(discarded_at: nil)
   end
 
-  def show ;  end
+  def show
+    if @beverage.discarded?
+      redirect_to beverages_path
+    end
+  end
 
   def new
     @beverage = Beverage.new
@@ -43,7 +47,7 @@ class BeveragesController < ApplicationController
   end
 
   def destroy
-     if @beverage.destroy
+     if @beverage.discard
        flash[:notice] = 'Bebida excluida com sucesso'
      else
        flash[:alert] = 'Erro ao excluir bebida'
