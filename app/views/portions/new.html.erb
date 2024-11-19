@@ -21,10 +21,10 @@
       <%= f.text_field :description, class: "border-gray-500 rounded-md shadow-sm w-full" %>
     </div>
 
-    <div class="flex flex-col" data-controller="inputmask">
+    <div class="flex flex-col" data-controller="price-mask">
       <%= f.label :price %>
       <%= f.text_field :price, class: "border-gray-500 rounded-md shadow-sm w-full",
-        data: { inputmask_target: "price" }
+        data: { price_mask_target: "price" }
       %>
     </div>
 

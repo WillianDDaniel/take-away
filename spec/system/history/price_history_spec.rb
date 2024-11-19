@@ -32,7 +32,7 @@ describe 'Price History' do
     expect(page).to have_selector('h3', text: 'Histórico de Preços')
     within('table') do
       expect(page).to have_content('R$ 10,00')
-      expect(page).to have_content(PriceHistory.last.updated_at.strftime('%d/%m/%Y'))
+      expect(page).to have_content(PriceHistory.last.updated_price_date.strftime('%d/%m/%Y'))
     end
 
   end

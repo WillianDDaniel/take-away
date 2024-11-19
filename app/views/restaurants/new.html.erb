@@ -32,14 +32,22 @@
           <%= f.email_field :email, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
         </div>
 
-        <div class="flex flex-col">
+        <div class="flex flex-col" data-controller="cnpj-mask">
           <%= f.label :doc_number, class: "text-gray-600 text-sm" %>
-          <%= f.text_field :doc_number, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+          <%= f.text_field :doc_number,
+            class: "h-10 px-3 border border-gray-300 rounded-md
+              focus:outline-none focus:ring focus:ring-rose-600",
+              data: { cnpj_mask_target: "cnpj" }
+          %>
         </div>
 
-        <div class="flex flex-col">
+        <div class="flex flex-col" data-controller="phone-mask">
           <%= f.label :phone, class: "text-gray-600 text-sm" %>
-          <%= f.text_field :phone, class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-rose-600" %>
+          <%= f.text_field :phone,
+            class: "h-10 px-3 border border-gray-300 rounded-md focus:outline-none
+              focus:ring focus:ring-rose-600",
+              data: { phone_mask_target: "phone" }
+          %>
         </div>
 
         <div class="flex flex-col">

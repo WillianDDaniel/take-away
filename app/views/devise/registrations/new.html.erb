@@ -31,10 +31,11 @@
         %>
       </div>
 
-      <div class="field flex flex-col">
+      <div class="field flex flex-col" data-controller="cpf-mask">
         <%= f.label :document_number, class: "text-sm" %>
-        <%= f.number_field :document_number,
-          class: "h-6 rounded-sm border-gray-300 focus:outline-none focus:ring focus:ring-rose-600"
+        <%= f.text_field :document_number,
+          class: "h-6 rounded-sm border-gray-300 focus:outline-none focus:ring focus:ring-rose-600",
+          data: {cpf_mask_target: "cpf"}
         %>
       </div>
 

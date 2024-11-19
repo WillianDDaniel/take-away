@@ -4,8 +4,6 @@ criar testes de request
 
 colocar um readme na tela de screenshots
 
-agrupar adições da mesma porção do mesmo item
-
 ao cadastrar um prato ou bebida redirecionar para pagina show do mesmo
 
 quando o cardápio não tiver items com porções não aparecer na tela order

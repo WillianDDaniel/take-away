@@ -2,15 +2,14 @@ import { Controller } from "@hotwired/stimulus";
 import Inputmask from "inputmask";
 
 export default class extends Controller {
-  static targets = ["price"];
+  static targets = ["cnpj"];
 
   connect() {
-    let im = new Inputmask.default("R$ 9{1,},99", {
-      numericInput: true,
+    let cnpjIM = new Inputmask.default("99.999.999/9999-99", {
       clearMaskOnLostFocus: true,
-      placeholder: "0",
+      placeholder: "_",
       removeMaskOnSubmit: true,
-    });
-    im.mask(this.priceTarget);
+    })
+    cnpjIM.mask(this.cnpjTarget)
   }
 }
