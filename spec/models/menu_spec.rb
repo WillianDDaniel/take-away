@@ -30,4 +30,21 @@ RSpec.describe Menu, type: :model do
       expect(menu.errors.include?(:name)).to be true
     end
   end
+
+  describe 'discard' do
+    it 'should be set to discarded' do
+      user = User.create!(email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      menu = Menu.create!(name: 'Teste', restaurant: restaurant)
+
+      menu.discard
+      expect(menu.discarded_at).not_to be_nil
+    end
+  end
 end

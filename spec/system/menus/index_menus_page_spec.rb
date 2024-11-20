@@ -159,5 +159,32 @@ describe 'Menus' do
       expect(page).to have_link('Ver Cardápio')
       expect(page).to have_link('Novo Pedido')
     end
+
+    it 'user can discard a menu' do
+      user = User.create!(
+        email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      login_as(user)
+
+      Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      menu = Menu.create!(
+        name: 'Menu Teste', restaurant: Restaurant.last
+      )
+
+      visit menus_path
+
+      within "#content_menu_#{menu.id}" do
+        click_on 'Excluir'
+      end
+
+      expect(page).to have_content('Cardápio excluído com sucesso')
+      expect(page).not_to have_content('Menu Teste')
+    end
   end
 end

@@ -4,7 +4,7 @@ class MenusController < ApplicationController
   before_action :authorize_owners!, only: [:new, :create, :edit, :update, :destroy, :manage_menu, :update_menu_items]
 
   def index
-    @menus = Menu.where(restaurant: current_user.current_restaurant)
+    @menus = Menu.where(restaurant: current_user.current_restaurant, discarded_at: nil)
 
     unless current_user.current_restaurant
       redirect_to new_restaurant_path
@@ -15,7 +15,11 @@ class MenusController < ApplicationController
     @menu = Menu.find_by(id: params[:id])
 
     if @menu.nil? || @menu.restaurant != current_user.current_restaurant
-      redirect_to dashboard_path
+      return redirect_to dashboard_path
+    end
+
+    if @menu.discarded?
+      redirect_to menus_path
     end
   end
 
@@ -64,7 +68,8 @@ class MenusController < ApplicationController
     @menu = Menu.find_by(id: params[:id])
     return unless @menu.restaurant == current_user.restaurant
 
-    if @menu.destroy
+    if @menu.discard
+      @menu.menu_items.destroy_all
       flash[:notice] = 'Cardápio excluído com sucesso'
       redirect_to menus_path
     else
@@ -75,6 +80,15 @@ class MenusController < ApplicationController
 
   def manage_menu
     @menu = Menu.find_by(id: params[:id])
+
+    if @menu.nil? || @menu.restaurant != current_user.restaurant
+      return redirect_to dashboard_path
+    end
+
+    if @menu.discarded?
+      redirect_to menus_path
+    end
+
     @dishes = current_user.restaurant.dishes
     @beverages = current_user.restaurant.beverages
 

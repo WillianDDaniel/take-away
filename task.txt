@@ -11,3 +11,5 @@ Adicionar pedidos recentes na tela inicial
 adicionar a busca por tags
 
 resolver a questão de quando deletar porção que esteja vinculada a um pedido não dar erro
+
+refactorar o menu controller

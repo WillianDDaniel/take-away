@@ -113,4 +113,26 @@ describe 'Manage Menu Page' do
 
     expect(current_path).to eq dashboard_path
   end
+
+  it 'if menu is discarded, should redirect to index menus page' do
+    user = User.create!(
+      email: 'johndoes@example.com', name: 'John', last_name: 'Doe',
+      password: 'password12345', document_number: CPF.generate
+    )
+
+    restaurant = Restaurant.create!(
+      brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+      email: 'johndoes@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+    )
+
+    menu = Menu.create!(name: 'Lanches', restaurant: restaurant)
+
+    menu.discard
+
+    login_as(user)
+
+    visit manage_menu_path(menu)
+
+    expect(current_path).to eq menus_path
+  end
 end
