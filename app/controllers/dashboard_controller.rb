@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
   def index
     @user = current_user
 
-    @menus = Menu.where(restaurant: @user.current_restaurant)
+    @menus = Menu.where(restaurant: @user.current_restaurant, discarded_at: nil)
   end
 
   private

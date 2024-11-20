@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :check_user_restaurant
 
   def index
-    @orders = current_user.current_restaurant.orders
+    @orders = current_user.current_restaurant.orders.order(created_at: :desc)
   end
 
   def show

@@ -20,10 +20,12 @@
                 class: "text-sm bg-blue-500 hover:bg-blue-600 text-white px-1 py-0.5 rounded font-semibold" %>
             </div>
 
-            <div>
-              <%= link_to 'Gerenciar', manage_menu_path(menu),
-                class: "text-sm bg-amber-600 hover:bg-amber-700 text-white px-1 py-0.5 rounded font-semibold" %>
-            </div>
+            <% if current_user.owner? %>
+              <div>
+                <%= link_to 'Gerenciar', manage_menu_path(menu),
+                  class: "text-sm bg-amber-600 hover:bg-amber-700 text-white px-1 py-0.5 rounded font-semibold" %>
+              </div>
+            <% end %>
 
             <div>
               <%= link_to 'Criar Pedido', new_order_path(menu_id: menu.id),
