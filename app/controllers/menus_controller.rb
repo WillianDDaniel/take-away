@@ -1,7 +1,8 @@
 class MenusController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
-  before_action :authorize_owners!, only: [:new, :create, :edit, :update, :destroy, :manage_menu, :update_menu_items]
+  before_action :authorize_owners!, except: [:show, :index]
+  before_action :check_menu, except: [:index, :new, :create]
 
   def index
     @menus = Menu.where(restaurant: current_user.current_restaurant, discarded_at: nil)
@@ -12,12 +13,6 @@ class MenusController < ApplicationController
   end
 
   def show
-    @menu = Menu.find_by(id: params[:id])
-
-    if @menu.nil? || @menu.restaurant != current_user.current_restaurant
-      return redirect_to dashboard_path
-    end
-
     if @menu.discarded?
       redirect_to menus_path
     end
@@ -42,18 +37,9 @@ class MenusController < ApplicationController
     end
   end
 
-  def edit
-    @menu = Menu.find_by(id: params[:id])
-
-    if @menu.nil? || @menu.restaurant != current_user.restaurant
-      redirect_to dashboard_path
-    end
-  end
+  def edit ; end
 
   def update
-    @menu = Menu.find_by(id: params[:id])
-    return unless @menu.restaurant == current_user.restaurant
-
     if @menu.update(menu_params)
       flash[:notice] = 'Cardápio atualizado com sucesso'
       redirect_to menus_path
@@ -65,9 +51,6 @@ class MenusController < ApplicationController
   end
 
   def destroy
-    @menu = Menu.find_by(id: params[:id])
-    return unless @menu.restaurant == current_user.restaurant
-
     if @menu.discard
       @menu.menu_items.destroy_all
       flash[:notice] = 'Cardápio excluído com sucesso'
@@ -79,12 +62,6 @@ class MenusController < ApplicationController
   end
 
   def manage_menu
-    @menu = Menu.find_by(id: params[:id])
-
-    if @menu.nil? || @menu.restaurant != current_user.restaurant
-      return redirect_to dashboard_path
-    end
-
     if @menu.discarded?
       redirect_to menus_path
     end
@@ -97,12 +74,6 @@ class MenusController < ApplicationController
   end
 
   def update_menu_items
-    @menu = Menu.find_by(id: params[:id])
-
-    if @menu.nil? || @menu.restaurant != current_user.restaurant
-      redirect_to dashboard_path
-    end
-
     @menu.menu_items.destroy_all
 
     if params[:dish_ids].present?
@@ -125,5 +96,13 @@ class MenusController < ApplicationController
 
   def menu_params
     params.require(:menu).permit(:name, menu_items_attributes: [:id, :menuable_id])
+  end
+
+  def check_menu
+    @menu = Menu.find_by(id: params[:id])
+
+    if @menu.nil? || @menu.restaurant != current_user.current_restaurant
+      return redirect_to dashboard_path
+    end
   end
 end
