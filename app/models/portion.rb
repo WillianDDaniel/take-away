@@ -1,4 +1,7 @@
 class Portion < ApplicationRecord
+
+  include Discard::Model
+
   belongs_to :portionable, polymorphic: true
   has_many :price_histories, dependent: :destroy
 

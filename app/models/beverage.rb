@@ -4,7 +4,7 @@ class Beverage < ApplicationRecord
 
   belongs_to :restaurant
 
-  has_many :portions, as: :portionable
+  has_many :portions, -> { kept }, as: :portionable
   has_many :menu_items, as: :menuable, dependent: :destroy
   has_many :menus, through: :menu_items
 

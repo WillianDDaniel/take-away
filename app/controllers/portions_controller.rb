@@ -76,8 +76,8 @@ class PortionsController < ApplicationController
       redirect_to dashboard_path
     end
 
+    @portion.discard
     flash[:notice] = 'Porção excluída com sucesso.'
-    @portion.destroy
     redirect_to @portionable
   end
 
