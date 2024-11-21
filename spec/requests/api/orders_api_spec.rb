@@ -309,6 +309,7 @@ describe 'Orders API' do
       expect(res['code']).to eq(order.code)
       expect(res['customer_name']).to eq(order.customer_name)
       expect(res['status']).to eq(order.status)
+      expect(res['total_price']).to eq(order.total_price)
 
       expect(res['items'].count).to eq(2)
 
@@ -611,7 +612,7 @@ describe 'Orders API' do
       expect(res['message']).to eq('Cancelamento de pedido requer motivo')
     end
 
-    it 'should not cancel a order without reason' do
+    it 'should cancel a order' do
       user = User.create!(
         email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
         password: 'password12345', document_number: CPF.generate

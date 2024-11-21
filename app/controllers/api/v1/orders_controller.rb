@@ -19,6 +19,8 @@ class Api::V1::OrdersController < ActionController::API
       created_at: @order.created_at,
       status: @order.status,
       items: parse_order_items(@order.order_items),
+      cancel_reason: @order.cancel_reason,
+      total_price: @order.total_price
     }
 
     render json: response, status: :ok
