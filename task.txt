@@ -1,9 +1,0 @@
-testar a imagem
-
-criar testes de request
-
-colocar um readme na tela de screenshots
-
-quando o cardápio não tiver items com porções não aparecer na tela order
-
-Adicionar pedidos recentes na tela inicial

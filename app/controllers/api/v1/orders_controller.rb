@@ -1,5 +1,6 @@
 class Api::V1::OrdersController < ActionController::API
-  before_action :find_restaurant, only: [:index, :show, :update]
+  before_action :find_restaurant, only: [:index, :show, :update, :cancel]
+  before_action :find_order, only: [:show, :update, :cancel]
 
   def index
     status = params[:status]
@@ -12,41 +13,19 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def show
-    order = @restaurant.orders.find_by(code: params[:code])
-
-    unless order
-      render json: {
-        error: 'Código de pedido inválido ou inexistente',
-        message: 'Verifique o código do pedido e tente novamente'
-      }, status: :not_found
-
-      return
-    end
-
     response = {
-      code: order.code,
-      customer_name: order.customer_name,
-      created_at: order.created_at,
-      status: order.status,
-      items: parse_order_items(order.order_items),
+      code: @order.code,
+      customer_name: @order.customer_name,
+      created_at: @order.created_at,
+      status: @order.status,
+      items: parse_order_items(@order.order_items),
     }
 
     render json: response, status: :ok
   end
 
   def update
-    order = @restaurant.orders.find_by(code: params[:code])
-
-    unless order
-      render json: {
-        error: 'Código de pedido inválido ou inexistente',
-        message: 'Verifique o código do pedido e tente novamente'
-      }, status: :not_found
-
-      return
-    end
-
-    unless order.pending? || order.preparing?
+    unless @order.pending? || @order.preparing?
       render json: {
         error: 'Pedido não pode ser alterado',
         message: 'Alteração de pedido não autorizada'
@@ -55,20 +34,43 @@ class Api::V1::OrdersController < ActionController::API
       return
     end
 
-    if order.pending?
-      order.update(status: :preparing)
+    if @order.pending?
+      @order.update(status: :preparing)
 
-    elsif order.preparing?
-      order.update(status: :ready)
+    elsif @order.preparing?
+      @order.update(status: :ready)
     end
 
-    render json: order, status: :ok
+    render json: @order, status: :ok
+  end
+
+  def cancel
+    if @order.delivered?
+      render json: {
+        error: 'Cancelamento de pedido não autorizado',
+        message: 'O pedido já foi entregue'
+      }, status: :forbidden
+
+      return
+    end
+
+    unless params[:cancel_reason].present?
+      render json: {
+        error: 'Cancelamento de pedido não autorizado',
+        message: 'Cancelamento de pedido requer motivo'
+      }, status: :bad_request
+
+      return
+    end
+
+    @order.update(status: :cancelled, cancel_reason: params[:cancel_reason])
+    render json: @order, status: :ok
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:status, :restaurant_code)
+    params.require(:order).permit(:status, :restaurant_code, :cancel_reason)
   end
 
   def find_restaurant
@@ -78,6 +80,19 @@ class Api::V1::OrdersController < ActionController::API
       render json: {
         error: 'Restaurante não encontrado',
         message: 'Verifique o código do restaurante e tente novamente'
+      }, status: :not_found
+
+      return
+    end
+  end
+
+  def find_order
+    @order = @restaurant.orders.find_by(code: params[:code])
+
+    unless @order
+      render json: {
+        error: 'Código de pedido inválido ou inexistente',
+        message: 'Verifique o código do pedido e tente novamente'
       }, status: :not_found
 
       return

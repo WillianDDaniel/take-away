@@ -147,7 +147,7 @@ describe 'Orders API' do
       Order.create!(
         customer_name: 'João Doe', customer_phone: '11999922222',
         customer_email: 'joao@example.com', customer_doc: CPF.generate,
-        order_items: [ordem_dish_02], menu: menu, status: :cancelled
+        order_items: [ordem_dish_02], menu: menu, status: :cancelled, cancel_reason: 'cliente desistiu'
       )
 
       Order.create!(
@@ -206,7 +206,7 @@ describe 'Orders API' do
       Order.create!(
         customer_name: 'João Doe', customer_phone: '11999922222',
         customer_email: 'joao@example.com', customer_doc: CPF.generate,
-        order_items: [ordem_dish_02], menu: menu, status: :cancelled
+        order_items: [ordem_dish_02], menu: menu, status: :cancelled, cancel_reason: 'cliente desistiu'
       )
 
       Order.create!(
@@ -378,7 +378,7 @@ describe 'Orders API' do
     end
   end
 
-  context 'PATCH /api/v1/restaurants/:code/orders/:code' do
+  context 'PATCH /api/v1/restaurants/:restaurant_code/orders/:code' do
     it 'should not update a order with status out of pending or preparing' do
       user = User.create!(
         email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
@@ -539,6 +539,111 @@ describe 'Orders API' do
       expect(response).to have_http_status(404)
       expect(res['error']).to eq('Código de pedido inválido ou inexistente')
       expect(res['message']).to eq('Verifique o código do pedido e tente novamente')
+    end
+  end
+
+  context 'PATCH /api/v1/restaurants/:restaurant_code/orders/:code/cancel' do
+    it 'should not cancel a order delivered' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      portion = Portion.create!(description: 'Teste', price: 10, portionable: dish)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << dish
+
+      order_item = OrderItem.new(portion: portion, quantity: 1, note: 'Sem cebola')
+
+      order = Order.create!(
+        customer_name: 'Ana Doe', customer_phone: '11999955555',
+        customer_email: 'ana@example.com', customer_doc: CPF.generate,
+        order_items: [order_item], menu: menu, status: :delivered
+      )
+
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/cancel"
+
+      res = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:forbidden)
+      expect(res['error']).to eq('Cancelamento de pedido não autorizado')
+      expect(res['message']).to eq('O pedido já foi entregue')
+    end
+
+    it 'should not cancel a order without reason' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      portion = Portion.create!(description: 'Teste', price: 10, portionable: dish)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << dish
+
+      order_item = OrderItem.new(portion: portion, quantity: 1, note: 'Sem cebola')
+
+      order = Order.create!(
+        customer_name: 'Ana Doe', customer_phone: '11999955555',
+        customer_email: 'ana@example.com', customer_doc: CPF.generate,
+        order_items: [order_item], menu: menu, status: :pending
+      )
+
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/cancel", params: { cancel_reason: '' }
+
+      res = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:bad_request)
+      expect(res['error']).to eq('Cancelamento de pedido não autorizado')
+      expect(res['message']).to eq('Cancelamento de pedido requer motivo')
+    end
+
+    it 'should not cancel a order without reason' do
+      user = User.create!(
+        email: 'johndoe@example.com', name: 'John', last_name: 'Doe',
+        password: 'password12345', document_number: CPF.generate
+      )
+
+      restaurant = Restaurant.create!(
+        brand_name: 'Teste', corporate_name: 'Teste', doc_number: CNPJ.generate,
+        email: 'johndoe@example.com', phone: '11999999999', address: 'Rua Teste', user: user
+      )
+
+      dish = Dish.create!(name: 'Burger', description: 'Teste', restaurant: restaurant)
+      portion = Portion.create!(description: 'Teste', price: 10, portionable: dish)
+
+      menu = Menu.create!(name: 'Janta', restaurant: restaurant)
+      menu.dishes << dish
+
+      order_item = OrderItem.new(portion: portion, quantity: 1, note: 'Sem cebola')
+
+      order = Order.create!(
+        customer_name: 'Ana Doe', customer_phone: '11999955555',
+        customer_email: 'ana@example.com', customer_doc: CPF.generate,
+        order_items: [order_item], menu: menu, status: :pending
+      )
+
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/cancel",
+        params: { cancel_reason: 'Cliente desistiu' }
+
+      res = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(res['status']).to eq('cancelled')
+      expect(res['cancel_reason']).to eq('Cliente desistiu')
     end
   end
 end

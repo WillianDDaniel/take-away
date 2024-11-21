@@ -112,5 +112,22 @@ RSpec.describe Order, type: :model do
       expect(order.code).to match(/\A[a-zA-Z0-9]{8}\z/)
     end
 
+    it 'when cancelled must be invalid without a cancel_reason' do
+      order = Order.new(customer_name: 'John Doe', customer_phone: '11999999999',
+        customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
+        status: :cancelled
+      )
+      expect(order.valid?).to be false
+      expect(order.errors.include?(:cancel_reason)).to be true
+    end
+
+    it 'if is not cancelled, must not have error on cancel_reason' do
+      order = Order.new(customer_name: 'John Doe', customer_phone: '11999999999',
+        customer_email: 'johndoe@example.com', customer_doc: CPF.generate,
+        status: :pending
+      )
+      order.valid?
+      expect(order.errors.include?(:cancel_reason)).to be false
+    end
   end
 end

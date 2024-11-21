@@ -5,6 +5,8 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
   validates :customer_name, presence: true
+  validates :code, uniqueness: true
+  validates :cancel_reason, presence: true, if: :cancelled?
 
   validate :phone_or_email_present
   validate :must_have_at_least_one_item
@@ -69,7 +71,10 @@ class Order < ApplicationRecord
   end
 
   def generate_code
-    self.code = SecureRandom.alphanumeric(8).upcase
+    loop do
+      self.code = SecureRandom.alphanumeric(8).upcase
+      break unless self.class.exists?(code: code)
+    end
   end
 
   def set_default_status

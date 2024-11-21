@@ -34,7 +34,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :restaurants, param: :code, only: [:show] do
-        resources :orders, param: :code, only: [:index, :show, :update]
+        resources :orders, param: :code, only: [:index, :show, :update] do
+          member do
+            patch :cancel
+          end
+        end
       end
     end
   end
