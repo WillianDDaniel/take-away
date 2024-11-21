@@ -67,6 +67,7 @@ erDiagram
         string name
         datetime created_at
         datetime updated_at
+        datetime discarded_at
     }
 
     DISHES {
@@ -78,6 +79,7 @@ erDiagram
         int status
         datetime created_at
         datetime updated_at
+        datetime discarded_at
     }
 
     BEVERAGES {
@@ -90,6 +92,7 @@ erDiagram
         int status
         datetime created_at
         datetime updated_at
+        datetime discarded_at
     }
 
     PORTIONS {
@@ -100,6 +103,7 @@ erDiagram
         int price
         datetime created_at
         datetime updated_at
+        datetime discarded_at
     }
 
     MENU_ITEMS {
@@ -119,6 +123,7 @@ erDiagram
         string customer_phone
         string customer_email
         string customer_doc
+        string cancel_reason
         int status
         datetime created_at
         datetime updated_at
