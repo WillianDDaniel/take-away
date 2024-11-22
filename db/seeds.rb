@@ -5,7 +5,7 @@ user = User.create!(
 )
 
 restaurant = Restaurant.create!(
-  brand_name: 'Divinos', corporate_name: 'Hambúrgueria', doc_number: CNPJ.generate,
+  brand_name: 'Divinos Hamburgueria', corporate_name: 'Divinos Hambúrgueria LTDA.', doc_number: CNPJ.generate,
   email: 'divinos@email.com', phone: '11999999999', address: 'Rua Exemplo 11', user: user
 )
 
@@ -386,5 +386,61 @@ dish_18.tags << [tag_11, tag_10, tag_02]  # Moqueca de Peixe
     created_at: rand(7.days).seconds.ago # Add some variety to order dates
   )
 end
+
+item_images = {
+  dishes: [
+    { id: 1, file: '1.webp' },
+    { id: 2, file: '2.webp' },
+    { id: 3, file: '3.webp' },
+    { id: 4, file: '4.webp' },
+    { id: 5, file: '1.webp' },
+    { id: 6, file: '2.webp' },
+    { id: 8, file: '7.webp' },
+    { id: 10, file: '9.webp' },
+    { id: 15, file: '8.webp' },
+    { id: 16, file: '6.webp' },
+    { id: 17, file: '5.webp' }
+  ],
+  beverages: [
+    { id: 1, file: '10.webp' },
+    { id: 2, file: '11.webp' },
+    { id: 3, file: '12.webp' },
+    { id: 4, file: '13.webp' },
+    { id: 5, file: '10.webp' },
+    { id: 6, file: '11.webp' },
+    { id: 7, file: '12.webp' },
+    { id: 8, file: '13.webp' },
+    { id: 9, file: '10.webp' },
+    { id: 10, file: '11.webp' },
+    { id: 11, file: '12.webp' },
+    { id: 12, file: '13.webp' },
+    { id: 13, file: '10.webp' },
+    { id: 14, file: '11.webp' },
+    { id: 15, file: '12.webp' },
+    { id: 16, file: '13.webp' },
+    { id: 17, file: '10.webp' },
+    { id: 18, file: '11.webp' }
+  ]
+}
+
+def attach_images(model_class, items)
+  items.each do |item|
+    record = model_class.find_by(id: item[:id])
+    next unless record
+
+    record.image.attach(
+      io: File.open(Rails.root.join("app/assets/images/menu-images/#{item[:file]}")),
+      filename: item[:file],
+      content_type: 'image/webp'
+    )
+    puts "Imagem anexada a #{model_class.name.downcase} ID #{item[:id]}"
+    sleep 1
+  end
+end
+
+attach_images(Dish, item_images[:dishes])
+attach_images(Beverage, item_images[:beverages])
+
+puts "Imagens atualizadas com sucesso!"
 
 puts "Seed carregada com sucesso!"

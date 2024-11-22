@@ -59,6 +59,15 @@ rails db:seed
 bin/dev
 ```
 
+## Usuários padrão
+Caso opte por utilizar a SEED com os dados fictícios, você pode utilizar as informações abaixo para efetuar o login.
+
+| Email | Senha | Cargo
+|-------|-------|-------|
+| user@email.com | 123456789123 | Dono
+| employee@example.com | 123456789123 | Funcionário
+| otheremployee@example.com | *Não autenticado | Funcionário
+
 ## Testes e Qualidade de código
 
 O Sistema foi todo construído utilizando o fluxo de TDD.
